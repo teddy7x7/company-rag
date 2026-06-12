@@ -64,7 +64,9 @@
 
 ---
 【目標職缺 JD】
-[在此貼上 JD 全文]
+
+參考 `docs/20260611-ai-engineer-job-describition-examples.md`
+
 ```
 
 ---

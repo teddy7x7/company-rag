@@ -10,9 +10,7 @@ from utils.answer import answer_question, fetch_context
 
 load_dotenv(override=True)
 
-MODEL = "gpt-4.1-nano"
-db_name = "vector_db"
-
+MODEL = "openai/gpt-4.1-nano"
 
 class RetrievalEval(BaseModel):
     """Evaluation metrics for retrieval performance."""
