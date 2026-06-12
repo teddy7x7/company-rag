@@ -279,19 +279,47 @@ def test_prompt_regression():
 
 ---
 
-## 5. 實作計畫（等待確認後展開）
+## 5. 實作進度紀錄 (截至 2026-06-12)
 
-```
-P1 → config.py 建立 + ingest/answer/eval 同步修改 import
-P2 → tests/ 目錄 + test_eval_metrics.py + test_answer_utils.py
-P3 → .github/workflows/test.yml
-P4 → evaluation/baseline.py + evaluator.py 整合
-P5 → evaluation/report.py + docs/evaluation-report.md 初始版本
-P6 → tests/test_prompt_regression.py（最後執行）
-```
+### 🥇 P1：集中式配置與角色分離 (`config.py`) ✅
+* **進度**：已完成
+* **說明**：建立 [config.py](file:///d:/programming/Udemy/LLM_8weeks/RAG_impl/config.py)，統一管理模型與資料庫路徑。將模型拆分為 `UTILITY_MODEL` (`gpt-4.1-nano` 用於重寫與 rerank)、`GENERATION_MODEL` (`gpt-4.1-mini` 用於 RAG 回答) 與 `JUDGE_MODEL` (`gpt-4.1-mini` 用於評估裁判)。更新了 `answer.py`, `ingest.py`, 與 `eval.py` 以參照此配置。
 
-> **注意**：P1–P3 為純程式碼工程，不需要真實 API；P4–P6 需要一次完整評估跑通才能建立基準。
+### 🥈 P2：pytest 單元測試保護 ✅
+* **進度**：已完成
+* **說明**：
+  * 建立 [test_eval_metrics.py](file:///d:/programming/Udemy/LLM_8weeks/RAG_impl/tests/test_eval_metrics.py) 覆蓋 MRR, DCG 與 nDCG 之數學計算。
+  * 建立 [test_answer_utils.py](file:///d:/programming/Udemy/LLM_8weeks/RAG_impl/tests/test_answer_utils.py) 覆蓋區塊合併邏輯 `merge_chunks`。
+  * 在 `pyproject.toml` 加上 `pythonpath = ["."]` 確保測試能正確載入專案模組。
+
+### 🥉 P3：CI/CD GitHub Actions 運作機制 ✅
+* **進度**：已完成
+* **說明**：建立 [.github/workflows/test.yml](file:///d:/programming/Udemy/LLM_8weeks/RAG_impl/.github/workflows/test.yml)。整合了 `astral-sh/setup-uv@v5` 以加快快取與相依性同步，並在 pytest 中帶入所需的 API 金鑰（藉由 GitHub Secrets 傳遞）。
+* **優化**：將 `utils/answer.py` 中 `openai = OpenAI()` 的初始化延遲至 `fetch_context_unranked` 執行，使 pytest 能在無 API 密鑰環境下成功進行 Module Collection，防止 CI 崩潰。
+
+### 4️⃣ P4：評估基準快照與回歸偵測 (`evaluation/baseline.py`) ✅
+* **進度**：已完成
+* **說明**：建立獨立 CLI 模組 [evaluation/baseline.py](file:///d:/programming/Udemy/LLM_8weeks/RAG_impl/evaluation/baseline.py)，支援 `run` (僅執行評估), `save` (執行並儲存快照), `compare` (與最新快照比對)。
+* **核心功能**：
+  1. **全面評估 (`run`)**：載入 `tests.jsonl`，對所有測試問題進行檢索（MRR/nDCG/Coverage）與回答品質（LLM-as-a-judge Accuracy/Completeness/Relevance）評估。
+  2. **儲存基準快照 (`save`)**：將評估平均結果與詳細紀錄儲存為帶有時間戳的 JSON 檔案於 `evaluation/baselines/`。
+  3. **退化偵測 (`compare`)**：比較當前執行結果與最新基準，找出退化的指標。
+* **回歸閾值**：設定 `REGRESSION_THRESHOLD = 0.05`。若關鍵平均分數（MRR, nDCG, Accuracy, Completeness, Relevance）退化超過 5%，`compare` 階段將輸出警告並以非零的 exit code 結束以標記失敗（適合 CI 整合）。
+* **CLI 使用範例**：
+  * 僅執行評估並印出摘要：
+    ```bash
+    uv run python evaluation/baseline.py run
+    ```
+  * 執行評估並儲存為基準快照（可選標籤）：
+    ```bash
+    uv run python evaluation/baseline.py save --label "v1_baseline"
+    ```
+  * 與最新基準比對偵測退化：
+    ```bash
+    uv run python evaluation/baseline.py compare
+    ```
 
 ---
 
-*分析完成。等待確認大綱後，依序輸出各元件的實作程式碼。*
+*階段 2 P1 至 P4 的實作及環境清理工作已全數完成並驗證通過。*
+
