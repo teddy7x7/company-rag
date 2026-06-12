@@ -10,6 +10,7 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 from evaluation.test import load_tests
 from evaluation.eval import evaluate_retrieval, evaluate_answer
+from evaluation.report import generate_markdown_report
 import config
 
 BASELINE_DIR = Path(__file__).parent / "baselines"
@@ -88,6 +89,13 @@ def save_baseline(summary: dict, label: str = None) -> Path:
     
     path.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"💾 Saved baseline snapshot to: {path}")
+    
+    # Automatically generate Markdown report in docs/
+    try:
+        generate_markdown_report(summary, "docs/evaluation-report.md")
+    except Exception as e:
+        print(f"⚠️ Failed to generate Markdown report: {e}")
+        
     return path
 
 def load_latest_baseline() -> dict | None:

@@ -319,7 +319,25 @@ def test_prompt_regression():
     uv run python evaluation/baseline.py compare
     ```
 
+### 5️⃣ P5：評估報告自動輸出 (Markdown Report) ✅
+* **進度**：已完成
+* **說明**：建立獨立報告生成模組 [evaluation/report.py](file:///d:/programming/Udemy/LLM_8weeks/RAG_impl/evaluation/report.py)，可讀取 JSON 格式的基準快照並自動輸出為極具美感的 RAG 評估 Markdown 報告 [docs/evaluation-report.md](file:///d:/programming/Udemy/LLM_8weeks/RAG_impl/docs/evaluation-report.md)。
+* **報告特點**：
+  * **視覺標記**：使用綠、黃、紅燈號標示各指標健康度（MRR、nDCG、Coverage、Accuracy、Completeness、Relevance）。
+  * **細分統計**：提供問題類別（Category）之平均表現表格。
+  * **弱點分析**：自動列出失敗或低分（Accuracy < 3.0 或 MRR = 0）的案例，便於開發者針對性優化。
+* **自動整合**：已整合至 [evaluation/baseline.py](file:///d:/programming/Udemy/LLM_8weeks/RAG_impl/evaluation/baseline.py)，在執行 `save` 行為儲存新基準時，將會自動更新並重新生成最新的 Markdown 報告。
+* **CLI 使用範例**：
+  * 使用最新基準快照產生 Markdown 報告：
+    ```bash
+    uv run python evaluation/report.py
+    ```
+  * 指定特定的基準快照 JSON 產生報告：
+    ```bash
+    uv run python evaluation/report.py evaluation/baselines/20260612_170000.json
+    ```
+
 ---
 
-*階段 2 P1 至 P4 的實作及環境清理工作已全數完成並驗證通過。*
+*階段 2 P1 至 P5 的實作及環境清理工作已全數完成並驗證通過。*
 
