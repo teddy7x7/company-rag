@@ -32,6 +32,9 @@ dependencies = [
 pythonpath = [
   "."
 ]
+markers = [
+  "integration: integration tests that run LLM evaluations and require API keys"
+]
 
 [dependency-groups]
 dev = [

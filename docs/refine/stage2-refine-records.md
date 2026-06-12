@@ -337,7 +337,24 @@ def test_prompt_regression():
     uv run python evaluation/report.py evaluation/baselines/20260612_170000.json
     ```
 
+### 6️⃣ P6：Prompt Regression 測試框架 (`tests/test_prompt_regression.py`) ✅
+* **進度**：已完成
+* **說明**：建立 [test_prompt_regression.py](file:///d:/programming/Udemy/LLM_8weeks/RAG_impl/tests/test_prompt_regression.py) 作為集成測試。
+* **設計規格**：
+  * **關鍵子集設計**：定義 `CRITICAL_CASE_INDICES = [0, 65, 80, 90, 95, 100, 140]`，橫跨全部 7 個問題種類（如 direct_fact, temporal, numerical 等），避免每次測試都執行全部 150 題而產生龐大 API 費用與時間成本。
+  * **快速回歸測試**：利用 `@pytest.mark.integration` 將其與一般快速單元測試區隔開。
+  * **自動比對與 Skip**：載入最新基準 JSON，若無基準則自動 Skip。有基準時，比對子集平均指標分數，一旦退化超過 5% 門檻（`REGRESSION_THRESHOLD`），測試即失敗並顯示詳細報告。
+  * **標記註冊**：在 `pyproject.toml` 中向 pytest 註冊自訂 `integration` 標記，避免編譯警告。
+* **測試執行指令**：
+  ```bash
+  # 排除 integration 標記，僅跑快速單元測試（適用於 CI）
+  uv run pytest -m "not integration"
+  
+  # 指定只執行 Prompt Regression 測試
+  uv run pytest -k test_prompt_regression
+  ```
+
 ---
 
-*階段 2 P1 至 P5 的實作及環境清理工作已全數完成並驗證通過。*
+*階段 2 P1 至 P6 的 Harness 評估框架優化工作已全數完成並驗證通過。*
 

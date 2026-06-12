@@ -16,6 +16,52 @@ import config
 BASELINE_DIR = Path(__file__).parent / "baselines"
 REGRESSION_THRESHOLD = 0.05  # 5% threshold
 
+# Critical case indices representing each question category
+CRITICAL_CASE_INDICES = [0, 65, 80, 90, 95, 100, 140]
+
+def run_subset_evaluation(indices: list[int] = CRITICAL_CASE_INDICES) -> dict:
+    """Run evaluation on a subset of test questions (e.g. critical cases) to save token cost."""
+    tests = load_tests()
+    subset_tests = [tests[i] for i in indices if 0 <= i < len(tests)]
+    total_tests = len(subset_tests)
+    if total_tests == 0:
+        print("❌ No valid subset tests found!")
+        return {}
+
+    print(f"🚀 Running fast subset evaluation on {total_tests} critical cases...")
+    
+    total_mrr = 0.0
+    total_ndcg = 0.0
+    total_coverage = 0.0
+    total_accuracy = 0.0
+    total_completeness = 0.0
+    total_relevance = 0.0
+
+    for idx, test in enumerate(subset_tests):
+        orig_idx = indices[idx]
+        print(f" [Subset {idx + 1}/{total_tests}] (Orig Index #{orig_idx}) Question: {test.question[:50]}...")
+        
+        # Retrieval Evaluation
+        ret_eval = evaluate_retrieval(test)
+        total_mrr += ret_eval.mrr
+        total_ndcg += ret_eval.ndcg
+        total_coverage += ret_eval.keyword_coverage
+
+        # Answer Quality Evaluation
+        ans_eval, _, _ = evaluate_answer(test)
+        total_accuracy += ans_eval.accuracy
+        total_completeness += ans_eval.completeness
+        total_relevance += ans_eval.relevance
+
+    return {
+        "avg_mrr": total_mrr / total_tests,
+        "avg_ndcg": total_ndcg / total_tests,
+        "avg_coverage": total_coverage / total_tests,
+        "avg_accuracy": total_accuracy / total_tests,
+        "avg_completeness": total_completeness / total_tests,
+        "avg_relevance": total_relevance / total_tests
+    }
+
 def run_full_evaluation():
     """Run evaluation for all tests in the test dataset."""
     tests = load_tests()
@@ -35,6 +81,15 @@ def run_full_evaluation():
     total_completeness = 0.0
     total_relevance = 0.0
 
+    # Subset metrics accumulation
+    sub_mrr = 0.0
+    sub_ndcg = 0.0
+    sub_coverage = 0.0
+    sub_accuracy = 0.0
+    sub_completeness = 0.0
+    sub_relevance = 0.0
+    sub_count = 0
+
     for idx, test in enumerate(tests):
         print(f" [{idx + 1}/{total_tests}] Question: {test.question[:50]}...")
         
@@ -49,6 +104,16 @@ def run_full_evaluation():
         total_accuracy += ans_eval.accuracy
         total_completeness += ans_eval.completeness
         total_relevance += ans_eval.relevance
+
+        # Check if this is a critical case
+        if idx in CRITICAL_CASE_INDICES:
+            sub_mrr += ret_eval.mrr
+            sub_ndcg += ret_eval.ndcg
+            sub_coverage += ret_eval.keyword_coverage
+            sub_accuracy += ans_eval.accuracy
+            sub_completeness += ans_eval.completeness
+            sub_relevance += ans_eval.relevance
+            sub_count += 1
 
         results.append({
             "question": test.question,
@@ -73,6 +138,15 @@ def run_full_evaluation():
         "avg_accuracy": total_accuracy / total_tests,
         "avg_completeness": total_completeness / total_tests,
         "avg_relevance": total_relevance / total_tests,
+        
+        # Store subset averages within baseline summary
+        "subset_avg_mrr": sub_mrr / sub_count if sub_count > 0 else 0.0,
+        "subset_avg_ndcg": sub_ndcg / sub_count if sub_count > 0 else 0.0,
+        "subset_avg_coverage": sub_coverage / sub_count if sub_count > 0 else 0.0,
+        "subset_avg_accuracy": sub_accuracy / sub_count if sub_count > 0 else 0.0,
+        "subset_avg_completeness": sub_completeness / sub_count if sub_count > 0 else 0.0,
+        "subset_avg_relevance": sub_relevance / sub_count if sub_count > 0 else 0.0,
+        
         "detail_results": results
     }
 
