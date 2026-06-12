@@ -8,9 +8,7 @@ from evaluation.test import TestQuestion, load_tests
 from utils.answer import answer_question, fetch_context
 
 
-load_dotenv(override=True)
-
-MODEL = "openai/gpt-4.1-nano"
+import config
 
 class RetrievalEval(BaseModel):
     """Evaluation metrics for retrieval performance."""
@@ -151,7 +149,7 @@ Provide detailed feedback and scores from 1 (very poor) to 5 (ideal) for each di
     ]
 
     # Call LLM judge with structured outputs (async)
-    judge_response = completion(model=MODEL, messages=judge_messages, response_format=AnswerEval)
+    judge_response = completion(model=config.JUDGE_MODEL, messages=judge_messages, response_format=AnswerEval)
 
     answer_eval = AnswerEval.model_validate_json(judge_response.choices[0].message.content)
 

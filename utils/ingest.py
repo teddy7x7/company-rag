@@ -11,17 +11,9 @@ from tenacity import retry, wait_exponential
 
 load_dotenv(override=True)
 
-MODEL = "openai/gpt-4.1-nano"
+import config
 
-DB_NAME = str(Path(__file__).parent.parent / "preprocessed_db")
-collection_name = "docs"
-embedding_model = "text-embedding-3-large"
-KNOWLEDGE_BASE_PATH = Path(__file__).parent.parent / "knowledge-base"
-AVERAGE_CHUNK_SIZE = 100
 wait = wait_exponential(multiplier=1, min=10, max=240)
-
-
-WORKERS = 3
 
 openai = OpenAI()
 
@@ -59,7 +51,7 @@ def fetch_documents():
 
     documents = []
 
-    for folder in KNOWLEDGE_BASE_PATH.iterdir():
+    for folder in config.KNOWLEDGE_BASE_PATH.iterdir():
         doc_type = folder.name
         for file in folder.rglob("*.md"):
             with open(file, "r", encoding="utf-8") as f:
@@ -70,7 +62,7 @@ def fetch_documents():
 
 
 def make_prompt(document):
-    how_many = (len(document["text"]) // AVERAGE_CHUNK_SIZE) + 1
+    how_many = (len(document["text"]) // config.AVERAGE_CHUNK_SIZE) + 1
     return f"""
 You take a document and you split the document into overlapping chunks for a KnowledgeBase.
 
@@ -103,7 +95,7 @@ def make_messages(document):
 @retry(wait=wait)
 def process_document(document):
     messages = make_messages(document)
-    response = completion(model=MODEL, messages=messages, response_format=Chunks)
+    response = completion(model=config.UTILITY_MODEL, messages=messages, response_format=Chunks)
     reply = response.choices[0].message.content
     doc_as_chunks = Chunks.model_validate_json(reply).chunks
     return [chunk.as_result(document) for chunk in doc_as_chunks]
@@ -115,22 +107,22 @@ def create_chunks(documents):
     If you get a rate limit error, set the WORKERS to 1.
     """
     chunks = []
-    with Pool(processes=WORKERS) as pool:
+    with Pool(processes=config.INGEST_WORKERS) as pool:
         for result in tqdm(pool.imap_unordered(process_document, documents), total=len(documents)):
             chunks.extend(result)
     return chunks
 
 
 def create_embeddings(chunks):
-    chroma = PersistentClient(path=DB_NAME)
-    if collection_name in [c.name for c in chroma.list_collections()]:
-        chroma.delete_collection(collection_name)
+    chroma = PersistentClient(path=config.DB_NAME)
+    if config.COLLECTION_NAME in [c.name for c in chroma.list_collections()]:
+        chroma.delete_collection(config.COLLECTION_NAME)
 
     texts = [chunk.page_content for chunk in chunks]
-    emb = openai.embeddings.create(model=embedding_model, input=texts).data
+    emb = openai.embeddings.create(model=config.EMBEDDING_MODEL, input=texts).data
     vectors = [e.embedding for e in emb]
 
-    collection = chroma.get_or_create_collection(collection_name)
+    collection = chroma.get_or_create_collection(config.COLLECTION_NAME)
 
     ids = [str(i) for i in range(len(chunks))]
     metas = [chunk.metadata for chunk in chunks]
