@@ -26,4 +26,13 @@ jobs:
         run: uv sync --all-extras --dev
 
       - name: Run unit tests
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROK_API_KEY: ${{ secrets.GROK_API_KEY }}
+          HUGGING_FACE_READ_TOKEN: ${{ secrets.HUGGING_FACE_READ_TOKEN }}
+          HUGGING_FACE_WRITE_TOKEN: ${{ secrets.HUGGING_FACE_WRITE_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: uv run pytest tests/ -v

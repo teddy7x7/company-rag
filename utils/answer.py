@@ -13,7 +13,7 @@ import config
 
 wait = wait_exponential(multiplier=1, min=10, max=240)
 
-openai = OpenAI()
+# openai = OpenAI()
 
 chroma = PersistentClient(path=config.DB_NAME)
 collection = chroma.get_or_create_collection(config.COLLECTION_NAME)
@@ -109,6 +109,7 @@ def merge_chunks(chunks, reranked):
 
 
 def fetch_context_unranked(question):
+    openai = OpenAI()
     query = openai.embeddings.create(model=config.EMBEDDING_MODEL, input=[question]).data[0].embedding
     results = collection.query(query_embeddings=[query], n_results=config.RETRIEVAL_K)
     chunks = []
