@@ -18,7 +18,7 @@ flowchart TD
     VectorDB --> Retrieve[Candidate Chunk Retriever]
     Retrieve --> Rerank[LiteLLM Reranker]
     Rerank --> Gen[LLM Answer Generator]
-    Gen --> UI
+    Gen --> RAG
 ```
 
 ---

@@ -1,23 +1,29 @@
 from openai import OpenAI
 from dotenv import load_dotenv
 from chromadb import PersistentClient
-from litellm import completion
 from pydantic import BaseModel, Field
 from pathlib import Path
 from tenacity import retry, wait_exponential
 
+# Debugging litellm
+# import os
+
+# must set before "import litellm"
+# logging.getLogger("LiteLLM").setLevel(logging.DEBUG)
+# os.environ["LITELLM_LOG"] = "DEBUG"  # or "INFO"
+
+from litellm import completion
 
 load_dotenv(override=True)
 
 import config
 
-wait = wait_exponential(multiplier=1, min=10, max=240)
-
-# openai = OpenAI()
+# openai = OpenAI() # move into fetch_context_unranked function, to avoid initilizing OpenAI unnecessarily.
 
 chroma = PersistentClient(path=config.DB_NAME)
 collection = chroma.get_or_create_collection(config.COLLECTION_NAME)
 
+wait = wait_exponential(multiplier=1, min=10, max=240)
 
 SYSTEM_PROMPT = """
 You are a knowledgeable, friendly assistant representing the company Insurellm.
@@ -99,10 +105,10 @@ IMPORTANT: Respond ONLY with the precise knowledgebase query, nothing else.
     return response.choices[0].message.content
 
 
-def merge_chunks(chunks, reranked):
-    merged = chunks[:]
-    existing = [chunk.page_content for chunk in chunks]
-    for chunk in reranked:
+def merge_chunks(chunks1, chunks2):
+    merged = chunks1[:]
+    existing = [chunk.page_content for chunk in chunks1]
+    for chunk in chunks2:
         if chunk.page_content not in existing:
             merged.append(chunk)
     return merged

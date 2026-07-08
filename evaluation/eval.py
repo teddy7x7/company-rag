@@ -111,7 +111,7 @@ def evaluate_retrieval(test: TestQuestion, k: int = 10) -> RetrievalEval:
 
 def evaluate_answer(test: TestQuestion) -> tuple[AnswerEval, str, list]:
     """
-    Evaluate answer quality using LLM-as-a-judge (async).
+    Evaluate answer quality using LLM-as-a-judge.
 
     Args:
         test: TestQuestion object containing question and reference answer
@@ -119,6 +119,9 @@ def evaluate_answer(test: TestQuestion) -> tuple[AnswerEval, str, list]:
     Returns:
         Tuple of (AnswerEval object, generated_answer string, retrieved_docs list)
     """
+
+    # TODO: Implement batched async execution for better performance.
+
     # Get RAG response using shared answer module
     generated_answer, retrieved_docs = answer_question(test.question)
 
@@ -148,7 +151,7 @@ Provide detailed feedback and scores from 1 (very poor) to 5 (ideal) for each di
         },
     ]
 
-    # Call LLM judge with structured outputs (async)
+    # Call LLM judge with structured outputs
     judge_response = completion(model=config.JUDGE_MODEL, messages=judge_messages, response_format=AnswerEval)
 
     answer_eval = AnswerEval.model_validate_json(judge_response.choices[0].message.content)
@@ -167,7 +170,10 @@ def evaluate_all_retrieval():
 
 
 def evaluate_all_answers():
-    """Evaluate all answers to tests using batched async execution."""
+    """Evaluate all answers to tests."""
+
+    # TODO: Implement batched async execution for better performance.
+
     tests = load_tests()
     total_tests = len(tests)
     for index, test in enumerate(tests):
@@ -177,7 +183,10 @@ def evaluate_all_answers():
 
 
 def run_cli_evaluation(test_number: int):
-    """Run evaluation for a specific test (async helper for CLI)."""
+    """Run evaluation for a specific test."""
+
+    # TODO: Add async for llm answer
+    
     # Load tests
     tests = load_tests("tests.jsonl")
 

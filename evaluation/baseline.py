@@ -253,7 +253,10 @@ def main():
             base_val = baseline.get(m, 0.0)
             curr_val = current.get(m, 0.0)
             diff = curr_val - base_val
-            diff_str = f"+{diff:.4f}" if diff >= 0 else f"{diff:.4f}"
+            # diff_str = f"+{diff:.4f}" if diff >= 0 else f"{diff:.4f}"
+            # prevent extremely small negative diff from being printed as -0.0000
+            diff_str = f"{diff + 0.0:+.4f}"
+
             print(f"  {m:<16} | {base_val:.4f} | {curr_val:.4f} | {diff_str}")
 
         warnings = check_regression(current, baseline)
