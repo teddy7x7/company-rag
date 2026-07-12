@@ -283,23 +283,23 @@ def test_prompt_regression():
 
 ### 🥇 P1：集中式配置與角色分離 (`config.py`) ✅
 * **進度**：已完成
-* **說明**：建立 [config.py](file:///d:/programming/Udemy/LLM_8weeks/RAG_impl/config.py)，統一管理模型與資料庫路徑。將模型拆分為 `UTILITY_MODEL` (`gpt-4.1-nano` 用於重寫與 rerank)、`GENERATION_MODEL` (`gpt-4.1-mini` 用於 RAG 回答) 與 `JUDGE_MODEL` (`gpt-4.1-mini` 用於評估裁判)。更新了 `answer.py`, `ingest.py`, 與 `eval.py` 以參照此配置。
+* **說明**：建立 [config.py](../../config.py)，統一管理模型與資料庫路徑。將模型拆分為 `UTILITY_MODEL` (`gpt-4.1-nano` 用於重寫與 rerank)、`GENERATION_MODEL` (`gpt-4.1-mini` 用於 RAG 回答) 與 `JUDGE_MODEL` (`gpt-4.1-mini` 用於評估裁判)。更新了 `answer.py`, `ingest.py`, 與 `eval.py` 以參照此配置。
 
 ### 🥈 P2：pytest 單元測試保護 ✅
 * **進度**：已完成
 * **說明**：
-  * 建立 [test_eval_metrics.py](file:///d:/programming/Udemy/LLM_8weeks/RAG_impl/tests/test_eval_metrics.py) 覆蓋 MRR, DCG 與 nDCG 之數學計算。
-  * 建立 [test_answer_utils.py](file:///d:/programming/Udemy/LLM_8weeks/RAG_impl/tests/test_answer_utils.py) 覆蓋區塊合併邏輯 `merge_chunks`。
+  * 建立 [test_eval_metrics.py](../../tests/test_eval_metrics.py) 覆蓋 MRR, DCG 與 nDCG 之數學計算。
+  * 建立 [test_answer_utils.py](../../tests/test_answer_utils.py) 覆蓋區塊合併邏輯 `merge_chunks`。
   * 在 `pyproject.toml` 加上 `pythonpath = ["."]` 確保測試能正確載入專案模組。
 
 ### 🥉 P3：CI/CD GitHub Actions 運作機制 ✅
 * **進度**：已完成
-* **說明**：建立 [.github/workflows/test.yml](file:///d:/programming/Udemy/LLM_8weeks/RAG_impl/.github/workflows/test.yml)。整合了 `astral-sh/setup-uv@v5` 以加快快取與相依性同步，並在 pytest 中帶入所需的 API 金鑰（藉由 GitHub Secrets 傳遞）。
+* **說明**：建立 [.github/workflows/test.yml](../../.github/workflows/test.yml)。整合了 `astral-sh/setup-uv@v5` 以加快快取與相依性同步，並在 pytest 中帶入所需的 API 金鑰（藉由 GitHub Secrets 傳遞）。
 * **優化**：將 `utils/answer.py` 中 `openai = OpenAI()` 的初始化延遲至 `fetch_context_unranked` 執行，使 pytest 能在無 API 密鑰環境下成功進行 Module Collection，防止 CI 崩潰。
 
 ### 4️⃣ P4：評估基準快照與回歸偵測 (`evaluation/baseline.py`) ✅
 * **進度**：已完成
-* **說明**：建立獨立 CLI 模組 [evaluation/baseline.py](file:///d:/programming/Udemy/LLM_8weeks/RAG_impl/evaluation/baseline.py)，支援 `run` (僅執行評估), `save` (執行並儲存快照), `compare` (與最新快照比對)。
+* **說明**：建立獨立 CLI 模組 [evaluation/baseline.py](../../evaluation/baseline.py)，支援 `run` (僅執行評估), `save` (執行並儲存快照), `compare` (與最新快照比對)。
 * **核心功能**：
   1. **全面評估 (`run`)**：載入 `tests.jsonl`，對所有測試問題進行檢索（MRR/nDCG/Coverage）與回答品質（LLM-as-a-judge Accuracy/Completeness/Relevance）評估。
   2. **儲存基準快照 (`save`)**：將評估平均結果與詳細紀錄儲存為帶有時間戳的 JSON 檔案於 `evaluation/baselines/`。
@@ -321,12 +321,12 @@ def test_prompt_regression():
 
 ### 5️⃣ P5：評估報告自動輸出 (Markdown Report) ✅
 * **進度**：已完成
-* **說明**：建立獨立報告生成模組 [evaluation/report.py](file:///d:/programming/Udemy/LLM_8weeks/RAG_impl/evaluation/report.py)，可讀取 JSON 格式的基準快照並自動輸出為極具美感的 RAG 評估 Markdown 報告 [docs/evaluation-report.md](file:///d:/programming/Udemy/LLM_8weeks/RAG_impl/docs/evaluation-report.md)。
+* **說明**：建立獨立報告生成模組 [evaluation/report.py](../../evaluation/report.py)，可讀取 JSON 格式的基準快照並自動輸出為極具美感的 RAG 評估 Markdown 報告 `docs/evaluation-report.md` (default name)。
 * **報告特點**：
   * **視覺標記**：使用綠、黃、紅燈號標示各指標健康度（MRR、nDCG、Coverage、Accuracy、Completeness、Relevance）。
   * **細分統計**：提供問題類別（Category）之平均表現表格。
   * **弱點分析**：自動列出失敗或低分（Accuracy < 3.0 或 MRR = 0）的案例，便於開發者針對性優化。
-* **自動整合**：已整合至 [evaluation/baseline.py](file:///d:/programming/Udemy/LLM_8weeks/RAG_impl/evaluation/baseline.py)，在執行 `save` 行為儲存新基準時，將會自動更新並重新生成最新的 Markdown 報告。
+* **自動整合**：已整合至 [evaluation/baseline.py](../../evaluation/baseline.py)，在執行 `save` 行為儲存新基準時，將會自動更新並重新生成最新的 Markdown 報告。
 * **CLI 使用範例**：
   * 使用最新基準快照產生 Markdown 報告：
     ```bash
@@ -339,7 +339,7 @@ def test_prompt_regression():
 
 ### 6️⃣ P6：Prompt Regression 測試框架 (`tests/test_prompt_regression.py`) ✅
 * **進度**：已完成
-* **說明**：建立 [test_prompt_regression.py](file:///d:/programming/Udemy/LLM_8weeks/RAG_impl/tests/test_prompt_regression.py) 作為集成測試。
+* **說明**：建立 [test_prompt_regression.py](../../tests/test_prompt_regression.py) 作為集成測試。
 * **設計規格**：
   * **關鍵子集設計**：定義 `CRITICAL_CASE_INDICES = [0, 65, 80, 90, 95, 100, 140]`，橫跨全部 7 個問題種類（如 direct_fact, temporal, numerical 等），避免每次測試都執行全部 150 題而產生龐大 API 費用與時間成本。
   * **快速回歸測試**：利用 `@pytest.mark.integration` 將其與一般快速單元測試區隔開。
