@@ -219,7 +219,7 @@ uv run python evaluation/baseline.py save --label "v1_baseline"
 uv run python evaluation/baseline.py compare
 
 # Generate a report for a specific snapshot with custom output path
-uv run python evaluation/report.py evaluation/baselines/20260709_175414.json --output docs/evaluation-report-20260709_175414.md
+uv run python evaluation/report.py evaluation/baselines/20260709_175414.json --output docs/evaluation_result/evaluation-report-20260709_175414.md
 ```
 
 ---
