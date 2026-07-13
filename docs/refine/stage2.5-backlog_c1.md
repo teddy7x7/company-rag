@@ -217,31 +217,123 @@
 
 ---
 
+### [B-16] `pyproject.toml` 依賴清單包含大量未使用套件 — 面試官紅旗
+
+- **發現管道**：AI 識別（`stage1-analysis.md` 優化 1 已指出）+ 本次代碼覆查確認
+- **嚴重程度**：中（一般優化）
+- **影響分析**：
+  `pyproject.toml` 包含了 8 個 `langchain-*` 相關套件（`langchain`, `langchain-chroma`, `langchain-community`, `langchain-core`, `langchain-openai`, `langchain-text-splitters`, `langchain-huggingface`, `langchain-ollama`, `langchain-anthropic`, `langchain-experimental`），但 V2 的核心代碼已完全脫離 LangChain 框架，這些依賴完全未被使用。此外 `scikit-learn`, `plotly`, `tiktoken` 也未被任何模塊 import。
+  - 面試官看到一個「不用 LangChain」的 RAG 項目，依賴列表卻包含整個 LangChain 生態系，會立刻質疑專案的工程素養和清理程度
+  - `uv sync` 安裝了大量不必要的套件，拉長 CI build 時間和 Docker image 體積
+- **預計 Refine 方案**：
+  1. 清理 `pyproject.toml`，只保留實際 import 的套件：`chromadb`, `gradio`, `litellm`, `openai`, `pandas`, `python-dotenv`, `tqdm`, `tenacity`, `pydantic`, `numpy`
+  2. 若保留 `langchain` 作為 V1 歷史紀錄的說明，改為在 README 中提及而非放在依賴中
+  3. 清理後重新 `uv sync` 並驗證所有功能正常
+
+---
+
+### [B-17] `answer.py` 問答生成未使用 Streaming — 用戶等待體驗差
+
+- **發現管道**：AI 識別（`answer-overview.md` M5 段指出）
+- **嚴重程度**：低（程式碼微調）
+- **影響分析**：
+  `answer_question()` 使用同步 `completion()` 調用，等整個回答生成完畢後才一次性返回。在完整 RAG 管線（rewrite + 雙路檢索 + rerank + 生成）耗時約 5-10 秒期間，用戶看到的是完全空白的聊天框，體驗很差。
+- **預計 Refine 方案**：
+  1. 在 `answer_question()` 中改用 `completion(..., stream=True)` 並逐 token 返回
+  2. 在 `app.py` 中將 `chat()` 改為 Gradio streaming generator
+  3. 先單獨返回 context（右側面板立刻顯示），再逐步生成答案（左側逐字出現）
+
+---
+
+### [B-18] CI workflow 未排除 integration 測試 — 可能意外消耗 API Token
+
+- **發現管道**：AI 識別（代碼審查 `.github/workflows/test.yml`）
+- **嚴重程度**：中（一般優化）
+- **影響分析**：
+  `.github/workflows/test.yml` 的測試命令為 `uv run pytest tests/ -v`，會執行 `tests/` 下所有測試，包括帶有 `@pytest.mark.integration` 標記的 `test_prompt_regression.py`。雖然該測試需要 API key 和 baseline 存在才會實際運行（無 baseline 會 skip），但：
+  1. 若 CI 環境有 `OPENAI_API_KEY` secret（目前已配置），且 `evaluation/baselines/` 被 commit 進 repo，integration test 會在每次 push 時自動執行，消耗 API Token
+  2. 與 `ADR-003` 中「CI 預設只跑 unit tests」的設計意圖不一致
+- **預計 Refine 方案**：
+  將 CI 命令改為 `uv run pytest tests/ -v -m "not integration"`，與 README 和 ADR-003 中的說明保持一致。
+
+---
+
+### [B-19] `temp/vector_db_ingestion_check.py` 應模組化 — 有用但結構粗糙
+
+- **發現管道**：人工發現（使用者在 draft 中明確提問）
+- **嚴重程度**：低（程式碼微調）
+- **影響分析**：
+  該腳本包含兩個實用的檢查功能：
+  1. **Ingestion Cost Check**：計算知識庫所有 Markdown 的 token 數和 embedding API 預估費用
+  2. **Ingestion Result Check**：連接 ChromaDB 列出所有 collection、document 數量，並抽驗前 3 筆
+
+  目前放在 `temp/` 目錄下，作為一次性腳本使用。功能有用，但寫法較粗糙（硬編碼路徑、兩個功能混在一個檔案中、缺乏 CLI 參數）。
+- **預計 Refine 方案**：
+  1. 將兩個功能拆分為 `utils/check_cost.py` 和 `utils/check_db.py`（或合併為 `utils/inspect.py` 的兩個子命令）
+  2. 改用 `config.py` 中的路徑常數取代硬編碼
+  3. 加入 argparse 支援選擇 embedding 模型和目標 collection
+  4. 若判定 portfolio 展示價值不高，也可保持在 `temp/` 不遷移
+
+---
+
+### [B-20] `answer.py` 缺少生成後自我檢查（Self-Reflection）— 錯誤答案直接返回
+
+- **發現管道**：人工發現（使用者在 draft L28-30 中詳述）
+- **嚴重程度**：中（一般優化）
+- **影響分析**：
+  目前生成的答案直接返回用戶，無任何品質檢查。從評估報告的 17 個失敗案例中可見，很多情況下系統撈到了部分正確的 chunks（MRR > 0），但生成回答嚴重偏離（Accuracy = 1.0/5）。若在生成後加入 LLM 自我檢查，可在返回前攔截低品質回答。
+- **預計 Refine 方案**（參照 draft 設計思路）：
+  1. 生成答案後，用輕量 LLM 檢查：答案是否完整？是否與 context 一致？
+  2. 若不通過，保存當前 context，重新 rewrite query 並補充查詢，合併新舊 context 後再次生成
+  3. 設置最大迭代次數（例如 2-3 次），超過後返回「資訊不足」的誠實回覆並引導用戶改進問題
+  4. 此功能增加了 1-2 次額外的 LLM 調用，需權衡成本與品質
+
+---
+
+### [B-21] `fetch_context_unranked()` 未返回 distance — 無法按距離過濾低相關 chunks
+
+- **發現管道**：人工發現（使用者在 draft L26-27 中指出）+ 聯檢碰撞
+- **嚴重程度**：低（程式碼微調）
+- **影響分析**：
+  `collection.query()` 返回的結果包含 `distances` 欄位，但 `fetch_context_unranked()` 在建構 `Result` 物件時完全忽略了這個資訊。這導致無法實現「距離過遠的 chunks 直接丟棄」的過濾策略（B-08 的一部分）。
+- **預計 Refine 方案**：
+  1. 將 `distances` 保存到 `Result.metadata` 中
+  2. 在 `fetch_context()` 中加入可配置的 distance threshold，過濾明顯不相關的 chunks
+  3. 此修改是 B-08（Guardrails）的前置依賴之一
+
+---
+
 ## 優先級排序建議
 
 | 優先級 | 編號 | 名稱 | 嚴重度 | 難度 | 理由 |
 |--------|------|------|--------|------|------|
 | 🥇 P1 | **B-01** | 保存 feedback 至 baseline JSON | 高 | 低 | 數據一旦不保存就永遠消失；修復簡單且不改架構 |
 | 🥈 P2 | **B-06** | 評估迴圈逐筆錯誤處理 | 高 | 低 | 一筆失敗炸掉整個 pipeline 是最高風險的穩定性問題 |
-| 🥉 P3 | **B-03** | CLI `--subset` flag | 中 | 低 | 解鎖已寫好的子集評估功能，幾行代碼即可完成 |
-| 4 | **B-04** | `compare` 離線比對兩份快照 | 中 | 低 | 大幅提升開發效率，且修改範圍僅限 argparse + 一個分支 |
-| 5 | **B-05** | 報告命名規範化 | 低 | 低 | 與 B-01 一起修可順帶完成 |
-| 6 | **B-13** | `rewrite_query` 傳入 history | 低 | 低 | 一行修改，修復多輪對話的指代消解能力 |
-| 7 | **B-14** | ChromaDB lazy init | 低 | 低 | 改善測試可 mock 性和 CI 穩定性 |
-| 8 | **B-09** | Chat UI 歡迎引導語 | 低 | 低 | 展示面優化，幾分鐘可完成 |
-| 9 | **B-02** | 動態分層抽樣 | 中 | 中 | 需設計選取策略，但提升回歸測試可靠度 |
-| 10 | **B-07** | 回歸閾值百分比化 | 低 | 低 | 統計精確度提升，改動不大 |
-| 11 | **B-15** | 報告失敗案例根因分類 | 中 | 中 | 依賴 B-01，提升 Harness 展示力 |
-| 12 | **B-10** | answer.py 檢索並行化 | 中 | 中 | 顯著降低用戶端延遲，但需處理線程安全 |
-| 13 | **B-12** | ingest.py embedding 批次拆分 | 中 | 中 | 當前知識庫規模小影響不大，但擴展時必修 |
-| 14 | **B-08** | 輸入安全過濾（Guardrails） | 高 | 高 | 涉及分類器設計、UI 聯動、多路邏輯，是最大的功能增量 |
-| 15 | **B-11** | eval.py async 重構 | 中 | 高 | 全鏈路異步化工作量大，但長期必要 |
+| 🥉 P3 | **B-18** | CI 排除 integration 測試 | 中 | 低 | 一行修改，防止 CI 意外消耗 API Token，與 ADR-003 對齊 |
+| 4 | **B-03** | CLI `--subset` flag | 中 | 低 | 解鎖已寫好的子集評估功能，幾行代碼即可完成 |
+| 5 | **B-04** | `compare` 離線比對兩份快照 | 中 | 低 | 大幅提升開發效率，且修改範圍僅限 argparse + 一個分支 |
+| 6 | **B-05** | 報告命名規範化 | 低 | 低 | 與 B-01 一起修可順帶完成 |
+| 7 | **B-16** | 依賴清單瘦身 | 中 | 低 | 面試官紅旗項目，清理後展現工程素養 |
+| 8 | **B-13** | `rewrite_query` 傳入 history | 低 | 低 | 一行修改，修復多輪對話的指代消解能力 |
+| 9 | **B-14** | ChromaDB lazy init | 低 | 低 | 改善測試可 mock 性和 CI 穩定性 |
+| 10 | **B-09** | Chat UI 歡迎引導語 | 低 | 低 | 展示面優化，幾分鐘可完成 |
+| 11 | **B-02** | 動態分層抽樣 | 中 | 中 | 需設計選取策略，但提升回歸測試可靠度 |
+| 12 | **B-07** | 回歸閾值百分比化 | 低 | 低 | 統計精確度提升，改動不大 |
+| 13 | **B-15** | 報告失敗案例根因分類 | 中 | 中 | 依賴 B-01，提升 Harness 展示力 |
+| 14 | **B-21** | `fetch_context_unranked` 返回 distance | 低 | 低 | B-08 的前置依賴，改動很小 |
+| 15 | **B-19** | `temp/` 檢查腳本模組化 | 低 | 低 | 有用但非關鍵，可選擇性遷移 |
+| 16 | **B-10** | answer.py 檢索並行化 | 中 | 中 | 顯著降低用戶端延遲，但需處理線程安全 |
+| 17 | **B-12** | ingest.py embedding 批次拆分 | 中 | 中 | 當前知識庫規模小影響不大，但擴展時必修 |
+| 18 | **B-17** | answer.py Streaming 輸出 | 低 | 中 | 改善用戶端等待體驗，需改 app.py 配合 |
+| 19 | **B-20** | 生成後自我檢查（Self-Reflection） | 中 | 高 | 可攔截低品質回答，但增加 LLM 調用成本，需權衡 |
+| 20 | **B-08** | 輸入安全過濾（Guardrails） | 高 | 高 | 涉及分類器設計、UI 聯動、多路邏輯，是最大的功能增量 |
+| 21 | **B-11** | eval.py async 重構 | 中 | 高 | 全鏈路異步化工作量大，但長期必要 |
 
 ---
 
 ## 第三步決策建議
 
-- **B-01 + B-06**：嚴重度高且難度低，建議立即修復後重新 commit，不需要等到階段 3。
-- **B-03 / B-04 / B-05 / B-13 / B-14**：一組低難度的快速優化，可打包為一個 commit。
-- **B-08（Guardrails）**：是最大的功能增量，設計複雜度高，建議獨立規劃為一個完整 Sprint，不與文檔工程（階段 3）混在一起。
+- **B-01 + B-06 + B-18**：嚴重度高且難度低，建議立即修復後重新 commit，不需要等到階段 3。
+- **B-03 / B-04 / B-05 / B-13 / B-14 / B-16**：一組低難度的快速優化，可打包為一個 commit。其中 B-16（依賴清單瘦身）是面試官的紅旗項目，建議優先處理。
+- **B-08（Guardrails）+ B-20（Self-Reflection）+ B-21（distance 過濾）**：構成一個完整的「輸入→輸出品質防護」功能集。設計複雜度高，建議獨立規劃為一個完整 Sprint，不與文檔工程（階段 3）混在一起。
 - 其餘中/低優先級項目 → 封存紀錄，直接挺進階段 3 文檔工程，並將此清單轉化為 README 的「Future Roadmap」展現成長思維。
