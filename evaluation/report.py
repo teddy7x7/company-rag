@@ -115,8 +115,8 @@ def generate_markdown_report(summary: dict, output_path: str = "docs/evaluation-
         md_content += "✅ **Awesome! No test cases fell below acceptable accuracy (3.0) or retrieval MRR (0).**\n"
     else:
         md_content += f"⚠️ Found **{len(failures)}** case(s) requiring optimization:\n\n"
-        md_content += "| Question | Category | MRR | Accuracy | Issue Type |\n"
-        md_content += "|----------|----------|-----|----------|------------|\n"
+        md_content += "| Question | Category | MRR | Accuracy | Issue Type | Judge Feedback |\n"
+        md_content += "|----------|----------|-----|----------|------------|----------------|\n"
         
         for item in failures:
             q = item["question"]
@@ -130,7 +130,13 @@ def generate_markdown_report(summary: dict, output_path: str = "docs/evaluation-
             if acc < 3.0: issues.append(f"Low Quality Answer (Acc: {acc})")
             issue_str = ", ".join(issues)
             
-            md_content += f"| {short_q} | {item['category']} | {mrr:.2f} | {acc:.1f}/5 | {issue_str} |\n"
+            # Display Judge feedback (truncated for table readability)
+            feedback = item.get("feedback", "—")
+            # Escape pipe characters in feedback to prevent breaking table formatting
+            feedback = feedback.replace("|", "\\|").replace("\n", " ")
+            short_feedback = feedback[:100] + "..." if len(feedback) > 100 else feedback
+            
+            md_content += f"| {short_q} | {item['category']} | {mrr:.2f} | {acc:.1f}/5 | {issue_str} | {short_feedback} |\n"
             
     output_file.write_text(md_content, encoding="utf-8")
     print(f"📄 Markdown report generated successfully at: {output_file}")

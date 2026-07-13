@@ -219,7 +219,7 @@ uv run python evaluation/baseline.py save --label "v1_baseline"
 uv run python evaluation/baseline.py compare
 
 # Generate a report for a specific snapshot with custom output path
-uv run python evaluation/report.py evaluation/baselines/20260709_175414.json --output docs/evaluation_result/evaluation-report-20260709_175414.md
+uv run python evaluation/report.py evaluation/baselines/20260713_172437.json --output docs/evaluation_result/evaluation-report-20260713_172437.md
 ```
 
 ---
@@ -242,19 +242,12 @@ While the core dataset and fundamental step-by-step pipeline concepts stem from 
 ### Key Milestones Achieved
 
 - SSOT Configuration ([`config.py`](config.py)): Centralized model management with a decoupled model tier hierarchy (gpt-4.1-mini/nano).
-- SSOT Configuration ([`config.py`](config.py)): Centralized model management with a decoupled model tier hierarchy (gpt-4.1-mini/nano).
-
 - Rigorous Testing Suite ([`pytest`](https://docs.pytest.org/en/latest/)): 100% test coverage on core math operations (MRR, nDCG, DCG) and retrieval deduplication logic (merge_chunks).
 - Rigorous Testing Suite ([`pytest`](https://docs.pytest.org/en/latest/)): 100% test coverage on core math operations (MRR, nDCG, DCG) and retrieval deduplication logic (merge_chunks).
-
 - CI/CD Automation: Integrated with GitHub Actions and uv package manager for instant pipeline verification on every push/PR.
-
 - Baseline Snapshots & Regression Gate: Implemented a CLI tool ([`baseline.py`](evaluation/baseline.py)) that captures JSON snapshots of system metrics and triggers a CI failure (exit code 1) if quality drops by >5%.
-- Baseline Snapshots & Regression Gate: Implemented a CLI tool ([`baseline.py`](evaluation/baseline.py)) that captures JSON snapshots of system metrics and triggers a CI failure (exit code 1) if quality drops by >5%.
-
 - Automated Markdown Reporting: Automated generation of [`docs/evaluation_result/evaluation-report-*.md`](docs/evaluation_result/) with weakness discovery for targeted optimization.
-- Automated Markdown Reporting: Automated generation of [`docs/evaluation_result/evaluation-report-*.md`](docs/evaluation_result/) with weakness discovery for targeted optimization.
-
+- Full Harness Observability (B-01): Extended baseline snapshots to persist LLM Judge `feedback` and `generated_answer` per test case. Failure analysis tables in evaluation reports now surface Judge reasoning inline, enabling root-cause tracing without re-running the pipeline.
 - Prompt Regression Framework: Designed a stratified subset of 7 critical-case questions spanning all categories, enabling robust prompt regression testing at 95% less token cost.
 
 ### Want to Dive Deeper?
@@ -273,14 +266,13 @@ To review unresolved edge cases, systemic bottlenecks, and the upcoming feature 
   - The evaluation harness executes RAG generation and LLM judging sequentially, causing high latency during full-dataset runs (see [B-11](docs/refine/stage2.5-backlog_c1.md#b-11)).
 - **Input Guardrails & Noise Filtering**: The system does not classify user intent beforehand, leading to unnecessary vector searches for off-topic/casual inputs, and the retrieval lacks distance threshold filtering to discard low-relevance chunks (see [B-08](docs/refine/stage2.5-backlog_c1.md#b-08)).
 - **Systematic Weaknesses on Spanning & Holistic Queries**: Evaluation reports identify drop-offs in performance (MRR < 0.70, Accuracy < 3.5/5) for multi-document reasoning (`spanning`) and aggregate calculation queries (`holistic`) compared to simple fact lookup (see [B-15](docs/refine/stage2.5-backlog_c1.md#b-15)).
-- **Harness Observability Gap**: Baseline JSON snapshots omit the text-based `feedback` from the LLM Judge, preventing detailed root-cause tracing for historical regressions (see [B-01](docs/refine/stage2.5-backlog_c1.md#b-01)).
 
 ### Roadmap
 - **Production-Grade Input Guardrails (P1)**: Integrate a lightweight intent classifier to route inputs (casual talk, direct answers from history, RAG queries, or safety violations) and apply distance-threshold filtering on retrieved chunks (see [B-08](docs/refine/stage2.5-backlog_c1.md#b-08), [B-21](docs/refine/stage2.5-backlog_c1.md#b-21)).
 - **Asynchronous Evaluation Harness (P1)**: Migrate the evaluation suite to `asyncio` and `litellm.acompletion()` with token-bucket semaphores to speed up benchmark runs by 10x (see [B-11](docs/refine/stage2.5-backlog_c1.md#b-11)).
 - **Generative Self-Correction Loop (P2)**: Implement a reflection/critique step where the LLM evaluates its generated answer against retrieved context, triggering automatic query rewriting and supplementary vector search if details are incomplete (see [B-20](docs/refine/stage2.5-backlog_c1.md#b-20)).
 - **Dynamic Stratified Sampling (P2)**: Transition the regression suite from hardcoded file indices to a dynamic, category-representative sampling logic that auto-validates category coverage (see [B-02](docs/refine/stage2.5-backlog_c1.md#b-02)).
-- **Evaluation UX & Tooling Upgrades (P2)**: Persist Judge reasoning, support offline file-to-file baseline comparisons (`baseline.py compare --baseline A.json --current B.json`), and auto-name reports dynamically (see [B-01](docs/refine/stage2.5-backlog_c1.md#b-01), [B-04](docs/refine/stage2.5-backlog_c1.md#b-04)).
+- **Evaluation UX & Tooling Upgrades (P2)**: Support offline file-to-file baseline comparisons (`baseline.py compare --baseline A.json --current B.json`) and auto-name reports dynamically (see [B-04](docs/refine/stage2.5-backlog_c1.md#b-04)).
 - **Dual-Query Retrieval Parallelization (P3)**: Utilize thread pools to concurrently fetch vector embeddings for the original and rewritten queries (see [B-10](docs/refine/stage2.5-backlog_c1.md#b-10)).
 - **Streaming Response support (P3)**: Enable token-streaming generator output in the RAG backend and wire it to Gradio for better interface interactivity (see [B-17](docs/refine/stage2.5-backlog_c1.md#b-17)).
 

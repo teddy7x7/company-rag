@@ -13,19 +13,15 @@
 
 ---
 
-### [B-01] baseline.py 未保存 `ans_eval.feedback` — 評估報告失去可追溯性
+### ~~[B-01] baseline.py 未保存 `ans_eval.feedback` — 評估報告失去可追溯性~~ ✅ 已修復
 
 - **發現管道**：人工發現（使用者在 draft 中明確指出）
 - **嚴重程度**：高（未來致命）
-- **影響分析**：
-  目前 `run_full_evaluation()` 在 `results.append(...)` 時只保存了六項數值指標（mrr, ndcg, coverage, accuracy, completeness, relevance），完全丟棄了 `ans_eval.feedback` 這個 LLM Judge 給出的文字評語。這導致：
-  1. 儲存的 baseline JSON 檔案中無法追溯「為什麼這題被扣分」
-  2. `report.py` 的 `Failure & Low Performance Analysis` 區塊只能顯示數值分數，無法展示 Judge 的具體理由
-  3. 面試官或協作者看到 17 個失敗案例（如評估報告所示），卻無從得知失敗根因，嚴重削弱 Harness 的展示力
-- **預計 Refine 方案**：
-  1. 在 `baseline.py` 的 `run_full_evaluation()` 中，將 `ans_eval.feedback` 與 `generated_answer` 一併寫入 `results` dict
-  2. 在 `report.py` 的失敗案例表格中新增 `Feedback` 欄位
-  3. 同步更新 `run_subset_evaluation()` 以保持一致性
+- **狀態**：✅ **已修復 (2026-07-13)**
+- **修復內容**：
+  1. `baseline.py` 的 `run_full_evaluation()` 與 `run_subset_evaluation()` 中，`results.append(...)` 現在一併寫入 `generated_answer` 與 `feedback` 欄位
+  2. `report.py` 的失敗案例表格新增 `Judge Feedback` 欄位（截斷至 100 字元以保持表格可讀性，`|` 與換行符號自動轉義）
+  3. 重新執行 `baseline.py save` 並生成 [`evaluation-report-20260713_172437.md`](../evaluation_result/evaluation-report-20260713_172437.md)，確認 Feedback 欄位正確顯示
 
 ---
 
@@ -312,7 +308,7 @@
 
 | 優先級 | 編號 | 名稱 | 嚴重度 | 難度 | 理由 |
 |--------|------|------|--------|------|------|
-| 🥇 P1 | **B-01** | 保存 feedback 至 baseline JSON | 高 | 低 | 數據一旦不保存就永遠消失；修復簡單且不改架構 |
+| 🥇 P1 | ~~**B-01**~~ ✅ | ~~保存 feedback 至 baseline JSON~~ | 高 | 低 | **已修復 (2026-07-13)** — 同時修復 `baseline.py` 與 `report.py`，新評估報告已含 Judge Feedback 欄位 |
 | 🥈 P2 | **B-06** | 評估迴圈逐筆錯誤處理 | 高 | 低 | 一筆失敗炸掉整個 pipeline 是最高風險的穩定性問題 |
 | 🥉 P3 | ~~**B-18**~~ ✅ | ~~CI 排除 integration 測試~~ | 中 | 低 | **已修復 (2026-07-13)** — 一行修改，防止 CI 意外消耗 API Token，與 ADR-003 對齊 |
 | 4 | **B-03** | CLI `--subset` flag | 中 | 低 | 解鎖已寫好的子集評估功能，幾行代碼即可完成 |

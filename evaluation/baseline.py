@@ -37,6 +37,8 @@ def run_subset_evaluation(indices: list[int] = CRITICAL_CASE_INDICES) -> dict:
     total_completeness = 0.0
     total_relevance = 0.0
 
+    results = []
+
     for idx, test in enumerate(subset_tests):
         orig_idx = indices[idx]
         print(f" [Subset {idx + 1}/{total_tests}] (Orig Index #{orig_idx}) Question: {test.question[:50]}...")
@@ -48,10 +50,25 @@ def run_subset_evaluation(indices: list[int] = CRITICAL_CASE_INDICES) -> dict:
         total_coverage += ret_eval.keyword_coverage
 
         # Answer Quality Evaluation
-        ans_eval, _, _ = evaluate_answer(test)
+        ans_eval, generated_answer, _ = evaluate_answer(test)
         total_accuracy += ans_eval.accuracy
         total_completeness += ans_eval.completeness
         total_relevance += ans_eval.relevance
+
+        results.append({
+            "question": test.question,
+            "category": test.category,
+            "generated_answer": generated_answer,
+            "feedback": ans_eval.feedback,
+            "metrics": {
+                "mrr": ret_eval.mrr,
+                "ndcg": ret_eval.ndcg,
+                "keyword_coverage": ret_eval.keyword_coverage,
+                "accuracy": ans_eval.accuracy,
+                "completeness": ans_eval.completeness,
+                "relevance": ans_eval.relevance
+            }
+        })
 
     return {
         "avg_mrr": total_mrr / total_tests,
@@ -59,7 +76,8 @@ def run_subset_evaluation(indices: list[int] = CRITICAL_CASE_INDICES) -> dict:
         "avg_coverage": total_coverage / total_tests,
         "avg_accuracy": total_accuracy / total_tests,
         "avg_completeness": total_completeness / total_tests,
-        "avg_relevance": total_relevance / total_tests
+        "avg_relevance": total_relevance / total_tests,
+        "detail_results": results
     }
 
 def run_full_evaluation():
@@ -118,6 +136,8 @@ def run_full_evaluation():
         results.append({
             "question": test.question,
             "category": test.category,
+            "generated_answer": generated_answer,
+            "feedback": ans_eval.feedback,
             "metrics": {
                 "mrr": ret_eval.mrr,
                 "ndcg": ret_eval.ndcg,
