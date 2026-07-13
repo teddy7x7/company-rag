@@ -241,22 +241,22 @@ While the core dataset and fundamental step-by-step pipeline concepts stem from 
 
 ### Key Milestones Achieved
 
-- SSOT Configuration (config.py): Centralized model management with a decoupled model tier hierarchy (gpt-4.1-mini/nano).
+- SSOT Configuration ([`config.py`](config.py)): Centralized model management with a decoupled model tier hierarchy (gpt-4.1-mini/nano).
 
-- Rigorous Testing Suite (pytest): 100% test coverage on core math operations (MRR, nDCG, DCG) and retrieval deduplication logic (merge_chunks).
+- Rigorous Testing Suite ([`pytest`](https://docs.pytest.org/en/latest/)): 100% test coverage on core math operations (MRR, nDCG, DCG) and retrieval deduplication logic (merge_chunks).
 
 - CI/CD Automation: Integrated with GitHub Actions and uv package manager for instant pipeline verification on every push/PR.
 
-- Baseline Snapshots & Regression Gate: Implemented a CLI tool (baseline.py) that captures JSON snapshots of system metrics and triggers a CI failure (exit code 1) if quality drops by >5%.
+- Baseline Snapshots & Regression Gate: Implemented a CLI tool ([`baseline.py`](evaluation/baseline.py)) that captures JSON snapshots of system metrics and triggers a CI failure (exit code 1) if quality drops by >5%.
 
-- Automated Markdown Reporting: Automated generation of docs/evaluation-report.md with weakness discovery for targeted optimization.
+- Automated Markdown Reporting: Automated generation of [`docs/evaluation_result/evaluation-report-*.md`](docs/evaluation_result/) with weakness discovery for targeted optimization.
 
 - Prompt Regression Framework: Designed a stratified subset of 7 critical-case questions spanning all categories, enabling robust prompt regression testing at 95% less token cost.
 
 ### Want to Dive Deeper?
-For the full implementation journey, architectural decisions, and optimization strategies over the original course repository, check out the [Stage 2 Refinement Records](docs/refine/stage2-refine-records.md).
+For the full implementation journey, architectural decisions, and optimization strategies over the original course repository, check out the [Stage 2 Refinement Records](docs/refine/stage2-refine-records.md) *(Currently written in Traditional Chinese)*.
 
-To review unresolved edge cases, systemic bottlenecks, and the upcoming feature development pipeline, explore the [Stage 2.5 Refinement Backlog](docs/refine/stage2.5-backlog_c1.md).
+To review unresolved edge cases, systemic bottlenecks, and the upcoming feature development pipeline, explore the [Stage 2.5 Refinement Backlog](docs/refine/stage2.5-backlog_c1.md) *( Currently written in Traditional Chinese)*.
 
 ---
 
