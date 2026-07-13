@@ -259,7 +259,6 @@ While the core dataset and fundamental step-by-step pipeline concepts stem from 
 
 ### Want to Dive Deeper?
 For the full implementation journey, architectural decisions, and optimization strategies over the original course repository, check out the [Stage 2 Refinement Records](docs/refine/stage2-refine-records.md) *(Currently written in Traditional Chinese)*.
-For the full implementation journey, architectural decisions, and optimization strategies over the original course repository, check out the [Stage 2 Refinement Records](docs/refine/stage2-refine-records.md) *(Currently written in Traditional Chinese)*.
 
 To review unresolved edge cases, systemic bottlenecks, and the upcoming feature development pipeline, explore the [Stage 2.5 Refinement Backlog](docs/refine/stage2.5-backlog_c1.md) *(Currently written in Traditional Chinese)*.
 
