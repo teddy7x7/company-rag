@@ -245,16 +245,21 @@
 
 ---
 
-### [B-18] CI workflow 未排除 integration 測試 — 可能意外消耗 API Token
+### [B-18] ~~CI workflow 未排除 integration 測試 — 可能意外消耗 API Token~~ ✅ 已修復
 
 - **發現管道**：AI 識別（代碼審查 `.github/workflows/test.yml`）
 - **嚴重程度**：中（一般優化）
-- **影響分析**：
-  `.github/workflows/test.yml` 的測試命令為 `uv run pytest tests/ -v`，會執行 `tests/` 下所有測試，包括帶有 `@pytest.mark.integration` 標記的 `test_prompt_regression.py`。雖然該測試需要 API key 和 baseline 存在才會實際運行（無 baseline 會 skip），但：
-  1. 若 CI 環境有 `OPENAI_API_KEY` secret（目前已配置），且 `evaluation/baselines/` 被 commit 進 repo，integration test 會在每次 push 時自動執行，消耗 API Token
-  2. 與 `ADR-003` 中「CI 預設只跑 unit tests」的設計意圖不一致
-- **預計 Refine 方案**：
-  將 CI 命令改為 `uv run pytest tests/ -v -m "not integration"`，與 README 和 ADR-003 中的說明保持一致。
+- **狀態**：✅ **已修復 (2026-07-13)**
+- **修復內容**：
+  將 `.github/workflows/test.yml` 的測試命令由
+  ```
+  uv run pytest tests/ -v
+  ```
+  改為
+  ```
+  uv run pytest tests/ -v -m "not integration"
+  ```
+  CI 現在只執行 unit tests，`test_prompt_regression.py`（`@pytest.mark.integration`）在 CI 中被自動跳過，與 ADR-003 的設計意圖對齊。
 
 ---
 
@@ -309,7 +314,7 @@
 |--------|------|------|--------|------|------|
 | 🥇 P1 | **B-01** | 保存 feedback 至 baseline JSON | 高 | 低 | 數據一旦不保存就永遠消失；修復簡單且不改架構 |
 | 🥈 P2 | **B-06** | 評估迴圈逐筆錯誤處理 | 高 | 低 | 一筆失敗炸掉整個 pipeline 是最高風險的穩定性問題 |
-| 🥉 P3 | **B-18** | CI 排除 integration 測試 | 中 | 低 | 一行修改，防止 CI 意外消耗 API Token，與 ADR-003 對齊 |
+| 🥉 P3 | ~~**B-18**~~ ✅ | ~~CI 排除 integration 測試~~ | 中 | 低 | **已修復 (2026-07-13)** — 一行修改，防止 CI 意外消耗 API Token，與 ADR-003 對齊 |
 | 4 | **B-03** | CLI `--subset` flag | 中 | 低 | 解鎖已寫好的子集評估功能，幾行代碼即可完成 |
 | 5 | **B-04** | `compare` 離線比對兩份快照 | 中 | 低 | 大幅提升開發效率，且修改範圍僅限 argparse + 一個分支 |
 | 6 | **B-05** | 報告命名規範化 | 低 | 低 | 與 B-01 一起修可順帶完成 |

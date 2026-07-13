@@ -35,4 +35,4 @@ jobs:
           HUGGING_FACE_WRITE_TOKEN: ${{ secrets.HUGGING_FACE_WRITE_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-        run: uv run pytest tests/ -v
+        run: uv run pytest tests/ -v -m "not integration"
