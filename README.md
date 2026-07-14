@@ -213,6 +213,7 @@ uv run pytest -k test_prompt_regression
 ### 6. Manage Evaluation Baselines
 ```bash
 # Run full evaluation, save a baseline snapshot, and auto-generate a timestamped report
+# Snapshot filename: evaluation/baselines/{timestamp}_{label}.json  (label is optional)
 uv run python evaluation/baseline.py save --label "v1_baseline"
 
 # Compare current performance against the latest baseline
@@ -222,7 +223,7 @@ uv run python evaluation/baseline.py compare
 uv run python evaluation/report.py
 
 # [Optional] Or specify an older snapshot and a custom output path
-uv run python evaluation/report.py evaluation/baselines/20260713_172437.json --output docs/evaluation_result/evaluation-report-20260713_172437.md
+uv run python evaluation/report.py evaluation/baselines/20260713_172437_v1_baseline.json --output docs/evaluation_result/evaluation-report-20260713_172437.md
 ```
 
 ---

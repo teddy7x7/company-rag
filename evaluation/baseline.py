@@ -242,16 +242,27 @@ def run_full_evaluation():
 def save_baseline(summary: dict, label: str = None) -> Path:
     """Save the evaluation summary as a baseline snapshot.
 
+    JSON filename format:
+    - No label : ``{timestamp}.json``             e.g. ``20260714_122443.json``
+    - With label: ``{timestamp}_{label}.json``    e.g. ``20260714_122443_v1_baseline.json``
+
+    The timestamp prefix ensures alphabetical sort always reflects chronological
+    order, so ``load_latest_baseline()`` and ``report.py`` always pick the
+    correct file regardless of the label string.
+
     The Markdown report is automatically saved to
     ``docs/evaluation_result/evaluation-report-{timestamp}.md``,
     keeping report filenames in sync with their companion baseline JSON files.
     """
     BASELINE_DIR.mkdir(exist_ok=True, parents=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    label = label or timestamp
-    path = BASELINE_DIR / f"{label}.json"
+
+    # Always prefix filename with timestamp so alphabetical == chronological.
+    filename = f"{timestamp}_{label}.json" if label else f"{timestamp}.json"
+    path = BASELINE_DIR / filename
+
     summary["timestamp"] = timestamp
-    summary["label"] = label
+    summary["label"] = label or timestamp
 
     path.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"💾 Saved baseline snapshot to: {path}")

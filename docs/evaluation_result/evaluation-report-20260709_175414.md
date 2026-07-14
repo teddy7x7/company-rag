@@ -50,22 +50,22 @@
 ## 🔍 Failure & Low Performance Analysis
 ⚠️ Found **17** case(s) requiring optimization:
 
-| Question | Category | MRR | Accuracy | Issue Type |
-|----------|----------|-----|----------|------------|
-| How many Claimllm contracts does Insurellm have? | direct_fact | 0.56 | 1.0/5 | Low Quality Answer (Acc: 1.0) |
-| Which product does Sarah Williams lead design for? | direct_fact | 0.00 | 1.0/5 | Retrieval Missed, Low Quality Answer (Acc: 1.0) |
-| What is the monthly payment for Greenstone Insu... | direct_fact | 0.50 | 1.0/5 | Low Quality Answer (Acc: 1.0) |
-| Who signed the Metropolitan Life Group contract... | direct_fact | 0.50 | 1.0/5 | Low Quality Answer (Acc: 1.0) |
-| What is the duration of the FastTrack Insurance... | direct_fact | 0.22 | 1.0/5 | Low Quality Answer (Acc: 1.0) |
-| Who signed the Atlantic Risk Solutions contract... | direct_fact | 0.50 | 1.0/5 | Low Quality Answer (Acc: 1.0) |
-| By what percentage did Sarah Williams improve u... | comparative | 0.50 | 1.0/5 | Low Quality Answer (Acc: 1.0) |
-| What product does the IIOTY award winner work on? | spanning | 0.00 | 1.0/5 | Retrieval Missed, Low Quality Answer (Acc: 1.0) |
-| Who is the technical lead for the product that ... | spanning | 0.06 | 1.0/5 | Low Quality Answer (Acc: 1.0) |
-| Which product does the UX Designer who improved... | spanning | 0.00 | 1.0/5 | Retrieval Missed, Low Quality Answer (Acc: 1.0) |
-| How many covered members does the client who su... | spanning | 0.66 | 1.0/5 | Low Quality Answer (Acc: 1.0) |
-| Who signed the Metropolitan Life Group contract... | spanning | 0.28 | 1.0/5 | Low Quality Answer (Acc: 1.0) |
-| What is Alex Chen's current job title? | direct_fact | 1.00 | 1.0/5 | Low Quality Answer (Acc: 1.0) |
-| How many employees at Insurellm have a current ... | holistic | 0.57 | 1.0/5 | Low Quality Answer (Acc: 1.0) |
-| What is the total contract value of all Healthl... | holistic | 0.58 | 1.0/5 | Low Quality Answer (Acc: 1.0) |
-| Which product has the fewest active contracts a... | holistic | 0.50 | 1.0/5 | Low Quality Answer (Acc: 1.0) |
-| What is the longest contract duration among all... | holistic | 1.00 | 1.0/5 | Low Quality Answer (Acc: 1.0) |
+| Question | Category | MRR | Accuracy | Issue Type | Judge Feedback |
+|----------|----------|-----|----------|------------|----------------|
+| How many Claimllm contracts does Insurellm have? | direct_fact | 0.56 | 1.0/5 | Low Quality Answer (Acc: 1.0) | — |
+| Which product does Sarah Williams lead design for? | direct_fact | 0.00 | 1.0/5 | Retrieval Missed, Low Quality Answer (Acc: 1.0) | — |
+| What is the monthly payment for Greenstone Insu... | direct_fact | 0.50 | 1.0/5 | Low Quality Answer (Acc: 1.0) | — |
+| Who signed the Metropolitan Life Group contract... | direct_fact | 0.50 | 1.0/5 | Low Quality Answer (Acc: 1.0) | — |
+| What is the duration of the FastTrack Insurance... | direct_fact | 0.22 | 1.0/5 | Low Quality Answer (Acc: 1.0) | — |
+| Who signed the Atlantic Risk Solutions contract... | direct_fact | 0.50 | 1.0/5 | Low Quality Answer (Acc: 1.0) | — |
+| By what percentage did Sarah Williams improve u... | comparative | 0.50 | 1.0/5 | Low Quality Answer (Acc: 1.0) | — |
+| What product does the IIOTY award winner work on? | spanning | 0.00 | 1.0/5 | Retrieval Missed, Low Quality Answer (Acc: 1.0) | — |
+| Who is the technical lead for the product that ... | spanning | 0.06 | 1.0/5 | Low Quality Answer (Acc: 1.0) | — |
+| Which product does the UX Designer who improved... | spanning | 0.00 | 1.0/5 | Retrieval Missed, Low Quality Answer (Acc: 1.0) | — |
+| How many covered members does the client who su... | spanning | 0.66 | 1.0/5 | Low Quality Answer (Acc: 1.0) | — |
+| Who signed the Metropolitan Life Group contract... | spanning | 0.28 | 1.0/5 | Low Quality Answer (Acc: 1.0) | — |
+| What is Alex Chen's current job title? | direct_fact | 1.00 | 1.0/5 | Low Quality Answer (Acc: 1.0) | — |
+| How many employees at Insurellm have a current ... | holistic | 0.57 | 1.0/5 | Low Quality Answer (Acc: 1.0) | — |
+| What is the total contract value of all Healthl... | holistic | 0.58 | 1.0/5 | Low Quality Answer (Acc: 1.0) | — |
+| Which product has the fewest active contracts a... | holistic | 0.50 | 1.0/5 | Low Quality Answer (Acc: 1.0) | — |
+| What is the longest contract duration among all... | holistic | 1.00 | 1.0/5 | Low Quality Answer (Acc: 1.0) | — |

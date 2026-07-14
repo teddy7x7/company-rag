@@ -431,3 +431,29 @@ uv run python evaluation/report.py
 # [Optional] Or specify an older snapshot and a custom output path
 uv run python evaluation/report.py evaluation/baselines/<timestamp>.json --output docs/evaluation_result/evaluation-report-<timestamp>.md
 ```
+
+**後續補充修復 2** — `save_baseline()` 有 `--label` 時 filename 缺少時間戳前綴（排序 Bug）：
+
+發現當使用者傳入 `--label` 時，JSON 檔名為 `{label}.json`（如 `v1_baseline.json`），沒有時間戳前綴。
+`load_latest_baseline()` 和 `report.py` 都依賴**字母排序**取最新快照，`v1_baseline.json` 的字母排序無法保證正確，導致：
+1. `compare` 指令可能比對到錯誤的 baseline
+2. `report.py` 無參數執行時可能讀到錯誤的「最新」快照
+3. `test_prompt_regression.py` 的回歸比對基準可能錯誤
+
+```diff
+-    label = label or timestamp
+-    path = BASELINE_DIR / f"{label}.json"
++    # Always prefix filename with timestamp so alphabetical == chronological.
++    filename = f"{timestamp}_{label}.json" if label else f"{timestamp}.json"
++    path = BASELINE_DIR / filename
+     summary["timestamp"] = timestamp
+-    summary["label"] = label
++    summary["label"] = label or timestamp
+```
+
+| 情況 | 修復前 | 修復後 |
+|------|--------|--------|
+| 無 label | `20260714_122443.json` ✅ | `20260714_122443.json` ✅ |
+| 有 label | `v1_baseline.json` ❌ | `20260714_122443_v1_baseline.json` ✅ |
+
+`README.md` 對應範例同步更新為新格式（如 `20260713_172437_v1_baseline.json`）。
