@@ -317,10 +317,38 @@ def check_regression(current: dict, baseline: dict) -> list[str]:
     return warnings
 
 def main():
-    parser = argparse.ArgumentParser(description="Insurellm RAG Evaluation Baseline Snapshot Tool")
-    parser.add_argument("action", choices=["run", "save", "compare"], help="Action to perform: run (evaluate only), save (evaluate and save as baseline), compare (evaluate and compare to latest baseline)")
-    parser.add_argument("--label", type=str, default=None, help="Custom label for the saved baseline snapshot")
-    
+    parser = argparse.ArgumentParser(
+        description="Insurellm RAG Evaluation Baseline Snapshot Tool",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+examples:
+  # Run full evaluation and print summary
+  python evaluation/baseline.py run
+
+  # Evaluate and save as a new baseline snapshot
+  python evaluation/baseline.py save --label "v2_prompt_fix"
+
+  # Compare latest live run against latest saved baseline
+  python evaluation/baseline.py compare
+
+  # Offline: compare two existing snapshot JSON files (no API calls)
+  python evaluation/baseline.py compare \\
+      --baseline evaluation/baselines/20260713_172437.json \\
+      --current  evaluation/baselines/20260714_122443.json
+
+  # Semi-offline: compare live run against a specific baseline file
+  python evaluation/baseline.py compare --baseline evaluation/baselines/20260713_172437.json
+"""
+    )
+    parser.add_argument(
+        "action",
+        choices=["run", "save", "compare"],
+        help="Action to perform: run (evaluate only), save (evaluate and save as baseline), compare (evaluate and compare to baseline)"
+    )
+    parser.add_argument("--label",    type=str, default=None, help="Custom label for the saved baseline snapshot (save action only)")
+    parser.add_argument("--baseline", type=str, default=None, help="[compare] Path to a baseline snapshot JSON. Defaults to the latest saved snapshot.")
+    parser.add_argument("--current",  type=str, default=None, help="[compare] Path to a current snapshot JSON for offline diff. Omit to run a live evaluation.")
+
     args = parser.parse_args()
 
     if args.action == "run":
@@ -340,18 +368,36 @@ def main():
             save_baseline(summary, args.label)
 
     elif args.action == "compare":
-        baseline = load_latest_baseline()
+        # ── Resolve baseline snapshot ─────────────────────────────────────────
+        if args.baseline:
+            baseline_path = Path(args.baseline)
+            if not baseline_path.exists():
+                print(f"❌ Baseline file not found: {baseline_path}")
+                sys.exit(1)
+            print(f"📖 Using specified baseline: {baseline_path.name}")
+            baseline = json.loads(baseline_path.read_text(encoding="utf-8"))
+        else:
+            baseline = load_latest_baseline()
         if not baseline:
             print("❌ No baseline snapshot found! Please run `uv run python evaluation/baseline.py save` first.")
             sys.exit(1)
-            
-        current = run_full_evaluation()
+
+        # ── Resolve current snapshot ──────────────────────────────────────────
+        if args.current:
+            current_path = Path(args.current)
+            if not current_path.exists():
+                print(f"❌ Current file not found: {current_path}")
+                sys.exit(1)
+            print(f"📖 Using specified current snapshot: {current_path.name}")
+            current = json.loads(current_path.read_text(encoding="utf-8"))
+        else:
+            current = run_full_evaluation()
         if not current:
             sys.exit(1)
 
         print("\n📊 Comparing current run to baseline...")
-        print(f"  Metric | Baseline ({baseline.get('label', 'unknown')}) | Current | Delta")
-        print("  " + "-" * 70)
+        print(f"  Metric | Baseline ({baseline.get('label', 'unknown')}) | Current ({current.get('label', 'live')}) | Delta")
+        print("  " + "-" * 75)
         
         metrics = ["avg_mrr", "avg_ndcg", "avg_coverage", "avg_accuracy", "avg_completeness", "avg_relevance"]
         for m in metrics:
@@ -372,6 +418,7 @@ def main():
             sys.exit(1)
         else:
             print("\n✅ No regression detected (all metrics within threshold).")
+
 
 if __name__ == "__main__":
     main()

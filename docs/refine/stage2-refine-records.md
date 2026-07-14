@@ -456,4 +456,37 @@ uv run python evaluation/report.py evaluation/baselines/<timestamp>.json --outpu
 | 無 label | `20260714_122443.json` ✅ | `20260714_122443.json` ✅ |
 | 有 label | `v1_baseline.json` ❌ | `20260714_122443_v1_baseline.json` ✅ |
 
-`README.md` 對應範例同步更新為新格式（如 `20260713_172437_v1_baseline.json`）。
+`README.md` 對應範例同步更新為新格式。
+
+---
+
+### 🔀 [B-04] `compare` 離線比對兩份快照 ✅ (2026-07-14)
+
+**問題本質**：`compare` action 固定呼叫 `run_full_evaluation()` 重跑全量 150 題評估後才比對，無法直接比對兩份已存在的 JSON 快照，每次 compare 都要消耗大量時間和 API Token。
+
+**修復範圍**：`evaluation/baseline.py` — `argparse` + `compare` 分支
+
+**新增參數**：
+
+| 參數 | 說明 |
+|------|------|
+| `--baseline <path>` | 指定 baseline 快照 JSON。省略時 fallback 到 `load_latest_baseline()` |
+| `--current <path>` | 指定 current 快照 JSON 做離線比對。省略時 fallback 到 `run_full_evaluation()` |
+
+**支援三種執行模式**：
+
+```bash
+# 全量模式（原有）：跑全量評估 + 最新快照比對
+uv run python evaluation/baseline.py compare
+
+# 半離線模式（新增）：指定 baseline，current 由即時評估提供
+uv run python evaluation/baseline.py compare --baseline evaluation/baselines/20260709_175414.json
+
+# 完全離線模式（新增）：兩份 JSON 直接比對，零 API 調用、零 Token 成本
+uv run python evaluation/baseline.py compare \
+    --baseline evaluation/baselines/20260709_175414.json \
+    --current  evaluation/baselines/20260714_122443.json
+```
+
+輸出表頭同時顯示兩份快照的 `label`，方便辨識比對的對象。
+`README.md` CLI 說明新增離線比對範例。

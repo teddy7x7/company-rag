@@ -216,8 +216,13 @@ uv run pytest -k test_prompt_regression
 # Snapshot filename: evaluation/baselines/{timestamp}_{label}.json  (label is optional)
 uv run python evaluation/baseline.py save --label "v1_baseline"
 
-# Compare current performance against the latest baseline
+# Compare latest live run against latest saved baseline
 uv run python evaluation/baseline.py compare
+
+# [Offline] Compare two existing snapshots directly — no API calls, no cost
+uv run python evaluation/baseline.py compare \
+    --baseline evaluation/baselines/20260709_175414.json \
+    --current  evaluation/baselines/20260714_122443.json
 
 # [Optional] Retroactively generate a report from the latest snapshot
 uv run python evaluation/report.py

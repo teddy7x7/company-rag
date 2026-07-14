@@ -49,14 +49,17 @@
 
 ---
 
-### [B-04] `compare` 必須重跑全量測試 — 無法直接比對兩份快照
+### ~~[B-04] `compare` 必須重跑全量測試 — 無法直接比對兩份快照~~ ✅ 已修復
 
 - **發現管道**：人工發現（使用者在 draft 中明確指出）
 - **嚴重程度**：中（一般優化）
-- **影響分析**：
-  目前 `compare` action 會先呼叫 `run_full_evaluation()` 拿到 `current`，再與 `load_latest_baseline()` 比較。若測試集有 150 題，每次 compare 都要花費大量時間和 Token。在本地開發的快速疊代場景下，工程師只是想比較兩份已保存的 JSON 檔，不需要重新跑測試。
-- **預計 Refine 方案**：
-  新增 `--baseline` 和 `--current` 參數，允許直接指定兩個 JSON 檔案路徑進行離線比對。若未指定 `--current`，才 fallback 到重新跑評估。
+- **狀態**：✅ **已修復 (2026-07-14)**
+- **修復內容**：`argparse` 新增 `--baseline` 與 `--current` 兩個可選參數，支援三種模式：
+  - **全量模式**（原有）：`compare` 無額外參數 → 跟全量評估 + 最新快照比對
+  - **離線模式**（新增）：`compare --baseline A.json --current B.json` → 直接讀取兩份 JSON，零 API 調用
+  - **半離線模式**（新增）：`compare --baseline A.json` → 讀取指定基準，`current` 由即時評估提供
+
+  `compare` 輸出表頭同時顯示兩份快照的 label，方便辨識。
 
 ---
 
@@ -315,7 +318,7 @@
 | 🥈 P2 | ~~**B-06**~~ ✅ | ~~評估迴圈逐筆錯誤處理~~ | 高 | 低 | **已修復 (2026-07-14)** — 雙迴圈加 `try/except`，新增 `failed_count`/`is_reliable`/`errors` 欄位，失敗率 >20% 整體標記 UNRELIABLE |
 | 🥉 P3 | ~~**B-18**~~ ✅ | ~~CI 排除 integration 測試~~ | 中 | 低 | **已修復 (2026-07-13)** — 一行修改，防止 CI 意外消耗 API Token，與 ADR-003 對齊 |
 | 4 | **B-03** | CLI `--subset` flag | 中 | 低 | 解鎖已寫好的子集評估功能，幾行代碼即可完成 |
-| 5 | **B-04** | `compare` 離線比對兩份快照 | 中 | 低 | 大幅提升開發效率，且修改範圍僅限 argparse + 一個分支 |
+| 5 | ~~**B-04**~~ ✅ | ~~`compare` 離線比對兩份快照~~ | 中 | 低 | **已修復 (2026-07-14)** — 新增 `--baseline`/`--current` 參數，支援零 API 成本的離線比對 |
 | 6 | ~~**B-05**~~ ✅ | ~~報告命名規範化~~ | 低 | 低 | **已修復 (2026-07-14)** — 報告輸出路徑改為動態 `evaluation-report-{timestamp}.md`，與 baseline JSON 時間戳對齊 |
 | 7 | **B-16** | 依賴清單瘦身 | 中 | 低 | 面試官紅旗項目，清理後展現工程素養 |
 | 8 | **B-13** | `rewrite_query` 傳入 history | 低 | 低 | 一行修改，修復多輪對話的指代消解能力 |
