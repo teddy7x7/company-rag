@@ -71,16 +71,16 @@
 
 ---
 
-### [B-06] 評估迴圈缺乏逐筆錯誤處理 — 單筆 API 失敗會中斷全量評估
+### ~~[B-06] 評估迴圈缺乏逐筆錯誤處理 — 單筆 API 失敗會中斷全量評估~~ ✅ 已修復
 
 - **發現管道**：AI 識別（`baseline-overview.md` M2 段明確指出）
 - **嚴重程度**：高（未來致命）
-- **影響分析**：
-  `run_full_evaluation()` 和 `run_subset_evaluation()` 的 `for` 迴圈中，`evaluate_retrieval()` 和 `evaluate_answer()` 沒有任何 `try/except` 包覆。若第 50 筆測試因為 LLM API timeout、rate limit、或 Pydantic JSON 解析失敗而拋出異常，前面已花費的 49 次 API 調用成本全部浪費，且不會產出任何結果。
-- **預計 Refine 方案**：
-  1. 在迴圈內加上 `try/except`，單筆失敗時記錄錯誤、跳過該筆，繼續評估後續測試
-  2. 在 summary 中加入 `failed_count` 和 `errors` 欄位，保留錯誤資訊
-  3. 若失敗率超過可配置閾值（例如 > 20%），整體評估標記為不可信
+- **狀態**：✅ **已修復 (2026-07-14)**
+- **修復內容**：
+  1. `run_full_evaluation()` 與 `run_subset_evaluation()` 的 `for` 迴圈中，每筆迭代加上 `try/except Exception`，單筆失敗時印出警告並 `continue`，不中斷整個評估流程
+  2. 新增 `FAILURE_RATE_THRESHOLD = 0.20` 常數（可配置），當失敗率超過 20% 時，整體評估結果標記為 `is_reliable: false` 並輸出 🚨 警告
+  3. summary dict 新增 `failed_count`、`is_reliable`、`errors` 三個欄位，保留每筆失敗的 index / question / error 訊息以利事後追蹤
+  4. 失敗案例從分母中排除（改用 `succeeded` 作為除數），確保指標平均值不被零值拉低
 
 ---
 
@@ -309,7 +309,7 @@
 | 優先級 | 編號 | 名稱 | 嚴重度 | 難度 | 理由 |
 |--------|------|------|--------|------|------|
 | 🥇 P1 | ~~**B-01**~~ ✅ | ~~保存 feedback 至 baseline JSON~~ | 高 | 低 | **已修復 (2026-07-13)** — 同時修復 `baseline.py` 與 `report.py`，新評估報告已含 Judge Feedback 欄位 |
-| 🥈 P2 | **B-06** | 評估迴圈逐筆錯誤處理 | 高 | 低 | 一筆失敗炸掉整個 pipeline 是最高風險的穩定性問題 |
+| 🥈 P2 | ~~**B-06**~~ ✅ | ~~評估迴圈逐筆錯誤處理~~ | 高 | 低 | **已修復 (2026-07-14)** — 雙迴圈加 `try/except`，新增 `failed_count`/`is_reliable`/`errors` 欄位，失敗率 >20% 整體標記 UNRELIABLE |
 | 🥉 P3 | ~~**B-18**~~ ✅ | ~~CI 排除 integration 測試~~ | 中 | 低 | **已修復 (2026-07-13)** — 一行修改，防止 CI 意外消耗 API Token，與 ADR-003 對齊 |
 | 4 | **B-03** | CLI `--subset` flag | 中 | 低 | 解鎖已寫好的子集評估功能，幾行代碼即可完成 |
 | 5 | **B-04** | `compare` 離線比對兩份快照 | 中 | 低 | 大幅提升開發效率，且修改範圍僅限 argparse + 一個分支 |

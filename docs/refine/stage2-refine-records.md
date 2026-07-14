@@ -358,3 +358,30 @@ def test_prompt_regression():
 
 *階段 2 P1 至 P6 的 Harness 評估框架優化工作已全數完成並驗證通過。*
 
+---
+
+## 後續疊代修復紀錄（來自 Stage 2.5 Backlog）
+
+---
+
+### 🛡️ [B-06] 評估迴圈逐筆錯誤處理 ✅ (2026-07-14)
+
+**問題本質**：`run_full_evaluation()` 和 `run_subset_evaluation()` 的 `for` 迴圈中沒有任何 `try/except`，單筆 API 失敗（timeout / rate limit / Pydantic parse error）會直接拋出異常，中斷整個評估流程，前面已花費的所有 API 成本全部浪費。
+
+**修復範圍**：`evaluation/baseline.py`
+
+| 修改項目 | 說明 |
+|---------|------|
+| `FAILURE_RATE_THRESHOLD = 0.20` | 新增常數：失敗率超過此閾值時標記整體結果為不可信 |
+| `run_subset_evaluation()` | 每筆迭代包覆 `try/except Exception`，失敗時 print 警告並 `continue` |
+| `run_full_evaluation()` | 同上，同時保持 critical case subset 累積邏輯不受影響 |
+| `summary["failed_count"]` | 新增欄位：本次評估失敗的案例數 |
+| `summary["is_reliable"]` | 新增欄位：`True` if 失敗率 ≤ 20%，否則 `False` |
+| `summary["errors"]` | 新增欄位：list of `{index, question, error}` 供事後根因追蹤 |
+| 分母改為 `succeeded` | 失敗案例從除數中排除，防止指標平均值被零值拉低 |
+
+**修復後行為**：
+- ✅ 單筆失敗 → 跳過，繼續評估後續 case，成本不浪費
+- ✅ 失敗率 ≤ 20% → `is_reliable: true`，正常輸出結果
+- 🚨 失敗率 > 20% → `is_reliable: false`，標明結果可信度存疑
+- 📋 所有失敗案例的錯誤訊息保存至 `errors` 欄位，可從 baseline JSON 中直接追蹤

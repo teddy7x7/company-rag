@@ -19,8 +19,19 @@ REGRESSION_THRESHOLD = 0.05  # 5% threshold
 # Critical case indices representing each question category
 CRITICAL_CASE_INDICES = [0, 65, 80, 90, 95, 100, 140]
 
+# Failure rate threshold: if more than this fraction of test cases fail,
+# the overall result is flagged as unreliable.
+FAILURE_RATE_THRESHOLD = 0.20
+
+
 def run_subset_evaluation(indices: list[int] = CRITICAL_CASE_INDICES) -> dict:
-    """Run evaluation on a subset of test questions (e.g. critical cases) to save token cost."""
+    """Run evaluation on a subset of test questions (e.g. critical cases) to save token cost.
+
+    Each test case is wrapped in its own try/except so that a single API
+    failure (timeout, rate-limit, Pydantic parse error, etc.) does not abort
+    the entire run.  Failed cases are collected in the returned ``errors``
+    list and excluded from metric averages.
+    """
     tests = load_tests()
     subset_tests = [tests[i] for i in indices if 0 <= i < len(tests)]
     total_tests = len(subset_tests)
@@ -29,7 +40,7 @@ def run_subset_evaluation(indices: list[int] = CRITICAL_CASE_INDICES) -> dict:
         return {}
 
     print(f"🚀 Running fast subset evaluation on {total_tests} critical cases...")
-    
+
     total_mrr = 0.0
     total_ndcg = 0.0
     total_coverage = 0.0
@@ -38,50 +49,81 @@ def run_subset_evaluation(indices: list[int] = CRITICAL_CASE_INDICES) -> dict:
     total_relevance = 0.0
 
     results = []
+    errors = []       # Collect per-case error details
+    failed_count = 0  # Number of cases that raised an exception
 
     for idx, test in enumerate(subset_tests):
         orig_idx = indices[idx]
         print(f" [Subset {idx + 1}/{total_tests}] (Orig Index #{orig_idx}) Question: {test.question[:50]}...")
-        
-        # Retrieval Evaluation
-        ret_eval = evaluate_retrieval(test)
-        total_mrr += ret_eval.mrr
-        total_ndcg += ret_eval.ndcg
-        total_coverage += ret_eval.keyword_coverage
 
-        # Answer Quality Evaluation
-        ans_eval, generated_answer, _ = evaluate_answer(test)
-        total_accuracy += ans_eval.accuracy
-        total_completeness += ans_eval.completeness
-        total_relevance += ans_eval.relevance
+        try:
+            # Retrieval Evaluation
+            ret_eval = evaluate_retrieval(test)
 
-        results.append({
-            "question": test.question,
-            "category": test.category,
-            "generated_answer": generated_answer,
-            "feedback": ans_eval.feedback,
-            "metrics": {
-                "mrr": ret_eval.mrr,
-                "ndcg": ret_eval.ndcg,
-                "keyword_coverage": ret_eval.keyword_coverage,
-                "accuracy": ans_eval.accuracy,
-                "completeness": ans_eval.completeness,
-                "relevance": ans_eval.relevance
-            }
-        })
+            # Answer Quality Evaluation
+            ans_eval, generated_answer, _ = evaluate_answer(test)
 
+            total_mrr += ret_eval.mrr
+            total_ndcg += ret_eval.ndcg
+            total_coverage += ret_eval.keyword_coverage
+            total_accuracy += ans_eval.accuracy
+            total_completeness += ans_eval.completeness
+            total_relevance += ans_eval.relevance
+
+            results.append({
+                "question": test.question,
+                "category": test.category,
+                "generated_answer": generated_answer,
+                "feedback": ans_eval.feedback,
+                "metrics": {
+                    "mrr": ret_eval.mrr,
+                    "ndcg": ret_eval.ndcg,
+                    "keyword_coverage": ret_eval.keyword_coverage,
+                    "accuracy": ans_eval.accuracy,
+                    "completeness": ans_eval.completeness,
+                    "relevance": ans_eval.relevance,
+                },
+            })
+
+        except Exception as exc:  # noqa: BLE001
+            failed_count += 1
+            error_msg = f"[Subset {idx + 1}] orig_idx={orig_idx} | {type(exc).__name__}: {exc}"
+            print(f"   ⚠️ Skipping case due to error: {error_msg}")
+            errors.append({"orig_index": orig_idx, "question": test.question, "error": error_msg})
+
+    succeeded = total_tests - failed_count
+    failure_rate = failed_count / total_tests if total_tests > 0 else 0.0
+    is_reliable = failure_rate <= FAILURE_RATE_THRESHOLD
+
+    if not is_reliable:
+        print(
+            f"\n🚨 High failure rate detected: {failed_count}/{total_tests} cases failed "
+            f"({failure_rate:.0%} > {FAILURE_RATE_THRESHOLD:.0%} threshold). "
+            "Results are marked as UNRELIABLE."
+        )
+
+    divisor = succeeded if succeeded > 0 else 1  # Avoid ZeroDivisionError
     return {
-        "avg_mrr": total_mrr / total_tests,
-        "avg_ndcg": total_ndcg / total_tests,
-        "avg_coverage": total_coverage / total_tests,
-        "avg_accuracy": total_accuracy / total_tests,
-        "avg_completeness": total_completeness / total_tests,
-        "avg_relevance": total_relevance / total_tests,
-        "detail_results": results
+        "avg_mrr": total_mrr / divisor,
+        "avg_ndcg": total_ndcg / divisor,
+        "avg_coverage": total_coverage / divisor,
+        "avg_accuracy": total_accuracy / divisor,
+        "avg_completeness": total_completeness / divisor,
+        "avg_relevance": total_relevance / divisor,
+        "failed_count": failed_count,
+        "is_reliable": is_reliable,
+        "errors": errors,
+        "detail_results": results,
     }
 
 def run_full_evaluation():
-    """Run evaluation for all tests in the test dataset."""
+    """Run evaluation for all tests in the test dataset.
+
+    Each test case is wrapped in its own try/except so that a single API
+    failure (timeout, rate-limit, Pydantic parse error, etc.) does not abort
+    the entire run.  Failed cases are collected in the returned ``errors``
+    list and excluded from metric averages.
+    """
     tests = load_tests()
     total_tests = len(tests)
     if total_tests == 0:
@@ -91,7 +133,9 @@ def run_full_evaluation():
     print(f"🚀 Running RAG evaluation on {total_tests} test cases...")
 
     results = []
-    
+    errors = []       # Collect per-case error details
+    failed_count = 0  # Number of cases that raised an exception
+
     total_mrr = 0.0
     total_ndcg = 0.0
     total_coverage = 0.0
@@ -110,55 +154,75 @@ def run_full_evaluation():
 
     for idx, test in enumerate(tests):
         print(f" [{idx + 1}/{total_tests}] Question: {test.question[:50]}...")
-        
-        # Retrieval Evaluation
-        ret_eval = evaluate_retrieval(test)
-        total_mrr += ret_eval.mrr
-        total_ndcg += ret_eval.ndcg
-        total_coverage += ret_eval.keyword_coverage
 
-        # Answer Quality Evaluation
-        ans_eval, generated_answer, _ = evaluate_answer(test)
-        total_accuracy += ans_eval.accuracy
-        total_completeness += ans_eval.completeness
-        total_relevance += ans_eval.relevance
+        try:
+            # Retrieval Evaluation
+            ret_eval = evaluate_retrieval(test)
 
-        # Check if this is a critical case
-        if idx in CRITICAL_CASE_INDICES:
-            sub_mrr += ret_eval.mrr
-            sub_ndcg += ret_eval.ndcg
-            sub_coverage += ret_eval.keyword_coverage
-            sub_accuracy += ans_eval.accuracy
-            sub_completeness += ans_eval.completeness
-            sub_relevance += ans_eval.relevance
-            sub_count += 1
+            # Answer Quality Evaluation
+            ans_eval, generated_answer, _ = evaluate_answer(test)
 
-        results.append({
-            "question": test.question,
-            "category": test.category,
-            "generated_answer": generated_answer,
-            "feedback": ans_eval.feedback,
-            "metrics": {
-                "mrr": ret_eval.mrr,
-                "ndcg": ret_eval.ndcg,
-                "keyword_coverage": ret_eval.keyword_coverage,
-                "accuracy": ans_eval.accuracy,
-                "completeness": ans_eval.completeness,
-                "relevance": ans_eval.relevance
-            }
-        })
+            total_mrr += ret_eval.mrr
+            total_ndcg += ret_eval.ndcg
+            total_coverage += ret_eval.keyword_coverage
+            total_accuracy += ans_eval.accuracy
+            total_completeness += ans_eval.completeness
+            total_relevance += ans_eval.relevance
 
+            # Check if this is a critical case
+            if idx in CRITICAL_CASE_INDICES:
+                sub_mrr += ret_eval.mrr
+                sub_ndcg += ret_eval.ndcg
+                sub_coverage += ret_eval.keyword_coverage
+                sub_accuracy += ans_eval.accuracy
+                sub_completeness += ans_eval.completeness
+                sub_relevance += ans_eval.relevance
+                sub_count += 1
+
+            results.append({
+                "question": test.question,
+                "category": test.category,
+                "generated_answer": generated_answer,
+                "feedback": ans_eval.feedback,
+                "metrics": {
+                    "mrr": ret_eval.mrr,
+                    "ndcg": ret_eval.ndcg,
+                    "keyword_coverage": ret_eval.keyword_coverage,
+                    "accuracy": ans_eval.accuracy,
+                    "completeness": ans_eval.completeness,
+                    "relevance": ans_eval.relevance,
+                },
+            })
+
+        except Exception as exc:  # noqa: BLE001
+            failed_count += 1
+            error_msg = f"[Case {idx + 1}] {type(exc).__name__}: {exc}"
+            print(f"   ⚠️ Skipping case due to error: {error_msg}")
+            errors.append({"index": idx, "question": test.question, "error": error_msg})
+
+    succeeded = total_tests - failed_count
+    failure_rate = failed_count / total_tests if total_tests > 0 else 0.0
+    is_reliable = failure_rate <= FAILURE_RATE_THRESHOLD
+
+    if not is_reliable:
+        print(
+            f"\n🚨 High failure rate detected: {failed_count}/{total_tests} cases failed "
+            f"({failure_rate:.0%} > {FAILURE_RATE_THRESHOLD:.0%} threshold). "
+            "Results are marked as UNRELIABLE."
+        )
+
+    divisor = succeeded if succeeded > 0 else 1  # Avoid ZeroDivisionError
     summary = {
         "model_utility": config.UTILITY_MODEL,
         "model_generation": config.GENERATION_MODEL,
         "model_judge": config.JUDGE_MODEL,
-        "avg_mrr": total_mrr / total_tests,
-        "avg_ndcg": total_ndcg / total_tests,
-        "avg_coverage": total_coverage / total_tests,
-        "avg_accuracy": total_accuracy / total_tests,
-        "avg_completeness": total_completeness / total_tests,
-        "avg_relevance": total_relevance / total_tests,
-        
+        "avg_mrr": total_mrr / divisor,
+        "avg_ndcg": total_ndcg / divisor,
+        "avg_coverage": total_coverage / divisor,
+        "avg_accuracy": total_accuracy / divisor,
+        "avg_completeness": total_completeness / divisor,
+        "avg_relevance": total_relevance / divisor,
+
         # Store subset averages within baseline summary
         "subset_avg_mrr": sub_mrr / sub_count if sub_count > 0 else 0.0,
         "subset_avg_ndcg": sub_ndcg / sub_count if sub_count > 0 else 0.0,
@@ -166,8 +230,11 @@ def run_full_evaluation():
         "subset_avg_accuracy": sub_accuracy / sub_count if sub_count > 0 else 0.0,
         "subset_avg_completeness": sub_completeness / sub_count if sub_count > 0 else 0.0,
         "subset_avg_relevance": sub_relevance / sub_count if sub_count > 0 else 0.0,
-        
-        "detail_results": results
+
+        "failed_count": failed_count,
+        "is_reliable": is_reliable,
+        "errors": errors,
+        "detail_results": results,
     }
 
     return summary
