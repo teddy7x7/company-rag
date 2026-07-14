@@ -532,3 +532,20 @@ uv run python evaluation/baseline.py compare \
 | `gr.Examples`（新增） | 三個示範問題涵蓋 products / employees / contracts，點擊即填入輸入框 |
 
 **設計原則**：`SYSTEM_PROMPT` 的知識範圍說明刻意保持簡短（4 行 bullet list），產品的 8 個名稱列出是必要的，但合約細節、員工名稱等完全不進入 prompt，依賴 RAG 檢索，避免 prompt 過度冗長。
+
+---
+
+### 🌊 [B-17] `answer.py` Streaming 輸出 ✅ (2026-07-14)
+
+**問題本質**：`answer_question()` 同步等待整個 LLM 回應完成後才一次性返回，在 5-10 秒的 RAG 管線期間用戶面對完全空白的聊天框。
+
+**修復範圍**：`utils/answer.py` — 新增 `answer_question_stream()`；`app.py` — `chat()` 改為 streaming generator
+
+| 修改項目 | 說明 |
+|---------|------|
+| `answer_question_stream()`（新增） | Generator 函式：先 yield `("", chunks)` 讓 UI 立即顯示 context，再 yield `(accumulated_text, None)` 逐 token 更新答案 |
+| `answer_question()`（保留） | 原始同步版本維持不動，evaluation pipeline 繼續呼叫此函式，介面不破壞 |
+| `chat()`（`app.py`） | 改為 generator：retrieval 完成後立即 yield context HTML + 空 assistant 泡泡；每個 token 更新泡泡（含 `◌` 游標）；最後清除游標 |
+| import（`app.py`） | 新增 `answer_question_stream` |
+
+**設計決策**：新增獨立的 `answer_question_stream()` 而非修改原有函式，保持 evaluation pipeline 的同步介面不變。串流游標使用 `◌`（Unicode U+25CC），在 Gradio Markdown 中不會影響排版。

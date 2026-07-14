@@ -236,16 +236,15 @@
 
 ---
 
-### [B-17] `answer.py` 問答生成未使用 Streaming — 用戶等待體驗差
+### ~~[B-17] `answer.py` 問答生成未使用 Streaming — 用戶等待體驗差~~ ✅ 已修復
 
 - **發現管道**：AI 識別（`answer-overview.md` M5 段指出）
 - **嚴重程度**：低（程式碼微調）
-- **影響分析**：
-  `answer_question()` 使用同步 `completion()` 調用，等整個回答生成完畢後才一次性返回。在完整 RAG 管線（rewrite + 雙路檢索 + rerank + 生成）耗時約 5-10 秒期間，用戶看到的是完全空白的聊天框，體驗很差。
-- **預計 Refine 方案**：
-  1. 在 `answer_question()` 中改用 `completion(..., stream=True)` 並逐 token 返回
-  2. 在 `app.py` 中將 `chat()` 改為 Gradio streaming generator
-  3. 先單獨返回 context（右側面板立刻顯示），再逐步生成答案（左側逐字出現）
+- **狀態**：✅ **已修復 (2026-07-14)**
+- **修復內容**：
+  1. `answer.py` 新增 `answer_question_stream()` generator — 先 yield `("", chunks)` 讓 UI 立即渲染 context 面板，再逐 token yield `(accumulated_text, None)`；保留原始 `answer_question()` 不動，evaluation pipeline 繼續使用同步版本
+  2. `app.py` 的 `chat()` 改為 generator：retrieval 完成後立即 yield context HTML + 空 assistant 泡泡；後續每個 token yield 更新泡泡內容（含 `◌` streaming 游標）；最後一次 yield 清除游標
+  3. `app.py` import 新增 `answer_question_stream`
 
 ---
 
@@ -333,7 +332,7 @@
 | 15 | **B-19** | `temp/` 檢查腳本模組化 | 低 | 低 | 有用但非關鍵，可選擇性遷移 |
 | 16 | **B-10** | answer.py 檢索並行化 | 中 | 中 | 顯著降低用戶端延遲，但需處理線程安全 |
 | 17 | **B-12** | ingest.py embedding 批次拆分 | 中 | 中 | 當前知識庫規模小影響不大，但擴展時必修 |
-| 18 | **B-17** | answer.py Streaming 輸出 | 低 | 中 | 改善用戶端等待體驗，需改 app.py 配合 |
+| 18 | ~~**B-17**~~ ✅ | ~~answer.py Streaming 輸出~~ | 低 | 中 | **已修復 (2026-07-14)** — 新增 `answer_question_stream()` generator，`app.py` `chat()` 改為 Gradio streaming generator，右側 context 即時顯示，左側逐字生成 |
 | 19 | **B-20** | 生成後自我檢查（Self-Reflection） | 中 | 高 | 可攔截低品質回答，但增加 LLM 調用成本，需權衡 |
 | 20 | **B-08** | 輸入安全過濾（Guardrails） | 高 | 高 | 涉及分類器設計、UI 聯動、多路邏輯，是最大的功能增量 |
 | 21 | **B-11** | eval.py async 重構 | 中 | 高 | 全鏈路異步化工作量大，但長期必要 |

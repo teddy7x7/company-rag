@@ -143,9 +143,35 @@ def fetch_context(original_question):
 @retry(wait=wait)
 def answer_question(question: str, history: list[dict] = []) -> tuple[str, list]:
     """
-    Answer a question using RAG and return the answer and the retrieved context
+    Answer a question using RAG and return the answer and the retrieved context.
+    Used by the evaluation pipeline (synchronous, non-streaming).
     """
     chunks = fetch_context(question)
     messages = make_rag_messages(question, history, chunks)
     response = completion(model=config.GENERATION_MODEL, messages=messages)
     return response.choices[0].message.content, chunks
+
+
+def answer_question_stream(question: str, history: list[dict] = []):
+    """
+    Answer a question using RAG with token-by-token streaming.
+    Used by the Gradio Chat UI (app.py) for a responsive experience.
+
+    Yields:
+        (partial_answer: str, chunks: list | None)
+        - First yield : ("", chunks) — retrieval complete, context ready to display
+        - Subsequent  : (accumulated_text, None) — streaming tokens, chunks already sent
+    """
+    chunks = fetch_context(question)
+    messages = make_rag_messages(question, history, chunks)
+
+    # Yield context immediately so the UI can render the right panel without waiting
+    yield "", chunks
+
+    response = completion(model=config.GENERATION_MODEL, messages=messages, stream=True)
+    accumulated = ""
+    for part in response:
+        delta = part.choices[0].delta.content or ""
+        if delta:
+            accumulated += delta
+            yield accumulated, None

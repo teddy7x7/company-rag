@@ -1,7 +1,7 @@
 import gradio as gr
 from dotenv import load_dotenv
 
-from utils.answer import answer_question
+from utils.answer import answer_question, answer_question_stream
 
 load_dotenv(override=True)
 
@@ -17,9 +17,22 @@ def format_context(context):
 def chat(history):
     last_message = history[-1]["content"]
     prior = history[:-1]
-    answer, context = answer_question(last_message, prior)
-    history.append({"role": "assistant", "content": answer})
-    return history, format_context(context)
+    context_html = ""
+
+    for partial_answer, chunks in answer_question_stream(last_message, prior):
+        if chunks is not None:
+            # Retrieval complete — render context panel immediately and open assistant bubble
+            context_html = format_context(chunks)
+            history.append({"role": "assistant", "content": "◌"})
+        else:
+            # Streaming token — update assistant bubble in place
+            history[-1]["content"] = partial_answer + "◌"
+        yield history, context_html
+
+    # Final pass: strip the streaming cursor from the last message
+    if history and history[-1]["role"] == "assistant":
+        history[-1]["content"] = history[-1]["content"].rstrip("◌")
+    yield history, context_html
 
 
 def main():
