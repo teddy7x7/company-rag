@@ -144,7 +144,7 @@ def generate_markdown_report(summary: dict, output_path: str = "docs/evaluation-
 def main():
     parser = argparse.ArgumentParser(description="Generate Markdown RAG Evaluation Report from Baseline JSON")
     parser.add_argument("snapshot", type=str, nargs="?", default=None, help="Path to baseline snapshot JSON file. If omitted, uses latest.")
-    parser.add_argument("--output", type=str, default="docs/evaluation-report.md", help="Output path for the Markdown report")
+    parser.add_argument("--output", type=str, default=None, help="Output path for the Markdown report. Defaults to docs/evaluation_result/evaluation-report-{timestamp}.md")
     
     args = parser.parse_args()
 
@@ -171,7 +171,15 @@ def main():
     with open(snapshot_path, "r", encoding="utf-8") as f:
         summary = json.load(f)
         
-    generate_markdown_report(summary, args.output)
+    # Derive default output path from the snapshot's timestamp to stay consistent
+    # with the naming convention used by baseline.py save.
+    if args.output:
+        output_path = args.output
+    else:
+        ts = summary.get("timestamp", datetime.now().strftime("%Y%m%d_%H%M%S"))
+        output_path = f"docs/evaluation_result/evaluation-report-{ts}.md"
+
+    generate_markdown_report(summary, output_path)
 
 if __name__ == "__main__":
     main()

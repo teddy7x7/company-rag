@@ -240,23 +240,30 @@ def run_full_evaluation():
     return summary
 
 def save_baseline(summary: dict, label: str = None) -> Path:
-    """Save the evaluation summary as a baseline snapshot."""
+    """Save the evaluation summary as a baseline snapshot.
+
+    The Markdown report is automatically saved to
+    ``docs/evaluation_result/evaluation-report-{timestamp}.md``,
+    keeping report filenames in sync with their companion baseline JSON files.
+    """
     BASELINE_DIR.mkdir(exist_ok=True, parents=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     label = label or timestamp
     path = BASELINE_DIR / f"{label}.json"
     summary["timestamp"] = timestamp
     summary["label"] = label
-    
+
     path.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"💾 Saved baseline snapshot to: {path}")
-    
-    # Automatically generate Markdown report in docs/
+
+    # Automatically generate a timestamped Markdown report alongside the snapshot.
+    # Path mirrors the JSON naming convention to keep the two in sync.
+    report_path = f"docs/evaluation_result/evaluation-report-{timestamp}.md"
     try:
-        generate_markdown_report(summary, "docs/evaluation-report.md")
+        generate_markdown_report(summary, report_path)
     except Exception as e:
         print(f"⚠️ Failed to generate Markdown report: {e}")
-        
+
     return path
 
 def load_latest_baseline() -> dict | None:

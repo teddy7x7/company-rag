@@ -385,3 +385,49 @@ def test_prompt_regression():
 - ✅ 失敗率 ≤ 20% → `is_reliable: true`，正常輸出結果
 - 🚨 失敗率 > 20% → `is_reliable: false`，標明結果可信度存疑
 - 📋 所有失敗案例的錯誤訊息保存至 `errors` 欄位，可從 baseline JSON 中直接追蹤
+
+---
+
+### 📋 [B-05] 評估報告命名規範化 ✅ (2026-07-14)
+
+**問題本質**：`save_baseline()` 呼叫 `generate_markdown_report(summary, "docs/evaluation-report.md")` 使用固定路徑，每次 `baseline.py save` 都覆蓋同一份報告，無法保留歷史評估紀錄。與 baseline JSON 本身帶時間戳的設計不一致。
+
+**修復範圍**：`evaluation/baseline.py` — `save_baseline()`
+
+```diff
+-    generate_markdown_report(summary, "docs/evaluation-report.md")
++    report_path = f"docs/evaluation_result/evaluation-report-{timestamp}.md"
++    generate_markdown_report(summary, report_path)
+```
+
+**修復後行為**：每次 `baseline.py save` 自動同時產生：
+- `evaluation/baselines/{timestamp}.json` — 原有快照
+- `docs/evaluation_result/evaluation-report-{timestamp}.md` — 新的時間戳對齊報告
+
+兩者命名完全同步，歷史評估報告自動保留，無需手動呼叫 `report.py`。
+
+**後續補充修復** — `evaluation/report.py` `--output` 預設值對齊：
+
+發現 `report.py` 的 `--output` 預設值仍殘留舊的硬編碼 `"docs/evaluation-report.md"`，與 `baseline.py save` 的新行為不一致。無參數執行 `report.py` 時會覆蓋舊檔，而非產生時間戳命名的新報告。
+
+```diff
+-    parser.add_argument("--output", default="docs/evaluation-report.md", ...)
++    parser.add_argument("--output", default=None, ...)
+
+-    generate_markdown_report(summary, args.output)
++    if args.output:
++        output_path = args.output
++    else:
++        ts = summary.get("timestamp", datetime.now().strftime("%Y%m%d_%H%M%S"))
++        output_path = f"docs/evaluation_result/evaluation-report-{ts}.md"
++    generate_markdown_report(summary, output_path)
+```
+
+`README.md` CLI 說明同步更新，補上無參數用法：
+```bash
+# [Optional] Retroactively generate a report from the latest snapshot
+uv run python evaluation/report.py
+
+# [Optional] Or specify an older snapshot and a custom output path
+uv run python evaluation/report.py evaluation/baselines/<timestamp>.json --output docs/evaluation_result/evaluation-report-<timestamp>.md
+```

@@ -60,14 +60,17 @@
 
 ---
 
-### [B-05] 評估報告命名不規範 — `save_baseline` 的報告輸出路徑硬編碼
+### ~~[B-05] 評估報告命名不規範 — `save_baseline` 的報告輸出路徑硬編碼~~ ✅ 已修復
 
 - **發現管道**：人工發現（使用者在 draft 中指出）+ 聯檢碰撞
 - **嚴重程度**：低（程式碼微調）
-- **影響分析**：
-  `save_baseline()` 內部呼叫 `generate_markdown_report(summary, "docs/evaluation-report.md")` 使用固定路徑，每次都覆蓋同一份報告。若要保留歷史評估報告，必須手動呼叫 `report.py` 指定不同的 `--output` 路徑。這與 baseline JSON 本身帶時間戳的設計不一致。
-- **預計 Refine 方案**：
-  報告輸出路徑改為動態生成，與 baseline JSON 的時間戳對齊，例如：`docs/evaluation_result/evaluation-report-{timestamp}.md`。
+- **狀態**：✅ **已修復 (2026-07-14)**
+- **修復內容**：
+  `save_baseline()` 內的報告輸出路徑改為動態組合：`docs/evaluation_result/evaluation-report-{timestamp}.md`。每次 `baseline.py save` 會同時產生：
+  - `evaluation/baselines/{timestamp}.json`（已有）
+  - `docs/evaluation_result/evaluation-report-{timestamp}.md`（新增）
+
+  兩者時間戳對齊，消除了每次覆蓋同一份報告、無法保留瞭測歷史的問題。
 
 ---
 
@@ -313,7 +316,7 @@
 | 🥉 P3 | ~~**B-18**~~ ✅ | ~~CI 排除 integration 測試~~ | 中 | 低 | **已修復 (2026-07-13)** — 一行修改，防止 CI 意外消耗 API Token，與 ADR-003 對齊 |
 | 4 | **B-03** | CLI `--subset` flag | 中 | 低 | 解鎖已寫好的子集評估功能，幾行代碼即可完成 |
 | 5 | **B-04** | `compare` 離線比對兩份快照 | 中 | 低 | 大幅提升開發效率，且修改範圍僅限 argparse + 一個分支 |
-| 6 | **B-05** | 報告命名規範化 | 低 | 低 | 與 B-01 一起修可順帶完成 |
+| 6 | ~~**B-05**~~ ✅ | ~~報告命名規範化~~ | 低 | 低 | **已修復 (2026-07-14)** — 報告輸出路徑改為動態 `evaluation-report-{timestamp}.md`，與 baseline JSON 時間戳對齊 |
 | 7 | **B-16** | 依賴清單瘦身 | 中 | 低 | 面試官紅旗項目，清理後展現工程素養 |
 | 8 | **B-13** | `rewrite_query` 傳入 history | 低 | 低 | 一行修改，修復多輪對話的指代消解能力 |
 | 9 | **B-14** | ChromaDB lazy init | 低 | 低 | 改善測試可 mock 性和 CI 穩定性 |
