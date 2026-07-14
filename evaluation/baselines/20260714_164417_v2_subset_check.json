@@ -1,0 +1,113 @@
+{
+  "avg_mrr": 0.863095238095238,
+  "avg_ndcg": 0.8326572072048742,
+  "avg_coverage": 91.66666666666666,
+  "avg_accuracy": 4.142857142857143,
+  "avg_completeness": 3.5714285714285716,
+  "avg_relevance": 4.571428571428571,
+  "failed_count": 0,
+  "is_reliable": true,
+  "errors": [],
+  "detail_results": [
+    {
+      "question": "Who won the prestigious IIOTY award in 2023?",
+      "category": "direct_fact",
+      "generated_answer": "Maxine Thompson won the prestigious Insurellm Innovator of the Year (IIOTY) award in 2023.",
+      "feedback": "The generated answer perfectly matches the reference answer in both content and detail. It correctly identifies Maxine Thompson as the winner of the prestigious Insurellm Innovator of the Year (IIOTY) award in 2023. The answer is complete and fully addresses the question without adding any extraneous information. Therefore, it is accurate, complete, and relevant.",
+      "metrics": {
+        "mrr": 0.6666666666666666,
+        "ndcg": 0.6666666666666666,
+        "keyword_coverage": 66.66666666666666,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "When did Maxine Thompson join Insurellm?",
+      "category": "temporal",
+      "generated_answer": "Maxine Thompson joined Insurellm in early 2017.",
+      "feedback": "The generated answer is mostly accurate in stating the year Maxine Thompson joined Insurellm, but it lacks the specific month (January) and the role she held (Junior Data Engineer), which are present in the reference answer. Therefore, the answer is somewhat incomplete. The answer is relevant, as it directly addresses the question about when Maxine Thompson joined Insurellm without additional information. However, to be fully complete and perfectly accurate, the answer should include the month and the job title.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9523586147435376,
+        "keyword_coverage": 100.0,
+        "accuracy": 3.0,
+        "completeness": 2.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How much did Priya Sharma's recommendation engine increase conversion by for Marketllm?",
+      "category": "comparative",
+      "generated_answer": "Priya Sharma's recommendation engine increased conversion for Marketllm by 28%.",
+      "feedback": "The answer correctly states that Priya Sharma's recommendation engine increased conversion for Marketllm by 28%, which matches the reference answer's key information about the conversion increase. However, the reference includes the context that Priya Sharma built the recommendation engine, which is missing from the generated answer. Therefore, the answer is accurate regarding the increase percentage but lacks completeness in mentioning who built the engine. The answer is directly relevant to the question and does not include extraneous information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 4.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How many claims does FastTrack Insurance Services project for year 1?",
+      "category": "numerical",
+      "generated_answer": "FastTrack Insurance Services projects 22,000 claims in year 1.",
+      "feedback": "The generated answer exactly matches the reference answer by stating that FastTrack Insurance Services projects 22,000 claims in year 1. It is factually correct, completely addresses the question, and is fully relevant with no extraneous information. Therefore, it scores perfectly across all dimensions.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8796717101765102,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What are the core insurance portals offered by Insurellm?",
+      "category": "relationship",
+      "generated_answer": "Insurellm offers five core insurance portals across different insurance lines:\n\n1. **Carllm** - Auto insurance platform for insurers\n2. **Homellm** - Home insurance platform for insurers\n3. **Lifellm** - Life insurance platform with AI-powered underwriting\n4. **Healthllm** - Comprehensive health insurance platform\n5. **Bizllm** - Commercial insurance platform for business coverage\n\nThese portals are designed to serve insurers with tailored tools and features specific to each insurance type.",
+      "feedback": "The generated answer is factually accurate in naming all five core insurance portals offered by Insurellm, matching exactly with the reference answer. It additionally provides brief descriptions of each portal, which, while not present in the reference answer, do not detract from relevance but do add extra information beyond the question's scope. The generated answer is complete in listing all the portals as given by the reference. However, since the instructions specify no additional information should be given for relevance scoring, the added descriptions reduce the relevance score slightly. Overall, the answer is accurate and complete, but less strictly relevant due to the added explanatory content.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.879293327182759,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "What product does the IIOTY award winner work on?",
+      "category": "spanning",
+      "generated_answer": "The IIOTY (Insurellm Innovator of the Year) 2023 award winner, Maxine Thompson, works as a Senior Data Engineer leading strategic data initiatives at Insurellm. While the specific product she works on is not explicitly stated, her role involves pivotal projects related to data engineering across the company’s platforms. Given her position and contributions, she likely supports key products like Claimllm, Bizllm, or other data-intensive insurance solutions at Insurellm.",
+      "feedback": "The generated answer accurately identifies Maxine Thompson as the 2023 IIOTY award winner and her role as a Senior Data Engineer, consistent with the reference answer. However, the question specifically asks about the product she works on, and the reference answer only states her job title without mentioning any products; thus, the generated answer's speculative remarks about potential products like Claimllm or Bizllm are unsupported by the provided reference. The answer includes additional information not present in the reference, which is neither confirmed nor relevant to the factual content. Therefore, while accurate in aspects matching the reference, it lacks completeness regarding the product information and is less relevant as it introduces unverified details rather than stating only what is known.",
+      "metrics": {
+        "mrr": 0.75,
+        "ndcg": 0.75,
+        "keyword_coverage": 75.0,
+        "accuracy": 5.0,
+        "completeness": 3.0,
+        "relevance": 3.0
+      }
+    },
+    {
+      "question": "How many employees at Insurellm have a current salary under $80,000?",
+      "category": "holistic",
+      "generated_answer": "Based on the compensation data available for employees at Insurellm, only one employee currently has a salary under $80,000:\n\n- Emily Carter: Base salary of $70,000 in 2023\n\nAll other employees listed have salaries of $80,000 or higher in their most recent compensation records.\n\nTherefore, there is 1 employee at Insurellm with a current salary under $80,000.",
+      "feedback": "The generated answer is factually incorrect compared to the reference answer. It states that only one employee (Emily Carter) has a salary under $80,000, whereas the reference indicates multiple employees (Tyler Brooks and Alex Harper) have salaries of $75,000 each. Therefore, the generated answer misses key employees and understates the count. It is incomplete because it does not address these other employees below $80,000 mentioned in the reference. While the generated answer is relevant to the question, it provides inaccurate and incomplete information, affecting its overall quality.",
+      "metrics": {
+        "mrr": 0.625,
+        "ndcg": 0.7006101316646468,
+        "keyword_coverage": 100.0,
+        "accuracy": 1.0,
+        "completeness": 1.0,
+        "relevance": 5.0
+      }
+    }
+  ],
+  "timestamp": "20260714_164417",
+  "label": "v2_subset_check"
+}

@@ -325,19 +325,28 @@ examples:
   # Run full evaluation and print summary
   python evaluation/baseline.py run
 
+  # Run only the critical-case subset (7 questions, ~95% fewer tokens)
+  python evaluation/baseline.py run --subset
+
   # Evaluate and save as a new baseline snapshot
   python evaluation/baseline.py save --label "v2_prompt_fix"
+
+  # Save a subset-only snapshot
+  python evaluation/baseline.py save --subset --label "v2_subset_check"
 
   # Compare latest live run against latest saved baseline
   python evaluation/baseline.py compare
 
+  # Compare only the critical-case subset against the latest baseline
+  python evaluation/baseline.py compare --subset
+
   # Offline: compare two existing snapshot JSON files (no API calls)
   python evaluation/baseline.py compare \\
-      --baseline evaluation/baselines/20260713_172437.json \\
+      --baseline evaluation/baselines/20260709_175414.json \\
       --current  evaluation/baselines/20260714_122443.json
 
   # Semi-offline: compare live run against a specific baseline file
-  python evaluation/baseline.py compare --baseline evaluation/baselines/20260713_172437.json
+  python evaluation/baseline.py compare --baseline evaluation/baselines/20260709_175414.json
 """
     )
     parser.add_argument(
@@ -345,16 +354,22 @@ examples:
         choices=["run", "save", "compare"],
         help="Action to perform: run (evaluate only), save (evaluate and save as baseline), compare (evaluate and compare to baseline)"
     )
-    parser.add_argument("--label",    type=str, default=None, help="Custom label for the saved baseline snapshot (save action only)")
-    parser.add_argument("--baseline", type=str, default=None, help="[compare] Path to a baseline snapshot JSON. Defaults to the latest saved snapshot.")
-    parser.add_argument("--current",  type=str, default=None, help="[compare] Path to a current snapshot JSON for offline diff. Omit to run a live evaluation.")
+    parser.add_argument("--label",    type=str,  default=None,  help="Custom label for the saved baseline snapshot (save action only)")
+    parser.add_argument("--baseline", type=str,  default=None,  help="[compare] Path to a baseline snapshot JSON. Defaults to the latest saved snapshot.")
+    parser.add_argument("--current",  type=str,  default=None,  help="[compare] Path to a current snapshot JSON for offline diff. Omit to run a live evaluation.")
+    parser.add_argument("--subset",   action="store_true",       help="Evaluate only the critical-case subset (~7 questions) instead of the full dataset. Applies to run, save, and compare (live evaluation path).")
 
     args = parser.parse_args()
 
     if args.action == "run":
-        summary = run_full_evaluation()
+        if args.subset:
+            summary = run_subset_evaluation()
+            mode_label = f"subset ({len(CRITICAL_CASE_INDICES)} critical cases)"
+        else:
+            summary = run_full_evaluation()
+            mode_label = "full dataset"
         if summary:
-            print("\n📈 Current Evaluation Summary:")
+            print(f"\n📈 Current Evaluation Summary ({mode_label}):")
             print(f"  Avg MRR: {summary['avg_mrr']:.4f}")
             print(f"  Avg nDCG: {summary['avg_ndcg']:.4f}")
             print(f"  Avg Coverage: {summary['avg_coverage']:.1f}%")
@@ -363,7 +378,10 @@ examples:
             print(f"  Avg Relevance: {summary['avg_relevance']:.2f}/5")
 
     elif args.action == "save":
-        summary = run_full_evaluation()
+        if args.subset:
+            summary = run_subset_evaluation()
+        else:
+            summary = run_full_evaluation()
         if summary:
             save_baseline(summary, args.label)
 
@@ -391,17 +409,42 @@ examples:
             print(f"📖 Using specified current snapshot: {current_path.name}")
             current = json.loads(current_path.read_text(encoding="utf-8"))
         else:
-            current = run_full_evaluation()
+            # Live evaluation — honour --subset flag
+            if args.subset:
+                current = run_subset_evaluation()
+            else:
+                current = run_full_evaluation()
         if not current:
             sys.exit(1)
 
+        # When comparing subset results, use the subset_avg_* keys that are
+        # embedded inside a full baseline snapshot.
+        if args.subset and not args.current:
+            # current came from run_subset_evaluation() — keys are avg_*
+            # baseline may be a full snapshot — use its subset_avg_* keys
+            subset_key_map = {
+                "avg_mrr":          "subset_avg_mrr",
+                "avg_ndcg":         "subset_avg_ndcg",
+                "avg_coverage":     "subset_avg_coverage",
+                "avg_accuracy":     "subset_avg_accuracy",
+                "avg_completeness": "subset_avg_completeness",
+                "avg_relevance":    "subset_avg_relevance",
+            }
+            baseline_for_compare = {
+                k: baseline.get(subset_key_map[k], baseline.get(k, 0.0))
+                for k in subset_key_map
+            }
+            baseline_for_compare["label"] = baseline.get("label", "unknown")
+        else:
+            baseline_for_compare = baseline
+
         print("\n📊 Comparing current run to baseline...")
-        print(f"  Metric | Baseline ({baseline.get('label', 'unknown')}) | Current ({current.get('label', 'live')}) | Delta")
+        print(f"  Metric | Baseline ({baseline_for_compare.get('label', 'unknown')}) | Current ({current.get('label', 'live')}) | Delta")
         print("  " + "-" * 75)
-        
+
         metrics = ["avg_mrr", "avg_ndcg", "avg_coverage", "avg_accuracy", "avg_completeness", "avg_relevance"]
         for m in metrics:
-            base_val = baseline.get(m, 0.0)
+            base_val = baseline_for_compare.get(m, 0.0)
             curr_val = current.get(m, 0.0)
             diff = curr_val - base_val
             # diff_str = f"+{diff:.4f}" if diff >= 0 else f"{diff:.4f}"
@@ -410,7 +453,7 @@ examples:
 
             print(f"  {m:<16} | {base_val:.4f} | {curr_val:.4f} | {diff_str}")
 
-        warnings = check_regression(current, baseline)
+        warnings = check_regression(current, baseline_for_compare)
         if warnings:
             print("\n🚨 Regression Warnings Found:")
             for w in warnings:

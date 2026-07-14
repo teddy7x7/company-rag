@@ -490,3 +490,25 @@ uv run python evaluation/baseline.py compare \
 
 輸出表頭同時顯示兩份快照的 `label`，方便辨識比對的對象。
 `README.md` CLI 說明新增離線比對範例。
+
+---
+
+### ⚡ [B-03] `baseline.py` CLI `--subset` 入口 ✅ (2026-07-14)
+
+**問題本質**：`run_subset_evaluation()` 函式雖已實作，但 `argparse` 的三個 action 全部呼叫 `run_full_evaluation()`，子集評估只能透過 `test_prompt_regression.py` 間接觸發，無法從 CLI 直接執行。
+
+**修復範圍**：`evaluation/baseline.py` — `argparse` + `run` / `save` / `compare` 三個分支
+
+**新增參數**：`--subset`（`store_true` flag）
+
+| Action + Flag | 行為 |
+|---|---|
+| `run` | 跑全量評估 |
+| `run --subset` | 只跑 7 題關鍵子集，~95% 更少 Token |
+| `save --subset` | 子集評估並保存為快照 |
+| `compare --subset` | 即時評估時跑子集；從全量快照取 `subset_avg_*` 作為比對基準 |
+| `compare --subset --current <file>` | 兩份 JSON 離線比對（`--subset` 僅影響 live 路徑，不影響離線路徑） |
+
+**設計細節**：當 `compare --subset` 且 `--current` 未指定（live 路徑）時，baseline 快照的比對鍵從 `avg_*` 自動映射為 `subset_avg_*`（全量 `save` 時已內嵌），避免空值比對造成假性 regression。
+
+`README.md` CLI 說明 + `baseline.py` argparse epilog 同步新增 `--subset` 範例。

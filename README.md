@@ -216,8 +216,14 @@ uv run pytest -k test_prompt_regression
 # Snapshot filename: evaluation/baselines/{timestamp}_{label}.json  (label is optional)
 uv run python evaluation/baseline.py save --label "v1_baseline"
 
+# [Fast] Save a subset-only snapshot (7 critical cases, ~95% fewer tokens)
+uv run python evaluation/baseline.py save --subset --label "v2_subset_check"
+
 # Compare latest live run against latest saved baseline
 uv run python evaluation/baseline.py compare
+
+# [Fast] Compare only critical-case subset against the latest baseline
+uv run python evaluation/baseline.py compare --subset
 
 # [Offline] Compare two existing snapshots directly — no API calls, no cost
 uv run python evaluation/baseline.py compare \

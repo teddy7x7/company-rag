@@ -38,14 +38,15 @@
 
 ---
 
-### [B-03] `baseline.py` CLI 缺少 `--subset` 入口
+### ~~[B-03] `baseline.py` CLI 缺少 `--subset` 入口~~ ✅ 已修復
 
 - **發現管道**：人工發現（使用者在 draft 中明確指出）
 - **嚴重程度**：中（一般優化）
-- **影響分析**：
-  `run_subset_evaluation()` 函式已實作完成，但 `main()` 的 `argparse` 只有 `run` / `save` / `compare` 三個 action，且全部呼叫 `run_full_evaluation()`。子集評估只能透過 `test_prompt_regression.py` 間接觸發，無法從 CLI 直接執行。這降低了日常開發中快速驗證的效率。
-- **預計 Refine 方案**：
-  在 `argparse` 中新增 `--subset` flag（或 `--mode full|subset`），讓 `run`、`save`、`compare` 三個 action 都能選擇跑全量或子集。
+- **狀態**：✅ **已修復 (2026-07-14)**
+- **修復內容**：`argparse` 新增 `--subset` boolean flag，三個 action 全部支援：
+  - `run --subset`：執行子集評估並列印指標
+  - `save --subset`：執行子集評估並保存為快照（节省 ~95% Token 成本）
+  - `compare --subset`：當即時評估时跳過對 150 題全距；同時自動將全量快照內嵌的 `subset_avg_*` 鍵取出作為比對基準，避免空值比對
 
 ---
 
@@ -317,7 +318,7 @@
 | 🥇 P1 | ~~**B-01**~~ ✅ | ~~保存 feedback 至 baseline JSON~~ | 高 | 低 | **已修復 (2026-07-13)** — 同時修復 `baseline.py` 與 `report.py`，新評估報告已含 Judge Feedback 欄位 |
 | 🥈 P2 | ~~**B-06**~~ ✅ | ~~評估迴圈逐筆錯誤處理~~ | 高 | 低 | **已修復 (2026-07-14)** — 雙迴圈加 `try/except`，新增 `failed_count`/`is_reliable`/`errors` 欄位，失敗率 >20% 整體標記 UNRELIABLE |
 | 🥉 P3 | ~~**B-18**~~ ✅ | ~~CI 排除 integration 測試~~ | 中 | 低 | **已修復 (2026-07-13)** — 一行修改，防止 CI 意外消耗 API Token，與 ADR-003 對齊 |
-| 4 | **B-03** | CLI `--subset` flag | 中 | 低 | 解鎖已寫好的子集評估功能，幾行代碼即可完成 |
+| 4 | ~~**B-03**~~ ✅ | ~~CLI `--subset` flag~~ | 中 | 低 | **已修復 (2026-07-14)** — 新增 `--subset` flag，`run`/`save`/`compare` 全部支援子集模式 |
 | 5 | ~~**B-04**~~ ✅ | ~~`compare` 離線比對兩份快照~~ | 中 | 低 | **已修復 (2026-07-14)** — 新增 `--baseline`/`--current` 參數，支援零 API 成本的離線比對 |
 | 6 | ~~**B-05**~~ ✅ | ~~報告命名規範化~~ | 低 | 低 | **已修復 (2026-07-14)** — 報告輸出路徑改為動態 `evaluation-report-{timestamp}.md`，與 baseline JSON 時間戳對齊 |
 | 7 | **B-16** | 依賴清單瘦身 | 中 | 低 | 面試官紅旗項目，清理後展現工程素養 |
