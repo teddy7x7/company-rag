@@ -512,3 +512,23 @@ uv run python evaluation/baseline.py compare \
 **設計細節**：當 `compare --subset` 且 `--current` 未指定（live 路徑）時，baseline 快照的比對鍵從 `avg_*` 自動映射為 `subset_avg_*`（全量 `save` 時已內嵌），避免空值比對造成假性 regression。
 
 `README.md` CLI 說明 + `baseline.py` argparse epilog 同步新增 `--subset` 範例。
+
+---
+
+### 🗺️ [B-09] Chat UI 歡迎引導語 ✅ (2026-07-14)
+
+**問題本質**：Gradio Chat UI 啟動後，用戶面對空白對話框，沒有任何提示說明系統知識範圍，求職展示時面試官可能輸入範圍外的問題，造成負面第一印象。
+
+**修復範圍**：`utils/answer.py` — `SYSTEM_PROMPT`；`app.py` — Gradio UI 佈局
+
+| 修改項目 | 說明 |
+|---------|------|
+| `SYSTEM_PROMPT`（`answer.py`） | 新增四大分類知識範圍說明（company / products / employees / contracts），讓 LLM 在問題超出範圍時能主動引導 |
+| `"If you don't know..."` 語句 | 改為「politely say so and suggest what kinds of questions you can help with」，從消極承認改為主動引導 |
+| 補充一行 | 新增 `"If you don't know the answer, say so, or ask for clarification."` 處理知識庫內但資訊不足的情況 |
+| `Chatbot value=WELCOME_MESSAGE` | 啟動即顯示四大分類 emoji bullet list 歡迎訊息 |
+| 標題副標（`app.py`） | 由 `"Ask me anything about Insurellm!"` 改為明確列出四大分類 |
+| `Textbox` placeholder | 由通用描述改為具體示範問句 |
+| `gr.Examples`（新增） | 三個示範問題涵蓋 products / employees / contracts，點擊即填入輸入框 |
+
+**設計原則**：`SYSTEM_PROMPT` 的知識範圍說明刻意保持簡短（4 行 bullet list），產品的 8 個名稱列出是必要的，但合約細節、員工名稱等完全不進入 prompt，依賴 RAG 檢索，避免 prompt 過度冗長。

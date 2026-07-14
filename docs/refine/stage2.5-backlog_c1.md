@@ -126,15 +126,16 @@
 
 ---
 
-### [B-09] `answer.py` SYSTEM_PROMPT 缺乏引導語 — 用戶不知道可以問什麼
+### ~~[B-09] `answer.py` SYSTEM_PROMPT 缺乏引導語 — 用戶不知道可以問什麼~~ ✅ 已修復
 
 - **發現管道**：人工發現（使用者在 draft 中指出）
 - **嚴重程度**：低（程式碼微調）
-- **影響分析**：
-  Gradio Chat UI 啟動後，用戶面對空白對話框，不知道系統的知識範圍涵蓋哪些（company、contracts、employees、products）。在求職展示場景下，面試官可能隨意輸入一個問題然後得到不佳的回答，造成負面第一印象。
-- **預計 Refine 方案**：
-  1. 在 `app.py` 中為 `Chatbot` 設定初始歡迎訊息，引導用戶針對四大分類進行提問
-  2. 提供 2-3 個 example questions 作為 Gradio UI 的 `examples` 參數
+- **狀態**：✅ **已修復 (2026-07-14)**
+- **修復內容**：
+  1. `answer.py` 的 `SYSTEM_PROMPT` 新增四大分類說明（company / products / employees / contracts），並將原本籠統的「If you don't know the answer, say so」改為「If a question falls outside the above areas, politely say so and suggest what kinds of questions you can help with」，讓 LLM 有足夠 context 主動引導用戶
+  2. `app.py` 的 `Chatbot` 加入初始 `value=WELCOME_MESSAGE`，啟動即顯示 emoji 引導訊息（含四大分類 bullet list）
+  3. `app.py` 標題副標改為明確列出四大分類；`Textbox` placeholder 改為具體示範問句
+  4. 新增 `gr.Examples` 提供三個涵蓋 products / employees / contracts 的示範問題，點擊即可填入輸入框
 
 ---
 
@@ -324,7 +325,7 @@
 | 7 | **B-16** | 依賴清單瘦身 | 中 | 低 | 面試官紅旗項目，清理後展現工程素養 |
 | 8 | **B-13** | `rewrite_query` 傳入 history | 低 | 低 | 一行修改，修復多輪對話的指代消解能力 |
 | 9 | **B-14** | ChromaDB lazy init | 低 | 低 | 改善測試可 mock 性和 CI 穩定性 |
-| 10 | **B-09** | Chat UI 歡迎引導語 | 低 | 低 | 展示面優化，幾分鐘可完成 |
+| 10 | ~~**B-09**~~ ✅ | ~~Chat UI 歡迎引導語~~ | 低 | 低 | **已修復 (2026-07-14)** — `Chatbot` 加入歡迎訊息、`gr.Examples` 示範問題、`SYSTEM_PROMPT` 補充四大分類說明 |
 | 11 | **B-02** | 動態分層抽樣 | 中 | 中 | 需設計選取策略，但提升回歸測試可靠度 |
 | 12 | **B-07** | 回歸閾值百分比化 | 低 | 低 | 統計精確度提升，改動不大 |
 | 13 | **B-15** | 報告失敗案例根因分類 | 中 | 中 | 依賴 B-01，提升 Harness 展示力 |

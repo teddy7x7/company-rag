@@ -29,17 +29,44 @@ def main():
     theme = gr.themes.Soft(font=["Inter", "system-ui", "sans-serif"])
 
     with gr.Blocks(title="Insurellm Expert Assistant", theme=theme) as ui:
-        gr.Markdown("# 🏢 Insurellm Expert Assistant\nAsk me anything about Insurellm!")
+        gr.Markdown("# 🏢 Insurellm Expert Assistant\nAsk me about Insurellm's **products**, **employees**, **contracts**, or **company background**.")
 
         with gr.Row():
             with gr.Column(scale=1):
+                WELCOME_MESSAGE = [
+                    {
+                        "role": "assistant",
+                        "content": (
+                            "👋 Hi! I'm the Insurellm Expert Assistant.\n\n"
+                            "I can answer questions about:\n"
+                            "- 🏢 **Company** — history, culture, and overview\n"
+                            "- 🛡️ **Products** — Carllm, Homellm, Lifellm, Healthllm, Bizllm, Claimllm, Markellm, Rellm\n"
+                            "- 👥 **Employees** — roles, compensation, and performance\n"
+                            "- 📄 **Contracts** — client agreements, pricing, and SLAs\n\n"
+                            "What would you like to know?"
+                        ),
+                    }
+                ]
                 chatbot = gr.Chatbot(
-                    label="💬 Conversation", height=600, type="messages", show_copy_button=True
+                    label="💬 Conversation",
+                    height=600,
+                    type="messages",
+                    show_copy_button=True,
+                    value=WELCOME_MESSAGE,
                 )
                 message = gr.Textbox(
                     label="Your Question",
-                    placeholder="Ask anything about Insurellm...",
+                    placeholder="e.g. What products does Insurellm offer?",
                     show_label=False,
+                )
+                gr.Examples(
+                    examples=[
+                        "What AI-powered insurance products does Insurellm offer?",
+                        "Who is the CEO of Insurellm and what is their background?",
+                        "What are the key terms of the contract with DriveSmart Insurance?",
+                    ],
+                    inputs=message,
+                    label="Example Questions",
                 )
 
             with gr.Column(scale=1):
