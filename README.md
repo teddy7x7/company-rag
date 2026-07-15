@@ -253,6 +253,9 @@ uv run python evaluation/report.py evaluation/baselines/20260713_172437_v1_basel
 | [ADR-001](docs/adr/adr-001-evaluation-metrics.md) | Evaluation Metrics Selection — MRR + nDCG + LLM-as-a-Judge over BLEU/ROUGE |
 | [ADR-002](docs/adr/adr-002-model-hierarchy.md) | Decoupled Model Tier Hierarchy — Utility vs. Generation vs. Judge |
 | [ADR-003](docs/adr/adr-003-regression-testing.md) | Regression Testing Strategy — Critical-case subset gating for CI |
+| [ADR-004](docs/adr/adr-004-framework-free-architecture.md) | Framework-free Vanilla RAG Architecture Selection — No-Framework Architecture |
+| [ADR-005](docs/adr/adr-005-semantic-chunking.md) | AI-Assisted Semantic Chunking Strategy — Headline + Summary extraction |
+| [ADR-006](docs/adr/adr-006-input-output-guardrails.md) | Dual-Guardrail Architecture — Input Intent Routing & Output Self-Reflection |
 
 ---
 
