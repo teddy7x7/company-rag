@@ -306,7 +306,7 @@
   1. 將 `distances` 保存到 `Result.metadata` 中
   2. 在 `fetch_context()` 中加入可配置的 distance threshold，過濾明顯不相關的 chunks
   3. 此修改是 B-08（Guardrails）的前置依賴之一
-
+  4. **CLI 參數容錯優化**：在 `baseline.py compare` 中解析 `--baseline` 與 `--current` 檔案內容時，加入 `try/except json.JSONDecodeError` 區塊，當使用者誤傳入 `.md` 報告等非 JSON 檔案時，輸出友善的錯誤提示引導，避免拋出 Python Traceback。
 ---
 
 ### ~~[B-22] 整合測試與評估執行體驗欠佳 — 缺少直觀比對與進度條~~ ✅ 已修復
@@ -318,7 +318,6 @@
   1. **`test_prompt_regression.py` 輸出優化**：如果發現 Regression 退化，除了 AssertionError 警告之外，現在還會直接輸出與 `baseline.py compare` 完全一致的指標比較對照表格，並包含在 assertion 的錯誤訊息中，方便 CI log 追查。
   2. **抽取公共函數**：將 `baseline.py` 的表格輸出邏輯，抽取成公共函數 `format_comparison_table()` 並在 `tests/test_prompt_regression.py` 與 `evaluation/baseline.py` 中共用，提升程式碼品質 (DRY)。
   3. **加入 `tqdm` 進度條**：在 `run_subset_evaluation()` 與 `run_full_evaluation()` 內部導入 `tqdm`，大幅改善執行 150 筆或子集測試時「在終端機靜止等待數十秒」的體驗。
-  4. **CLI 參數容錯優化**：在 `baseline.py compare` 中解析 `--baseline` 與 `--current` 檔案內容時，加入 `try/except json.JSONDecodeError` 區塊，當使用者誤傳入 `.md` 報告等非 JSON 檔案時，輸出友善的錯誤提示引導，避免拋出 Python Traceback。
 
 ---
 
