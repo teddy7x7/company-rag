@@ -1,0 +1,113 @@
+{
+  "avg_mrr": 0.7916666666666666,
+  "avg_ndcg": 0.8010058710225303,
+  "avg_coverage": 91.66666666666666,
+  "avg_accuracy": 4.285714285714286,
+  "avg_completeness": 4.142857142857143,
+  "avg_relevance": 4.571428571428571,
+  "failed_count": 0,
+  "is_reliable": true,
+  "errors": [],
+  "detail_results": [
+    {
+      "question": "Who won the prestigious IIOTY award in 2023?",
+      "category": "direct_fact",
+      "generated_answer": "Maxine Thompson won the prestigious Insurellm IIOTY (Innovator of the Year) award in 2023.",
+      "feedback": "The generated answer is factually correct, identifying Maxine Thompson as the winner of the prestigious IIOTY award in 2023, matching the reference answer. It includes the award's full name, Insurellm Innovator of the Year, though it abbreviates 'Innovator of the Year' as 'IIOTY' and abbreviates the awarding organization as 'Insurellm' as in the reference. The answer fully addresses the question with no extraneous information. Therefore, it is accurate, complete, and relevant.",
+      "metrics": {
+        "mrr": 0.6666666666666666,
+        "ndcg": 0.6666666666666666,
+        "keyword_coverage": 66.66666666666666,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "When did Maxine Thompson join Insurellm?",
+      "category": "temporal",
+      "generated_answer": "Maxine Thompson joined Insurellm in early 2017.",
+      "feedback": "The generated answer is mostly accurate but less specific than the reference answer. While the reference states Maxine Thompson joined Insurellm in January 2017 as a Junior Data Engineer, the generated answer only mentions \"early 2017\" without specifying the exact month or role. The generated answer is relevant, as it directly responds to the question about when she joined Insurellm, but it lacks the complete detail of the job title provided in the reference. Therefore, the accuracy is good but not perfect, completeness is moderate due to missing job title and exact month, and relevance is high since it focuses solely on the timing as asked.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9809995735297916,
+        "keyword_coverage": 100.0,
+        "accuracy": 4.0,
+        "completeness": 2.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How much did Priya Sharma's recommendation engine increase conversion by for Marketllm?",
+      "category": "comparative",
+      "generated_answer": "Priya Sharma's recommendation engine for Marketllm increased conversion by 28%.",
+      "feedback": "The generated answer correctly states the increase in conversion (28%) attributed to Priya Sharma's recommendation engine for Marketllm, which perfectly aligns with the reference answer. While the reference mentions that Priya Sharma built the engine, the question focuses specifically on the conversion increase, which the answer addresses directly and adequately. Therefore, the answer is accurate, complete in regard to the question, and relevant without including extraneous information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9732402630493958,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How many claims does FastTrack Insurance Services project for year 1?",
+      "category": "numerical",
+      "generated_answer": "FastTrack Insurance Services projects 22,000 claims in year 1 for their contract with Insurellm's Claimllm platform.",
+      "feedback": "The generated answer is factually correct and includes the exact number of claims (22,000) projected for year 1, matching the reference answer. It also adds that these claims are for the contract with Insurellm's Claimllm platform, which is additional information not present in the reference answer. While this extra detail is accurate, it is not required and makes the answer slightly less relevant to the question's focus. Overall, the answer is accurate and complete in terms of the core information, but the added contract detail slightly reduces its relevance.",
+      "metrics": {
+        "mrr": 0.5,
+        "ndcg": 0.6486515004905744,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "What are the core insurance portals offered by Insurellm?",
+      "category": "relationship",
+      "generated_answer": "Insurellm offers five core insurance portals across different lines of insurance:\n\n1. **Carllm** – Auto insurance platform designed for insurers.\n2. **Homellm** – Home insurance platform for insurers.\n3. **Lifellm** – Life insurance platform featuring AI-powered underwriting.\n4. **Healthllm** – Comprehensive health insurance platform.\n5. **Bizllm** – Commercial insurance platform serving business coverage needs.\n\nThese platforms provide specialized tools and features tailored to their respective insurance lines.",
+      "feedback": "The generated answer is factually accurate in listing all five core insurance portals offered by Insurellm, matching the reference answer exactly. It is complete in covering all the portals mentioned in the reference, but it also adds extra descriptions about each platform which were not present in the reference answer. While these additions might be informative, they go beyond the direct scope of the question. Thus, the answer is very relevant but slightly less so because of the additional details that weren't requested. Overall, the answer is well-constructed and accurate but not perfectly aligned with the brevity of the reference answer.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8868729617566372,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "What product does the IIOTY award winner work on?",
+      "category": "spanning",
+      "generated_answer": "The IIOTY (Insurellm Innovator of the Year) 2023 award winner is Maxine Thompson. She is a Senior Data Engineer at Insurellm and has been involved in strategic data initiatives, but the Knowledge Base does not specify a particular product she works on. Therefore, I cannot confirm exactly which product Maxine Thompson works on based on the available information.",
+      "feedback": "The generated answer correctly identifies Maxine Thompson as the IIOTY 2023 award winner and her role as a Senior Data Engineer, consistent with the reference answer. It also accurately states that no specific product she works on is mentioned in the knowledge base, which aligns with the reference answer's lack of that information. However, the question specifically asks about the product the award winner works on, and neither answer provides this information. The generated answer appropriately addresses this by stating the lack of such information. The answer is factually correct and somewhat complete given the limited information, but it includes additional context about strategic data initiatives that is not requested, reducing its relevance slightly. Overall, the answer is accurate and thorough in addressing the question as best as possible given the data, with minor relevance issues due to additional explanation beyond the specific question.",
+      "metrics": {
+        "mrr": 0.75,
+        "ndcg": 0.75,
+        "keyword_coverage": 75.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "How many employees at Insurellm have a current salary under $80,000?",
+      "category": "holistic",
+      "generated_answer": "At Insurellm, only one employee currently has a salary under $80,000:\n\n- Emily Carter: Current base salary is $70,000 (2023).\n\nAll other documented employees have current salaries exceeding $80,000.",
+      "feedback": "The generated answer is inaccurate because it states that only one employee has a salary under $80,000, while the reference answer mentions multiple employees (Tyler Brooks and Alex Harper) with salaries under $80,000. It is also incomplete, as it fails to mention the other employees identified in the reference. However, the answer is relevant as it does attempt to directly respond to the question without providing extraneous information. Overall, the generated answer is factually incorrect and omits key employees with salaries under $80,000.",
+      "metrics": {
+        "mrr": 0.625,
+        "ndcg": 0.7006101316646468,
+        "keyword_coverage": 100.0,
+        "accuracy": 1.0,
+        "completeness": 2.0,
+        "relevance": 5.0
+      }
+    }
+  ],
+  "timestamp": "20260715_134048",
+  "label": "v3_subset_check"
+}

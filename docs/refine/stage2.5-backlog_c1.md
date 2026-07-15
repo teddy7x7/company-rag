@@ -221,18 +221,16 @@
 
 ---
 
-### [B-16] `pyproject.toml` 依賴清單包含大量未使用套件 — 面試官紅旗
+### ~~[B-16] `pyproject.toml` 依賴清單包含大量未使用套件 — 面試官紅旗~~ ✅ 已修復
 
 - **發現管道**：AI 識別（`stage1-analysis.md` 優化 1 已指出）+ 本次代碼覆查確認
 - **嚴重程度**：中（一般優化）
-- **影響分析**：
-  `pyproject.toml` 包含了 8 個 `langchain-*` 相關套件（`langchain`, `langchain-chroma`, `langchain-community`, `langchain-core`, `langchain-openai`, `langchain-text-splitters`, `langchain-huggingface`, `langchain-ollama`, `langchain-anthropic`, `langchain-experimental`），但 V2 的核心代碼已完全脫離 LangChain 框架，這些依賴完全未被使用。此外 `scikit-learn`, `plotly`, `tiktoken` 也未被任何模塊 import。
-  - 面試官看到一個「不用 LangChain」的 RAG 項目，依賴列表卻包含整個 LangChain 生態系，會立刻質疑專案的工程素養和清理程度
-  - `uv sync` 安裝了大量不必要的套件，拉長 CI build 時間和 Docker image 體積
-- **預計 Refine 方案**：
-  1. 清理 `pyproject.toml`，只保留實際 import 的套件：`chromadb`, `gradio`, `litellm`, `openai`, `pandas`, `python-dotenv`, `tqdm`, `tenacity`, `pydantic`, `numpy`
-  2. 若保留 `langchain` 作為 V1 歷史紀錄的說明，改為在 README 中提及而非放在依賴中
-  3. 清理後重新 `uv sync` 並驗證所有功能正常
+- **狀態**：✅ **已修復 (2026-07-15)**
+- **修復內容**：
+  1. 從 `pyproject.toml` 移除 14 個未使用的依賴：全部 10 個 `langchain-*` 套件、`scikit-learn`、`plotly`、`tiktoken`、`numpy`
+  2. 保留 9 個實際被 import 的套件：`chromadb`, `gradio`, `litellm`, `openai`, `pandas`, `pydantic`, `python-dotenv`, `tenacity`, `tqdm`
+  3. `numpy` 作為 `chromadb`/`pandas` 的 transitive dependency 仍可用，無需顯式宣告
+  4. 執行 `uv sync --all-extras --dev` 重新生成 lockfile，`pytest -m "not integration"` 全數通過
 
 ---
 
@@ -311,6 +309,18 @@
 
 ---
 
+### ~~[B-22] 整合測試與評估執行體驗欠佳 — 缺少直觀比對與進度條~~ ✅ 已修復
+
+- **發現管道**：人工發現（使用者在測試回歸時指出）+ 聯檢碰撞
+- **嚴重程度**：中（一般優化）
+- **狀態**：✅ **已修復 (2026-07-15)**
+- **修復內容**：
+  1. **`test_prompt_regression.py` 輸出優化**：如果發現 Regression 退化，除了 AssertionError 警告之外，現在還會直接輸出與 `baseline.py compare` 完全一致的指標比較對照表格，並包含在 assertion 的錯誤訊息中，方便 CI log 追查。
+  2. **抽取公共函數**：將 `baseline.py` 的表格輸出邏輯，抽取成公共函數 `format_comparison_table()` 並在 `tests/test_prompt_regression.py` 與 `evaluation/baseline.py` 中共用，提升程式碼品質 (DRY)。
+  3. **加入 `tqdm` 進度條**：在 `run_subset_evaluation()` 與 `run_full_evaluation()` 內部導入 `tqdm`，大幅改善執行 150 筆或子集測試時「在終端機靜止等待數十秒」的體驗。
+
+---
+
 ## 優先級排序建議
 
 | 優先級 | 編號 | 名稱 | 嚴重度 | 難度 | 理由 |
@@ -321,7 +331,7 @@
 | 4 | ~~**B-03**~~ ✅ | ~~CLI `--subset` flag~~ | 中 | 低 | **已修復 (2026-07-14)** — 新增 `--subset` flag，`run`/`save`/`compare` 全部支援子集模式 |
 | 5 | ~~**B-04**~~ ✅ | ~~`compare` 離線比對兩份快照~~ | 中 | 低 | **已修復 (2026-07-14)** — 新增 `--baseline`/`--current` 參數，支援零 API 成本的離線比對 |
 | 6 | ~~**B-05**~~ ✅ | ~~報告命名規範化~~ | 低 | 低 | **已修復 (2026-07-14)** — 報告輸出路徑改為動態 `evaluation-report-{timestamp}.md`，與 baseline JSON 時間戳對齊 |
-| 7 | **B-16** | 依賴清單瘦身 | 中 | 低 | 面試官紅旗項目，清理後展現工程素養 |
+| 7 | ~~**B-16**~~ ✅ | ~~依賴清單瘦身~~ | 中 | 低 | **已修復 (2026-07-15)** — 移除 14 個未使用依賴（含全部 langchain-*），保留 9 個實際 import 的套件 |
 | 8 | **B-13** | `rewrite_query` 傳入 history | 低 | 低 | 一行修改，修復多輪對話的指代消解能力 |
 | 9 | **B-14** | ChromaDB lazy init | 低 | 低 | 改善測試可 mock 性和 CI 穩定性 |
 | 10 | ~~**B-09**~~ ✅ | ~~Chat UI 歡迎引導語~~ | 低 | 低 | **已修復 (2026-07-14)** — `Chatbot` 加入歡迎訊息、`gr.Examples` 示範問題、`SYSTEM_PROMPT` 補充四大分類說明 |
@@ -336,12 +346,44 @@
 | 19 | **B-20** | 生成後自我檢查（Self-Reflection） | 中 | 高 | 可攔截低品質回答，但增加 LLM 調用成本，需權衡 |
 | 20 | **B-08** | 輸入安全過濾（Guardrails） | 高 | 高 | 涉及分類器設計、UI 聯動、多路邏輯，是最大的功能增量 |
 | 21 | **B-11** | eval.py async 重構 | 中 | 高 | 全鏈路異步化工作量大，但長期必要 |
+| 22 | ~~**B-22**~~ ✅ | ~~評估體驗優化 (compare/tqdm)~~ | 低 | 低 | **已修復 (2026-07-15)** — 新增 tqdm 進度條與 pytest 整合測試 Regression 對照表格輸出，共用 format_comparison_table 邏輯 |
 
 ---
 
 ## 第三步決策建議
 
 - ✅ ~~**B-01 + B-06 + B-18**：嚴重度高且難度低，建議立即修復後重新 commit，不需要等到階段 3。~~
-- **B-03 / B-04 / B-05 / B-13 / B-14 / B-16**：一組低難度的快速優化，可打包為一個 commit。其中 B-16（依賴清單瘦身）是面試官的紅旗項目，建議優先處理。
+- ✅ ~~**B-03 / B-04 / B-05 / B-16 / B-22**：一組低難度的快速優化。其中 B-16（依賴清單瘦身）與 B-22（整合測試表格與進度條）已優先處理。~~
 - **B-08（Guardrails）+ B-20（Self-Reflection）+ B-21（distance 過濾）**：構成一個完整的「輸入→輸出品質防護」功能集。設計複雜度高，建議獨立規劃為一個完整 Sprint，不與文檔工程（階段 3）混在一起。
-- 其餘中/低優先級項目 → 封存紀錄，直接挺進階段 3 文檔工程，並將此清單轉化為 README 的「Future Roadmap」展現成長思維。
+- 其餘中/低優先級項目（B-02, B-07, B-10~B-14, B-15, B-19） → 封存紀錄，直接挺進階段 3 文檔工程，並將此清單轉化為 README 的「Future Roadmap」展現成長思維。
+
+---
+
+## Sprint C1 封板紀錄
+
+> **封板日期**：2026-07-15  
+> **已修復**：13/22 項（B-01, B-03~B-06, B-09, B-16~B-18, B-22 + B-01, B-06, B-18）  
+> **決策**：封存剩餘 9 項，進入 Workflow 階段 3（文檔工程）
+
+### 下一 Sprint 規劃（品質防護功能集）
+
+| 編號 | 名稱 | 角色 |
+|------|------|------|
+| **B-21** | `fetch_context_unranked` 返回 distance | 前置依賴（為 B-08 提供 distance 資料） |
+| **B-08** | 輸入安全過濾（Guardrails） | 核心功能（輸入端品質防護） |
+| **B-20** | 生成後自我檢查（Self-Reflection） | 核心功能（輸出端品質防護） |
+
+### 封存項目（視需要在未來 Sprint 處理）
+
+| 編號 | 名稱 | 備註 |
+|------|------|------|
+| B-02 | 動態分層抽樣 | 回歸測試可靠度提升 |
+| B-07 | 回歸閾值百分比化 | 統計精確度改善 |
+| B-10 | answer.py 檢索並行化 | 延遲優化 |
+| B-11 | eval.py async 重構 | 全鏈路異步化 |
+| B-12 | ingest.py embedding 批次拆分 | 擴展性 |
+| B-13 | `rewrite_query` 傳入 history | 多輪對話指代消解 |
+| B-14 | ChromaDB lazy init | 測試 mock 性 |
+| B-15 | 報告失敗案例根因分類 | Harness 展示力 |
+| B-19 | `temp/` 檢查腳本模組化 | 可選遷移 |
+

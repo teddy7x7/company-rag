@@ -3,6 +3,7 @@ from evaluation.baseline import (
     run_subset_evaluation,
     load_latest_baseline,
     check_regression,
+    format_comparison_table,
     CRITICAL_CASE_INDICES
 )
 
@@ -44,12 +45,18 @@ def test_prompt_regression():
             # Fallback: compare subset against full run baseline (less precise, but works)
             mapped_baseline[target_key] = baseline.get(target_key, 0.0)
 
-    # 4. Check for regressions
+    # 4. Build comparison table
+    baseline_label = baseline.get('label', 'unknown')
+    table_output = format_comparison_table(mapped_baseline, current_subset, baseline_label, "live")
+    print(table_output)
+
+    # 5. Check for regressions
     regressions = check_regression(current_subset, mapped_baseline)
     
-    # 5. Assert no quality degradation
+    # 6. Assert no quality degradation
     assert not regressions, (
         f"🚨 RAG Prompt Regression Detected!\n"
-        f"Compared current subset against baseline snapshot ({baseline.get('label', 'unknown')}):\n" +
+        f"{table_output}\n\n"
+        f"Regression Details:\n" +
         "\n".join(f"  - {r}" for r in regressions)
     )

@@ -11,6 +11,7 @@ sys.path.append(str(Path(__file__).parent.parent))
 from evaluation.test import load_tests
 from evaluation.eval import evaluate_retrieval, evaluate_answer
 from evaluation.report import generate_markdown_report
+from tqdm import tqdm
 import config
 
 BASELINE_DIR = Path(__file__).parent / "baselines"
@@ -52,7 +53,7 @@ def run_subset_evaluation(indices: list[int] = CRITICAL_CASE_INDICES) -> dict:
     errors = []       # Collect per-case error details
     failed_count = 0  # Number of cases that raised an exception
 
-    for idx, test in enumerate(subset_tests):
+    for idx, test in enumerate(tqdm(subset_tests, desc="Fast Subset Evaluation")):
         orig_idx = indices[idx]
         print(f" [Subset {idx + 1}/{total_tests}] (Orig Index #{orig_idx}) Question: {test.question[:50]}...")
 
@@ -152,9 +153,9 @@ def run_full_evaluation():
     sub_relevance = 0.0
     sub_count = 0
 
-    for idx, test in enumerate(tests):
+    for idx, test in enumerate(tqdm(tests, desc="Full Evaluation")):
         print(f" [{idx + 1}/{total_tests}] Question: {test.question[:50]}...")
-
+        
         try:
             # Retrieval Evaluation
             ret_eval = evaluate_retrieval(test)
@@ -316,6 +317,24 @@ def check_regression(current: dict, baseline: dict) -> list[str]:
                 )
     return warnings
 
+def format_comparison_table(baseline: dict, current: dict, baseline_label: str = "unknown", current_label: str = "live") -> str:
+    """Format a comparison table showing metrics differences between current run and baseline."""
+    table_lines = []
+    table_lines.append("\n📊 Comparing current run to baseline...")
+    table_lines.append(f"  Metric           | Baseline ({baseline_label}) | Current ({current_label}) | Delta")
+    table_lines.append("  " + "-" * 75)
+
+    metrics = ["avg_mrr", "avg_ndcg", "avg_coverage", "avg_accuracy", "avg_completeness", "avg_relevance"]
+    for m in metrics:
+        base_val = baseline.get(m, 0.0)
+        curr_val = current.get(m, 0.0)
+        diff = curr_val - base_val
+        # prevent extremely small negative diff from being printed as -0.0000
+        diff_str = f"{diff + 0.0:+.4f}"
+        table_lines.append(f"  {m:<16} | {base_val:.4f} | {curr_val:.4f} | {diff_str}")
+    
+    return "\n".join(table_lines)
+
 def main():
     parser = argparse.ArgumentParser(
         description="Insurellm RAG Evaluation Baseline Snapshot Tool",
@@ -438,20 +457,10 @@ examples:
         else:
             baseline_for_compare = baseline
 
-        print("\n📊 Comparing current run to baseline...")
-        print(f"  Metric | Baseline ({baseline_for_compare.get('label', 'unknown')}) | Current ({current.get('label', 'live')}) | Delta")
-        print("  " + "-" * 75)
+        baseline_label = baseline_for_compare.get('label', 'unknown')
+        current_label = current.get('label', 'live')
 
-        metrics = ["avg_mrr", "avg_ndcg", "avg_coverage", "avg_accuracy", "avg_completeness", "avg_relevance"]
-        for m in metrics:
-            base_val = baseline_for_compare.get(m, 0.0)
-            curr_val = current.get(m, 0.0)
-            diff = curr_val - base_val
-            # diff_str = f"+{diff:.4f}" if diff >= 0 else f"{diff:.4f}"
-            # prevent extremely small negative diff from being printed as -0.0000
-            diff_str = f"{diff + 0.0:+.4f}"
-
-            print(f"  {m:<16} | {base_val:.4f} | {curr_val:.4f} | {diff_str}")
+        print(format_comparison_table(baseline_for_compare, current, baseline_label, current_label))
 
         warnings = check_regression(current, baseline_for_compare)
         if warnings:
