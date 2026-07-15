@@ -293,7 +293,6 @@ To review unresolved edge cases, systemic bottlenecks, and the upcoming feature 
 - **Asynchronous Evaluation Harness (P1)**: Migrate the evaluation suite to `asyncio` and `litellm.acompletion()` with token-bucket semaphores to speed up benchmark runs by 10x (see [B-11](docs/refine/stage2.5-backlog_c1.md#b-11)).
 - **Generative Self-Correction Loop (P2)**: Implement a reflection/critique step where the LLM evaluates its generated answer against retrieved context, triggering automatic query rewriting and supplementary vector search if details are incomplete (see [B-20](docs/refine/stage2.5-backlog_c1.md#b-20)).
 - **Dynamic Stratified Sampling (P2)**: Transition the regression suite from hardcoded file indices to a dynamic, category-representative sampling logic that auto-validates category coverage (see [B-02](docs/refine/stage2.5-backlog_c1.md#b-02)).
-- **Evaluation UX & Tooling Upgrades (P2)**: Support offline file-to-file baseline comparisons (`baseline.py compare --baseline A.json --current B.json`) and auto-name reports dynamically (see [B-04](docs/refine/stage2.5-backlog_c1.md#b-04)).
 - **Dual-Query Retrieval Parallelization (P3)**: Utilize thread pools to concurrently fetch vector embeddings for the original and rewritten queries (see [B-10](docs/refine/stage2.5-backlog_c1.md#b-10)).
 - **Streaming Response support (P3)**: Enable token-streaming generator output in the RAG backend and wire it to Gradio for better interface interactivity (see [B-17](docs/refine/stage2.5-backlog_c1.md#b-17)).
 
