@@ -226,9 +226,16 @@ uv run python evaluation/baseline.py compare
 uv run python evaluation/baseline.py compare --subset
 
 # [Offline] Compare two existing snapshots directly — no API calls, no cost
+# Note: Pass .json snapshot files from evaluation/baselines/, NOT the rendered .md reports!
 uv run python evaluation/baseline.py compare \
     --baseline evaluation/baselines/20260709_175414.json \
     --current  evaluation/baselines/20260714_122443.json
+
+# [Offline] Compare a subset snapshot against a full baseline snapshot (requires --subset flag)
+uv run python evaluation/baseline.py compare \
+    --baseline evaluation/baselines/20260715_134048_v3_subset_check.json \
+    --current  evaluation/baselines/20260715_143829_v3_baseline.json \
+    --subset
 
 # [Optional] Retroactively generate a report from the latest snapshot
 uv run python evaluation/report.py
@@ -257,7 +264,6 @@ While the core dataset and fundamental step-by-step pipeline concepts stem from 
 ### Key Milestones Achieved
 
 - SSOT Configuration ([`config.py`](config.py)): Centralized model management with a decoupled model tier hierarchy (gpt-4.1-mini/nano).
-- Rigorous Testing Suite ([`pytest`](https://docs.pytest.org/en/latest/)): 100% test coverage on core math operations (MRR, nDCG, DCG) and retrieval deduplication logic (merge_chunks).
 - Rigorous Testing Suite ([`pytest`](https://docs.pytest.org/en/latest/)): 100% test coverage on core math operations (MRR, nDCG, DCG) and retrieval deduplication logic (merge_chunks).
 - CI/CD Automation: Integrated with GitHub Actions and uv package manager for instant pipeline verification on every push/PR.
 - Baseline Snapshots & Regression Gate: Implemented a CLI tool ([`baseline.py`](evaluation/baseline.py)) that captures JSON snapshots of system metrics and triggers a CI failure (exit code 1) if quality drops by >5%.

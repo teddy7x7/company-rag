@@ -1,0 +1,2116 @@
+{
+  "model_utility": "openai/gpt-4.1-nano",
+  "model_generation": "openai/gpt-4.1-mini",
+  "model_judge": "openai/gpt-4.1-mini",
+  "avg_mrr": 0.8718397784169596,
+  "avg_ndcg": 0.8438429903166005,
+  "avg_coverage": 93.81431767337807,
+  "avg_accuracy": 4.416107382550336,
+  "avg_completeness": 4.2885906040268456,
+  "avg_relevance": 4.4630872483221475,
+  "subset_avg_mrr": 0.7567460317460316,
+  "subset_avg_ndcg": 0.759461337705189,
+  "subset_avg_coverage": 91.66666666666666,
+  "subset_avg_accuracy": 4.285714285714286,
+  "subset_avg_completeness": 4.428571428571429,
+  "subset_avg_relevance": 4.571428571428571,
+  "failed_count": 1,
+  "is_reliable": true,
+  "errors": [
+    {
+      "index": 9,
+      "question": "How many Bizllm contracts has Insurellm secured?",
+      "error": "[Case 10] APITimeoutError: Request timed out."
+    }
+  ],
+  "detail_results": [
+    {
+      "question": "Who won the prestigious IIOTY award in 2023?",
+      "category": "direct_fact",
+      "generated_answer": "Maxine Thompson won the prestigious Insurellm Innovator of the Year (IIOTY) Award in 2023.",
+      "feedback": "The generated answer accurately states that Maxine Thompson won the prestigious Insurellm Innovator of the Year (IIOTY) Award in 2023, matching the reference answer exactly. It is complete as it covers all information provided in the reference answer without omission. The answer is also directly relevant to the question, providing only the requested information without adding unnecessary details. Overall, it is a perfect match to the reference answer in terms of accuracy, completeness, and relevance.",
+      "metrics": {
+        "mrr": 0.6666666666666666,
+        "ndcg": 0.6666666666666666,
+        "keyword_coverage": 66.66666666666666,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "When was Insurellm founded?",
+      "category": "direct_fact",
+      "generated_answer": "Insurellm was founded in 2015 by Avery Lancaster as an insurance tech startup aimed at innovating the insurance industry.",
+      "feedback": "The generated answer correctly states that Insurellm was founded in 2015, which matches the reference answer and thus is factually accurate. However, it includes additional information about the founder (Avery Lancaster) and that it is an insurance tech startup aimed at innovating the insurance industry, which is not present in the reference answer. While this extra detail may be accurate, it goes beyond the reference. On completeness, the generated answer addresses the founding year but adds more information that was not in the reference, so it includes all the reference's information and more. For relevance, the answer slightly diverges by adding extra details beyond the founding year, which may not be necessary for the question asked.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9746942842426549,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "Who founded Insurellm?",
+      "category": "direct_fact",
+      "generated_answer": "Insurellm was founded by Avery Lancaster in 2015.",
+      "feedback": "The generated answer is factually correct, stating that Avery Lancaster founded Insurellm in 2015, which exactly matches the reference answer. It is complete as it includes both the founder's name and the founding year, addressing all the information in the reference answer. The answer is also relevant, directly responding to the question without adding extraneous details. Therefore, it meets the criteria for a perfect answer.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9197207891481876,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How many employees does Insurellm currently have?",
+      "category": "direct_fact",
+      "generated_answer": "Insurellm currently has 32 employees.",
+      "feedback": "The generated answer correctly states that Insurellm has 32 employees, matching the reference answer's information. However, it omits the time context \"as of 2025,\" which could be important for completeness since the number of employees can change over time. The answer is relevant as it directly addresses the question without any irrelevant details. Overall, the answer is accurate but slightly incomplete due to the missing time context.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.967468329167325,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 4.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What was Insurellm's first product?",
+      "category": "direct_fact",
+      "generated_answer": "Insurellm's first product was Markellm, a marketplace connecting consumers with insurance providers. It was the company's original flagship product when Insurellm was founded in 2015.",
+      "feedback": "The generated answer correctly identifies Insurellm's first product as Markellm, a marketplace connecting consumers with insurance providers, matching the reference answer perfectly in terms of factual content. However, it adds extra information about it being the company's original flagship product and that Insurellm was founded in 2015, which was not present in the reference answer. Therefore, while the answer is accurate and complete, it is not completely aligned in relevance because it provides additional context beyond the question and reference answer.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9170921800179138,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "How many active contracts does Insurellm manage?",
+      "category": "direct_fact",
+      "generated_answer": "Insurellm manages a total of 32 active contracts across all eight of its product lines.",
+      "feedback": "The generated answer correctly states that Insurellm manages 32 active contracts and mentions all eight product lines, aligning well with the reference answer. It slightly elaborates by using \"across all eight of its product lines\" instead of \"spanning all eight product lines,\" which does not change the meaning. The response is accurate, complete, and relevant to the question asked, providing exactly the information required without unnecessary additions.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9259795222585336,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "Where is Insurellm's headquarters located?",
+      "category": "direct_fact",
+      "generated_answer": "Insurellm's headquarters is located in San Francisco.",
+      "feedback": "The generated answer perfectly matches the reference answer, correctly stating that Insurellm's headquarters is located in San Francisco. It directly addresses the question without adding any extra information, making it fully relevant. The answer is complete as it includes all the information provided in the reference answer.",
+      "metrics": {
+        "mrr": 0.75,
+        "ndcg": 0.8154648767857288,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How many office locations does Insurellm maintain?",
+      "category": "direct_fact",
+      "generated_answer": "As of 2025, Insurellm maintains its headquarters in San Francisco along with satellite offices in four other key US markets: New York, Austin, Chicago, and Denver. So, in total, Insurellm has 5 office locations.",
+      "feedback": "The generated answer correctly states the total number of office locations (5) and lists all the specific cities mentioned in the reference answer, thus matching its factual accuracy. It provides the same essential information about office locations, making it complete in addressing the question. However, it additionally mentions the headquarters status and specifies \"as of 2025,\" which were not present in the reference answer, causing it to include extra information beyond what was asked. Therefore, while accurate and complete, it is not fully relevant as it goes beyond the direct answer to the question.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9704764131096726,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "What is Insurellm's vision statement?",
+      "category": "direct_fact",
+      "generated_answer": "Insurellm's vision statement is:  \n\"To revolutionize the insurance industry through innovative technology that makes insurance accessible, transparent, and effortless for everyone.\"",
+      "feedback": "The generated answer closely matches the reference answer in content and meaning, accurately reflecting Insurellm's vision to revolutionize the insurance industry through innovative technology for accessibility, transparency, and effortlessness. The only minor difference is the addition of \"for everyone\" at the end, which is not present in the reference. However, this addition does not detract from the accuracy or completeness; rather, it is a slight expansion. The generated answer is appropriately relevant and directly answers the question without unrelated information. Overall, it is very accurate, complete, and relevant with a minimal and acceptable paraphrasing.",
+      "metrics": {
+        "mrr": 0.8333333333333334,
+        "ndcg": 0.8685353533035608,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How many Claimllm contracts does Insurellm have?",
+      "category": "direct_fact",
+      "generated_answer": "Insurellm has three active contracts for its Claimllm platform. These contracts are with:\n\n1. National Claims Network Corp.\n2. Rapid Claims Associates, LLC\n3. FastTrack Insurance Services\n\nIf you need details about any specific contract, feel free to ask!",
+      "feedback": "The generated answer is factually incorrect as it states Insurellm has three Claimllm contracts with specific organizations, while the reference states that Insurellm has 7 contracts without listing any details. It also includes additional information about the contract partners and an offer to provide more details, which is extraneous compared to the reference answer. The generated answer fails to cover the total number of contracts correctly and does not mention the range \"from independent adjusting firms to enterprise claims networks\" described in the reference. Therefore, it is incomplete and somewhat irrelevant because it gives specific contract names instead of directly answering the question with the correct count as in the reference. Overall, the answer is inaccurate, incomplete, and includes unnecessary details not supported by the reference.",
+      "metrics": {
+        "mrr": 0.5714285714285714,
+        "ndcg": 0.6325752167342303,
+        "keyword_coverage": 100.0,
+        "accuracy": 1.0,
+        "completeness": 2.0,
+        "relevance": 3.0
+      }
+    },
+    {
+      "question": "How many life insurance contracts has Lifellm secured?",
+      "category": "direct_fact",
+      "generated_answer": "Lifellm has secured 6 life insurance contracts with clients ranging from small regional providers to major national carriers.",
+      "feedback": "The generated answer accurately states that Lifellm has secured 6 life insurance contracts, matching the reference answer. It also mentions the range of clients, from small regional providers to major national carriers, which corresponds well to the reference mentioning \"carriers from small regional providers to major national groups.\" However, the generated answer uses the term \"clients\" instead of \"carriers,\" which is a minor difference but does not change the factual content. Overall, the generated answer covers all aspects of the reference answer and directly responds to the question without adding irrelevant information. Therefore, it is very accurate, complete, and relevant.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8908338883345507,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How many health insurance contracts does Healthllm have?",
+      "category": "direct_fact",
+      "generated_answer": "Healthllm has 6 active health insurance contracts.",
+      "feedback": "The generated answer correctly states the number of health insurance contracts Healthllm has, which is 6, matching the reference answer. However, it omits the additional detail provided by the reference answer about the contracts including plans from regional insurers to multi-state healthcare alliances. This makes the generated answer less complete. On relevance, the answer directly addresses the question about the number of health insurance contracts without providing extra context, aligning well with the question's focus. Overall, the answer is accurate and relevant but less complete compared to the reference answer.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8242416701282489,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 3.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the monthly cost of Carllm's Basic Tier?",
+      "category": "direct_fact",
+      "generated_answer": "The monthly cost of Carllm's Basic Tier is $1,000.",
+      "feedback": "The generated answer perfectly matches the reference answer in stating the monthly cost of Carllm's Basic Tier as $1,000. It is accurate, complete, and directly relevant to the question without adding any extra information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9235948234968493,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the monthly cost of Carllm's Enterprise Tier?",
+      "category": "direct_fact",
+      "generated_answer": "The monthly cost of Carllm's Enterprise Tier is $5,000 per month under the standard subscription pricing. However, for large clients with customized needs, pricing may be adjusted as in the case of DriveSmart Insurance, which has a custom Enterprise Tier pricing starting at $18,000 per month. For general reference, the listed standard Enterprise Tier price is $5,000/month.",
+      "feedback": "The generated answer correctly states that Carllm's Enterprise Tier costs $5,000 per month, aligning with the reference answer, which makes it factually accurate. However, the reference answer only mentions the $5,000 per month price and provides no additional details about customized pricing for large clients. The generated answer includes extra details about a custom pricing case ($18,000 per month) for DriveSmart Insurance, which is not mentioned in the reference and thus is beyond the scope of the question. While the extra information is correct and informational, it affects relevance because the question specifically asked for the monthly cost of Carllm's Enterprise Tier in general, and the extra details are not required. Hence, the answer is accurate and complete with respect to the reference but slightly less relevant due to added information not requested.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8614610327249289,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "What is the monthly cost of Homellm's Standard Tier?",
+      "category": "direct_fact",
+      "generated_answer": "The monthly cost of Homellm's Standard Tier is starting at $10,000 per month. This tier is designed for medium-sized insurers and includes advanced analytics and reporting tools.",
+      "feedback": "The generated answer correctly states the monthly cost of Homellm's Standard Tier as $10,000 per month and that it is for medium-sized insurers, matching the reference answer. However, the generated answer includes additional information about advanced analytics and reporting tools, which was not requested and thus reduces relevance. The addition of \"starting at\" introduces slight uncertainty not present in the reference. Overall, it is factually accurate and fairly complete but slightly less relevant due to extra details.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.924156141069337,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "What is the monthly cost of Bizllm's Professional Tier?",
+      "category": "direct_fact",
+      "generated_answer": "The monthly cost of Bizllm's Professional Tier is $12,000 per month.",
+      "feedback": "The generated answer correctly states the monthly cost of Bizllm's Professional Tier as $12,000 per month, which matches the reference answer and is factually accurate. However, the reference answer includes the additional detail that this pricing is for multi-line carriers, which the generated answer omits. Since the question asks specifically for the monthly cost, the generated answer is relevant and directly addresses the question without any additional information. Overall, the answer is accurate and relevant, but slightly incomplete due to the missing context about multi-line carriers.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9732830912975995,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 4.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the monthly cost of Claimllm's Core Tier?",
+      "category": "direct_fact",
+      "generated_answer": "The monthly cost of Claimllm's Core Tier is $4,500 per month.",
+      "feedback": "The generated answer correctly states the monthly cost of Claimllm's Core Tier as $4,500 per month, matching the reference answer in accuracy. However, it does not mention the context about the Core Tier being suitable for smaller insurers processing up to 5,000 claims annually, which the reference includes. Therefore, it is accurate but lacks completeness regarding the usage scope. The answer is relevant as it directly addresses the question about the monthly cost without additional unrelated information. Overall, the answer is accurate and relevant but only partially complete.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9197811401176734,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 3.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the monthly cost of Healthllm's Essential Tier?",
+      "category": "direct_fact",
+      "generated_answer": "The monthly cost of Healthllm's Essential Tier is $8,000 per month.",
+      "feedback": "The generated answer correctly states the monthly cost of Healthllm's Essential Tier as $8,000 per month, completely matching the reference answer in accuracy. However, it lacks the additional detail that this pricing applies to regional health plans, which is important for full completeness. The answer is relevant as it directly addresses the question about the monthly cost without adding extraneous information. Overall, it is accurate and relevant but slightly incomplete due to missing context about the applicability to regional health plans.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9605939648568868,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 4.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the monthly cost of Lifellm's Starter Tier?",
+      "category": "direct_fact",
+      "generated_answer": "The monthly cost of Lifellm's Starter Tier is $3,500 per month.",
+      "feedback": "The generated answer correctly states that the monthly cost of Lifellm's Starter Tier is $3,500 per month, which aligns with the reference answer, giving it perfect accuracy. However, it omits the detail that this pricing is specifically for small insurers, which is part of the reference answer, resulting in a slight completeness deduction. The answer is fully relevant to the question asked and does not include any unnecessary information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 4.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the monthly cost of Rellm's Basic Plan?",
+      "category": "direct_fact",
+      "generated_answer": "The monthly cost of Rellm's Basic Plan is $5,000 per month.",
+      "feedback": "The generated answer is factually correct and matches the reference answer precisely in terms of the cost of the Basic Plan being $5,000 per month. It completely addresses the question by providing the exact monthly cost, and it is fully relevant since it directly answers the question without adding extraneous information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8910740312721441,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is Maxine Thompson's current job title?",
+      "category": "direct_fact",
+      "generated_answer": "Maxine Thompson's current job title is Senior Data Engineer.",
+      "feedback": "The generated answer exactly matches the reference answer, correctly stating Maxine Thompson's current job title as Senior Data Engineer. It fully addresses the question without including any extraneous information, making it clear and precise. Therefore, the answer is perfectly accurate, complete, and relevant.",
+      "metrics": {
+        "mrr": 0.75,
+        "ndcg": 0.7956176024115138,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is Maxine Thompson's current salary?",
+      "category": "direct_fact",
+      "generated_answer": "Maxine Thompson's current salary is $120,000.",
+      "feedback": "The generated answer perfectly matches the reference answer, providing the exact figure for Maxine Thompson's current salary. It is factually accurate with no discrepancies. The answer fully addresses the question by stating the salary amount, thus it is complete. Additionally, it is fully relevant, directly answering the question without any extra information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9909241621227651,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "Where is Maxine Thompson located?",
+      "category": "direct_fact",
+      "generated_answer": "Maxine Thompson is located in Austin, Texas.",
+      "feedback": "The generated answer exactly matches the reference answer, stating that Maxine Thompson is located in Austin, Texas. It is factually correct, provides a complete response to the question by including all the information given in the reference, and is directly relevant without adding any extraneous details.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is Avery Lancaster's job title?",
+      "category": "direct_fact",
+      "generated_answer": "Avery Lancaster's job title is Co-Founder & Chief Executive Officer (CEO) of Insurellm.",
+      "feedback": "The generated answer accurately states Avery Lancaster's job title as Co-Founder & Chief Executive Officer (CEO) of Insurellm, which matches the reference answer exactly in meaning and detail. The answer is complete, including all relevant elements from the reference, and is fully relevant to the question without adding extra information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is Avery Lancaster's current salary?",
+      "category": "direct_fact",
+      "generated_answer": "Avery Lancaster's current salary is $225,000.",
+      "feedback": "The generated answer exactly matches the reference answer in terms of factual content, directly addressing the question with the correct salary figure. It is complete, providing the full salary information without omission. Additionally, it is fully relevant, staying on point and giving no unnecessary details.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is James Wilson's job title?",
+      "category": "direct_fact",
+      "generated_answer": "James Wilson's job title is Chief Technology Officer (CTO) at Insurellm.",
+      "feedback": "The generated answer correctly states James Wilson's job title as Chief Technology Officer (CTO) at Insurellm, perfectly matching the reference answer. It addresses the question fully without adding unnecessary information, making it accurate, complete, and relevant.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is James Wilson's current salary?",
+      "category": "direct_fact",
+      "generated_answer": "James Wilson's current salary is $285,000 as his base salary. Additionally, he receives a bonus, which was $125,000 in 2023, along with an equity refresh.",
+      "feedback": "The generated answer accurately states James Wilson's current salary as $285,000, matching the reference answer. However, it also adds additional details about his bonus and equity refresh, which are not part of the reference answer. While factually correct, these extra details make the answer less relevant to the specific question about current salary only. Therefore, the completeness is full since the salary information is completely addressed, but relevance is slightly decreased due to additional information beyond the direct salary figure.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "What is Priya Sharma's job title?",
+      "category": "direct_fact",
+      "generated_answer": "Priya Sharma's job title is Senior Data Scientist.",
+      "feedback": "The generated answer correctly identifies Priya Sharma's job title as Senior Data Scientist, matching the reference answer accurately. However, it omits the company name 'Insurellm,' which is part of the complete information from the reference answer. While the question specifically asks for the job title, the reference includes the company, which adds completeness. Since the answer correctly addresses the primary question without adding irrelevant details, its relevance is high. Overall, the answer is accurate and relevant but slightly incomplete for not mentioning the company name.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 4.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is Priya Sharma's current salary?",
+      "category": "direct_fact",
+      "generated_answer": "Priya Sharma's current salary is $145,000.",
+      "feedback": "The generated answer exactly matches the reference answer by correctly stating Priya Sharma's current salary as $145,000. It fully addresses the question without omitting any information and does not provide any irrelevant details. Therefore, it is factually accurate, complete, and relevant.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is Robert Chen's job title?",
+      "category": "direct_fact",
+      "generated_answer": "Robert Chen's job title is Senior Full Stack Engineer.",
+      "feedback": "The generated answer is factually correct in stating Robert Chen's job title as Senior Full Stack Engineer, which matches the reference answer. However, it is slightly less complete as it does not include the workplace 'at Insurellm' mentioned in the reference. The answer is highly relevant as it directly responds to the question about Robert Chen's job title without adding extra information. Overall, the answer is mostly accurate and relevant but only partially complete because of missing the workplace detail.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9598603945740938,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 4.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is Robert Chen's current salary?",
+      "category": "direct_fact",
+      "generated_answer": "Robert Chen's current salary is $152,000 as base salary, plus a bonus of $28,000 for 2023.",
+      "feedback": "The generated answer accurately states Robert Chen's base salary as $152,000, which matches the reference answer. However, it adds information about an additional bonus of $28,000 for 2023, which is not included in the reference answer. This inclusion makes the answer factually accurate but not strictly aligned with the reference. Regarding completeness, the generated answer covers the base salary fully and adds extra information, so it is more complete than the reference answer. Finally, in terms of relevance, the answer provides the requested salary information but includes additional bonus details that were not asked for, which lowers relevance slightly.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 4.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "Which product does Robert Chen serve as technical lead for?",
+      "category": "direct_fact",
+      "generated_answer": "Robert Chen serves as the technical lead for the Homellm home insurance portal.",
+      "feedback": "The generated answer correctly identifies Robert Chen as the technical lead for the Homellm home insurance portal, exactly matching the information in the reference answer. It fully addresses the question asked without adding irrelevant information. The phrasing is slightly different but factually identical and equally complete.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9480165078856881,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is David Kim's job title?",
+      "category": "direct_fact",
+      "generated_answer": "David Kim's job title is DevOps Engineer.",
+      "feedback": "The generated answer correctly states David Kim's job title as DevOps Engineer, matching the reference answer. However, it omits the company name 'at Insurellm' mentioned in the reference, making it less complete. The answer is relevant as it directly answers the question without additional information. Overall, it is accurate but slightly incomplete compared to the reference.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9509759550202189,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 4.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is Sarah Williams's job title?",
+      "category": "direct_fact",
+      "generated_answer": "Sarah Williams's job title is UX Designer.",
+      "feedback": "The generated answer correctly identifies Sarah Williams's job title as UX Designer, which matches the reference answer, so it is factually accurate. However, it omits the additional information from the reference answer that she is at Insurellm, so it is incomplete. The answer is relevant as it directly addresses the question without giving extra or irrelevant information. Overall, while accurate and relevant, the answer lacks completeness by missing the employer's name.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 3.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "Which product does Sarah Williams lead design for?",
+      "category": "direct_fact",
+      "generated_answer": "Sarah Williams is a UX Designer at Insurellm, but there is no information indicating that she leads design for any specific product.",
+      "feedback": "The generated answer is factually incorrect compared to the reference answer, which states that Sarah Williams leads design for the Homellm home insurance portal. The answer inaccurately claims there is no information indicating she leads design for any product, missing the specific detail about Homellm. It lacks completeness as it does not cover this key information from the reference. The answer is relevant to the question but fails to provide the required specific product name, instead giving an incomplete response about her role. Therefore, the accuracy is very poor, completeness is poor, and relevance is moderate but insufficient without the critical product detail.",
+      "metrics": {
+        "mrr": 0.08333333333333333,
+        "ndcg": 0.1781035935540111,
+        "keyword_coverage": 50.0,
+        "accuracy": 1.0,
+        "completeness": 2.0,
+        "relevance": 3.0
+      }
+    },
+    {
+      "question": "What is Marcus Johnson's job title?",
+      "category": "direct_fact",
+      "generated_answer": "Marcus Johnson's job title is Customer Success Manager.",
+      "feedback": "The generated answer correctly identifies Marcus Johnson's job title as Customer Success Manager, which matches the reference answer. However, it omits the company name 'Insurellm' mentioned in the reference answer, so it is not fully complete. The answer stays relevant to the question by providing only the job title, without additional unrelated details. Overall, accuracy is high, completeness is moderate due to missing the company, and relevance is excellent as it directly answers the question.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8757176296037091,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 3.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is Marcus Johnson's client retention rate?",
+      "category": "direct_fact",
+      "generated_answer": "Marcus Johnson's client retention rate is 95% over the past three years.",
+      "feedback": "The generated answer is factually correct and matches the information provided in the reference answer exactly, stating a 95% client retention rate over the past three years. It addresses the question directly and completely without adding any extraneous information. Therefore, it is accurate, complete, and relevant to the question.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9889447361063385,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is Lisa Anderson's job title?",
+      "category": "direct_fact",
+      "generated_answer": "Lisa Anderson's job title is Marketing Manager.",
+      "feedback": "The generated answer correctly identifies Lisa Anderson's job title as Marketing Manager, matching the reference answer. However, it omits the company name \"at Insurellm\" provided in the reference answer, so it is not fully complete. The answer is relevant as it directly responds to the question without any extra information. Overall, the answer is factually accurate and relevant but slightly incomplete due to missing the affiliation with Insurellm.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9511070518646216,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 4.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the size of Lisa Anderson's annual marketing budget?",
+      "category": "direct_fact",
+      "generated_answer": "Lisa Anderson manages an annual marketing budget of $2 million.",
+      "feedback": "The generated answer is factually correct and matches the information given in the reference answer regarding the size of Lisa Anderson's annual marketing budget. It is complete in providing the full relevant information and directly addresses the question without adding irrelevant details. Although the wording differs slightly (using '$2 million' instead of '$2M'), the meaning is identical and does not affect correctness or completeness.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9744707726037023,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is Emily Carter's job title?",
+      "category": "direct_fact",
+      "generated_answer": "Emily Carter's job title is Account Executive.",
+      "feedback": "The generated answer correctly identifies Emily Carter's job title as 'Account Executive,' which is factually accurate according to the reference answer. However, it does not include the additional detail that Emily Carter works at 'Insurellm,' which is present in the reference answer. Therefore, while the core job title is correctly stated, the answer is not fully complete. The answer is relevant as it directly addresses the question asked without adding extra information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 3.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the contract number for DriveSmart Insurance's Carllm agreement?",
+      "category": "direct_fact",
+      "generated_answer": "The contract number for DriveSmart Insurance's Carllm agreement is CR-2025-E-0078.",
+      "feedback": "The generated answer exactly matches the reference answer in content and correctly provides the contract number for DriveSmart Insurance's Carllm agreement. It is factually accurate, complete, and fully relevant to the question without any extraneous information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the duration of the DriveSmart Insurance Carllm contract?",
+      "category": "direct_fact",
+      "generated_answer": "The duration of the DriveSmart Insurance Carllm contract is 36 months from the contract date of March 20, 2025.",
+      "feedback": "The generated answer correctly states the duration of the DriveSmart Insurance Carllm contract as 36 months, matching the reference answer, which ensures factual accuracy. However, the reference answer only mentions the duration (36 months) without specifying any contract date, while the generated answer adds an exact contract start date of March 20, 2025, information which is not provided in the reference and thus may be unsupported or extraneous. Therefore, while the core information is accurate and complete, the added contract date is not supported by the reference and introduces unnecessary detail. The answer is relevant as it addresses the duration question directly but includes additional information beyond what was asked and what the reference provides.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8418944558603894,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "What is the total contract value for DriveSmart Insurance's Carllm agreement?",
+      "category": "direct_fact",
+      "generated_answer": "The total contract value for DriveSmart Insurance's Carllm agreement is $702,000 over the 36-month contract term.",
+      "feedback": "The generated answer accurately states the total contract value as $702,000, matching the reference answer. It also correctly mentions the 36-month duration, which aligns with the reference. The completeness is high as all information from the reference answer is included, and the explanation is clear. The answer is relevant and directly responds to the question without adding unrelated information, though the wording \"contract term\" instead of \"term\" is negligible and does not affect meaning. Overall, the answer meets all criteria effectively.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9505063052105347,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How many active auto policies does DriveSmart Insurance have?",
+      "category": "direct_fact",
+      "generated_answer": "DriveSmart Insurance currently has 85,000 active auto policies across 8 states.",
+      "feedback": "The generated answer exactly matches the reference answer in terms of factual content and scope, correctly stating that DriveSmart Insurance has 85,000 active auto policies across 8 states. It is fully complete as it includes all relevant details from the reference answer. While the question only asks for the number of active auto policies, the additional information about the 8 states is accurate and relevant context rather than extraneous information since it relates directly to the active policies. Therefore, the answer is perfectly accurate, complete, and relevant.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9151603069539509,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the uptime SLA guarantee for DriveSmart Insurance?",
+      "category": "direct_fact",
+      "generated_answer": "The uptime SLA guarantee for DriveSmart Insurance under their contract with Insurellm is 99.9% platform uptime measured monthly. For each 0.1% below this target, DriveSmart Insurance receives an 8% monthly fee credit, up to a maximum of 40% monthly credit.",
+      "feedback": "The generated answer correctly states the 99.9% platform uptime guarantee as given in the reference answer, maintaining perfect accuracy. However, the reference only mentions the 99.9% uptime guarantee, while the generated answer adds information about the credit deductions for uptime below the target, which is not included in the reference. This additional information, while possibly useful, makes the answer less relevant as it goes beyond what was asked and what the reference provides. Therefore, completeness is 5 because it covers all information from the reference, but relevance is 3 because it includes more details than necessary, not strictly answering only the question with information from the reference.",
+      "metrics": {
+        "mrr": 0.7333333333333334,
+        "ndcg": 0.8090852688843722,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 3.0
+      }
+    },
+    {
+      "question": "Who signed the DriveSmart Insurance contract on behalf of Insurellm?",
+      "category": "direct_fact",
+      "generated_answer": "The DriveSmart Insurance contract on behalf of Insurellm was signed by Jennifer Rodriguez, the Chief Executive Officer.",
+      "feedback": "The generated answer is factually correct, identifying Jennifer Rodriguez as the signer on behalf of Insurellm, aligning perfectly with the reference answer. It is also complete, including the relevant detail of her position as Chief Executive Officer, which is equivalent to CEO in the reference answer. The answer is fully relevant and directly addresses the question without extraneous information. Therefore, it meets all the criteria for a perfect answer.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8988614447725133,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the monthly payment for Greenstone Insurance's Homellm contract?",
+      "category": "direct_fact",
+      "generated_answer": "There is no information available about a contract between Insurellm and Greenstone Insurance for the Homellm product. If you have more details or if you meant a different company, please let me know so I can assist you further.",
+      "feedback": "The generated answer is factually incorrect as it states there is no information about a contract between Insurellm and Greenstone Insurance for the Homellm product, while the reference answer clearly states that Greenstone Insurance pays $10,000 per month for the Standard Tier of the Homellm service. It fails to provide the monthly payment amount, thus it is incomplete. The answer is also not relevant as it does not directly address the question about the monthly payment for Greenstone Insurance's Homellm contract but instead argues about absence of a contract between two other parties, which was not the question. Overall, the answer misses the key factual information (monthly payment amount) and does not answer the question asked.",
+      "metrics": {
+        "mrr": 0.5,
+        "ndcg": 0.5,
+        "keyword_coverage": 50.0,
+        "accuracy": 1.0,
+        "completeness": 1.0,
+        "relevance": 2.0
+      }
+    },
+    {
+      "question": "What tier did Harmony Health Plans subscribe to for Healthllm?",
+      "category": "direct_fact",
+      "generated_answer": "Harmony Health Plans subscribed to the Professional Tier for Healthllm.",
+      "feedback": "The generated answer is factually correct and matches the reference answer precisely. It correctly identifies the tier as the Professional Tier that Harmony Health Plans subscribed to for Healthllm. The answer is complete because it includes all the information provided in the reference answer, with no omissions. It is also directly relevant, addressing the specific question without adding any unnecessary information. The only minor difference is the use of \"for Healthllm\" instead of \"of Healthllm,\" which does not affect accuracy or completeness and is acceptable.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8683760798253136,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the monthly cost for Harmony Health Plans' Healthllm subscription?",
+      "category": "direct_fact",
+      "generated_answer": "Harmony Health Plans subscribes to the Professional Tier of Healthllm at a cost of $15,000 per month.",
+      "feedback": "The generated answer is factually accurate and matches the reference answer in stating the cost and tier of the Healthllm subscription. It completely addresses the question including both the monthly cost and the subscription tier. However, it adds extra information by stating 'subscribes to' which is a minor rephrasing but still directly relevant. Overall, the answer fully and precisely answers the question about the monthly cost and plan tier without introducing irrelevant details.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9463768953850228,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How many covered members does Harmony Health Plans have?",
+      "category": "direct_fact",
+      "generated_answer": "Harmony Health Plans currently covers 38,000 members across 3 states.",
+      "feedback": "The generated answer exactly matches the reference answer in wording and content. It correctly states that Harmony Health Plans currently covers 38,000 members across 3 states, which directly answers the question about the number of covered members. There is no extraneous information, and the response is factually accurate and complete as per the reference. Therefore, the answer scores perfectly in all dimensions.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9138452245523476,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "Who signed the Harmony Health Plans contract on behalf of Insurellm?",
+      "category": "direct_fact",
+      "generated_answer": "The Harmony Health Plans contract was signed on behalf of Insurellm by Sarah Chen, Vice President of Sales, on January 25, 2025.",
+      "feedback": "The generated answer correctly identifies Sarah Chen, Vice President of Sales at Insurellm, as the signer of the Harmony Health Plans contract, fully matching the reference answer. It includes additional information about the date (January 25, 2025) which, while not mentioned in the reference answer, does not reduce correctness. The answer directly addresses the question without straying off-topic. Therefore, it is accurate, complete, and relevant. The additional date detail, though extra, does not detract from relevance since it is related to the contract signing event.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9207538340721974,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the contract number for Metropolitan Life Group's Lifellm agreement?",
+      "category": "direct_fact",
+      "generated_answer": "The contract number for Metropolitan Life Group's Lifellm agreement is LF-2025-E-0087.",
+      "feedback": "The generated answer exactly matches the reference answer in stating the contract number for Metropolitan Life Group's Lifellm agreement as LF-2025-E-0087. It is factually correct, complete, and directly relevant to the question without any extraneous information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the total contract value for Metropolitan Life Group's Lifellm agreement?",
+      "category": "direct_fact",
+      "generated_answer": "The total contract value for Metropolitan Life Group's Lifellm agreement is $1,098,000 over the 36-month contract term.",
+      "feedback": "The generated answer accurately states the total contract value as $1,098,000 and specifies the 36-month contract term, which is consistent with the reference answer. It is complete as it covers all information given in the reference, including both the total value and the contract term. However, the generated answer includes the word \"contract term\" while the reference says \"term,\" which is a negligible difference and does not affect correctness or completeness. The relevance is perfect as the answer directly addresses the question without any extraneous information.",
+      "metrics": {
+        "mrr": 0.75,
+        "ndcg": 0.8154648767857288,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How many active policies does Metropolitan Life Group manage?",
+      "category": "direct_fact",
+      "generated_answer": "Metropolitan Life Group manages over 50,000 active life insurance policies under its contract with Insurellm for the Lifellm platform.",
+      "feedback": "The generated answer correctly states that Metropolitan Life Group manages over 50,000 active policies, which aligns with the reference answer. However, it adds extra information about a contract with Insurellm for the Lifellm platform, which is not mentioned in the reference answer. While this additional detail is not incorrect, it goes beyond what was asked and the reference answer provides. Therefore, the accuracy is good, but not perfect since the extra information is not verified by the reference. The completeness is high since the number of policies is mentioned correctly, but it adds beyond the reference. The relevance is slightly reduced because the additional contract and platform information is irrelevant to the specific question about the number of active policies.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9598603945740938,
+        "keyword_coverage": 100.0,
+        "accuracy": 4.0,
+        "completeness": 4.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "Who signed the Metropolitan Life Group contract on behalf of the client?",
+      "category": "direct_fact",
+      "generated_answer": "The contract with Metropolitan Life Group for Lifellm does not specify the name of the individual who signed on behalf of the client, Metropolitan Life Group, in the provided information. If you need, I can assist with any other details about the contract or the parties involved.",
+      "feedback": "The generated answer fails to provide the requested factual information, specifically the identity of the individual who signed on behalf of Metropolitan Life Group. Instead, it states the absence of this information. This makes the answer factually incorrect compared to the reference, which clearly states that Richard Thompson, Chairman & CEO, signed the contract. Additionally, it lacks completeness because it omits the necessary details entirely. While it relates to the contract, it does not answer the question directly or effectively, diminishing its relevance.",
+      "metrics": {
+        "mrr": 0.5,
+        "ndcg": 0.5,
+        "keyword_coverage": 50.0,
+        "accuracy": 1.0,
+        "completeness": 1.0,
+        "relevance": 2.0
+      }
+    },
+    {
+      "question": "What tier did FastTrack Insurance Services subscribe to for Claimllm?",
+      "category": "direct_fact",
+      "generated_answer": "FastTrack Insurance Services subscribed to the Advanced Tier of the Claimllm platform.",
+      "feedback": "The answer is accurate, correctly stating that FastTrack Insurance Services subscribed to the Advanced Tier of Claimllm, which matches the reference answer. It is complete, covering all key information from the reference without omitting anything. The answer is also fully relevant to the specific question asked and does not provide any unnecessary additional information. The only minor difference is the addition of \"platform\" in the generated answer, which does not affect correctness or relevance.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9221548328041483,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the monthly payment for FastTrack Insurance Services' Claimllm contract?",
+      "category": "direct_fact",
+      "generated_answer": "The monthly payment for FastTrack Insurance Services' Claimllm contract is $9,500.",
+      "feedback": "The generated answer is accurate in stating the monthly payment amount of $9,500. However, it misses the detail that this payment is for the 'Claimllm Advanced Tier' contract, which is included in the reference answer. It is relevant to the question as it directly answers the monthly payment amount without extraneous information. Overall, it is mostly correct but not fully complete due to the missing tier specification.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9386076576690247,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 3.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the duration of the FastTrack Insurance Services contract?",
+      "category": "direct_fact",
+      "generated_answer": "The duration of the FastTrack Insurance Services contract for Claimllm is 18 months, starting from the contract date of May 10, 2025.",
+      "feedback": "The generated answer correctly states the duration of the FastTrack Insurance Services contract as 18 months, which aligns with the reference answer. However, it adds the specific start date of May 10, 2025, which is not mentioned in the reference answer. While the additional detail is not incorrect, it was not part of the reference and therefore goes beyond the requested information. The answer is accurate and complete regarding the duration but slightly less relevant due to the extra information.",
+      "metrics": {
+        "mrr": 0.125,
+        "ndcg": 0.21533827903669653,
+        "keyword_coverage": 50.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "Who signed the FastTrack Insurance Services contract on behalf of Insurellm?",
+      "category": "direct_fact",
+      "generated_answer": "The FastTrack Insurance Services contract was signed on behalf of Insurellm by Sarah Chen, Vice President of Sales, on May 10, 2025.",
+      "feedback": "The generated answer accurately identifies Sarah Chen, Vice President of Sales, as the person who signed the FastTrack Insurance Services contract on behalf of Insurellm, which matches the reference answer. However, it includes the additional detail of the signing date (May 10, 2025), which is not present in the reference answer. While this extra information is factually correct and does not contradict the reference, it is not required by the question and thus affects relevance. The completeness is high since all key information from the reference (name and title) is included. Overall, the answer is accurate and complete but slightly less relevant due to additional details not asked for.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9386076576690247,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "What tier did Atlantic Risk Solutions subscribe to for Bizllm?",
+      "category": "direct_fact",
+      "generated_answer": "Atlantic Risk Solutions subscribed to the Professional Tier of Bizllm.",
+      "feedback": "The generated answer exactly matches the reference answer in content, stating that Atlantic Risk Solutions subscribed to the Professional Tier of Bizllm. It is factually correct, provides complete information relevant to the question, and contains no extraneous details. Therefore, it is accurate, complete, and relevant as per the evaluation criteria.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9552947415921157,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the monthly cost for Atlantic Risk Solutions' Bizllm subscription?",
+      "category": "direct_fact",
+      "generated_answer": "The monthly cost for Atlantic Risk Solutions' Bizllm subscription is $12,000. They are subscribed to the Professional Tier of Bizllm at this rate.",
+      "feedback": "The generated answer is factually accurate and matches the reference answer's information about the monthly cost being $12,000. It also correctly identifies the subscription tier as the Professional Tier, which is consistent with the reference. Therefore, it fully covers the completeness aspect by including both the cost and the subscription tier. The answer is highly relevant as it directly responds to the question about the monthly cost of Atlantic Risk Solutions' Bizllm subscription without deviating or adding unnecessary details. Overall, the answer is accurate, complete, and relevant, mirroring the reference information closely.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9251724527673773,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How many user licenses are included in Atlantic Risk Solutions' contract?",
+      "category": "direct_fact",
+      "generated_answer": "Atlantic Risk Solutions' contract includes 35 named user licenses. Additional users can be added at $180 per month per license.",
+      "feedback": "The generated answer correctly states that Atlantic Risk Solutions' contract includes 35 named user licenses, matching the reference answer exactly. However, it adds information about additional users being available at a cost ($180 per month per license), which is not present in the reference answer. While this extra information might be useful, it goes beyond what was asked regarding how many user licenses are included. Therefore, the accuracy is perfect, and the completeness covers the reference answer fully, but the relevance is slightly reduced due to the additional, unnecessary detail beyond the question's scope.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9251724527673773,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "Who signed the Atlantic Risk Solutions contract on behalf of Insurellm?",
+      "category": "direct_fact",
+      "generated_answer": "I could not find any information about a contract with Atlantic Risk Solutions or the signatory from Insurellm for such a contract in the available knowledge base. \n\nIf you have any other questions about Insurellm's contracts or need information on other clients or products, please let me know!",
+      "feedback": "The generated answer does not provide the correct information regarding who signed the Atlantic Risk Solutions contract on behalf of Insurellm; it claims no information is available, which is factually incorrect according to the reference. It fails to identify Michael Torres as the signatory, omitting essential information and thus lacking completeness. Furthermore, while it is somewhat relevant by addressing the contract signing question, it does not directly answer it and instead adds unnecessary extra information about other potential inquiries, reducing relevance. Overall, the answer is inaccurate, incomplete, and only partially relevant.",
+      "metrics": {
+        "mrr": 0.5,
+        "ndcg": 0.5,
+        "keyword_coverage": 50.0,
+        "accuracy": 1.0,
+        "completeness": 1.0,
+        "relevance": 3.0
+      }
+    },
+    {
+      "question": "What is the monthly fee for Belvedere Insurance's Markellm listing?",
+      "category": "direct_fact",
+      "generated_answer": "Belvedere Insurance pays a monthly Basic Listing Fee of $199 for their featured listing on the Markellm platform.",
+      "feedback": "The generated answer correctly states the monthly fee amount ($199) and associates it with Belvedere Insurance for their listing related to the Markellm platform. However, the original reference answer does not specify \"featured\" listing, only a Basic Listing Fee for accessing the platform. The generated answer adds \"featured listing\" which is not indicated in the reference, so this slightly reduces factual accuracy. The completeness is high because the fee and the monthly frequency are included, but the mention of \"featured\" listing introduces an inconsistency not supported by the reference. In terms of relevance, the answer addresses the monthly fee for Belvedere Insurance's Markellm listing directly and succinctly, perhaps adding a small extra term but no irrelevant information. Overall, the answer is mostly accurate and complete but introduces a minor inaccuracy by calling it a \"featured listing\" instead of just a listing with a Basic Listing Fee.",
+      "metrics": {
+        "mrr": 0.6,
+        "ndcg": 0.6813204310447318,
+        "keyword_coverage": 100.0,
+        "accuracy": 4.0,
+        "completeness": 4.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "When did Maxine Thompson join Insurellm?",
+      "category": "temporal",
+      "generated_answer": "Maxine Thompson joined Insurellm in early 2017 as a Junior Data Engineer.",
+      "feedback": "The generated answer correctly identifies the year and the role Maxine Thompson joined Insurellm, which aligns well with the reference answer. However, it states \"early 2017\" instead of the precise \"January 2017\" found in the reference, lacking exactness. The generated answer also adds the role \"Junior Data Engineer\", which is present in the reference, thus maintaining completeness. The answer is relevant to the question without unnecessary information. Overall, the slight difference in the date specificity affects accuracy but not completeness or relevance.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.952932650787154,
+        "keyword_coverage": 100.0,
+        "accuracy": 4.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "When did James Wilson join Insurellm?",
+      "category": "temporal",
+      "generated_answer": "James Wilson joined Insurellm in January 2017 as Chief Technology Officer.",
+      "feedback": "The generated answer is factually accurate and matches the reference answer in terms of when James Wilson joined Insurellm. It also includes his title, Chief Technology Officer, which is present in the reference answer. Regarding completeness, the generated answer covers all the information given in the reference answer. In terms of relevance, the answer directly responds to the question about when James Wilson joined Insurellm, though it also adds his position; this additional detail is related and not off-topic. Overall, the answer is correct, complete, and relevant, but because it includes extra information beyond just the date, it does not fully meet the strict relevance criteria as it gives more than just the joining date. Therefore, relevance is rated slightly below perfect.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "When did Insurellm reach its peak of 200 employees?",
+      "category": "temporal",
+      "generated_answer": "Insurellm reached its peak of 200 employees by the year 2020.",
+      "feedback": "The generated answer is factually correct and matches the information given in the reference answer, stating that Insurellm reached its peak of 200 employees in 2020. It fully addresses the question without adding any irrelevant information, making it complete and relevant. The slight wording difference ('by the year 2020' vs. 'in 2020') does not affect factual accuracy or completeness.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8138704547369809,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "When did Insurellm undergo strategic restructuring?",
+      "category": "temporal",
+      "generated_answer": "Insurellm underwent strategic restructuring during the period of 2022 to 2023. This restructuring aimed to enhance profitability and sustainable growth and involved consolidating office locations, adopting a remote-first approach, and streamlining operations.",
+      "feedback": "The generated answer correctly states the timeframe of Insurellm's strategic restructuring as 2022 to 2023, matching the reference answer. It also accurately mentions the focus on profitability and sustainable growth. However, the generated answer adds details about consolidating office locations, adopting a remote-first approach, and streamlining operations, which are not mentioned in the reference answer. While these additions are relevant, the question only asks when the restructuring occurred, so including these extra details deviates slightly from strict relevance. Overall, the answer is accurate and mostly complete but slightly less relevant due to additional information beyond the question's scope.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8214539757194952,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 4.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "When is Carllm's telematics-based pricing feature scheduled to launch?",
+      "category": "temporal",
+      "generated_answer": "Carllm's telematics-based pricing feature is scheduled to launch in Q2 2025 as part of the customer experience improvements.",
+      "feedback": "The generated answer correctly states that Carllm's telematics-based pricing feature is scheduled to launch in Q2 2025, fully aligning with the reference answer. It also adds the extra detail that this launch is part of customer experience improvements, which, while not included in the reference answer, is relevant and does not detract from accuracy. The answer is accurate and complete regarding the launch timing, addressing all aspects of the question. However, it includes additional context beyond the reference answer, which is not strictly necessary to directly answer the question. Therefore, the relevance score is slightly lower due to this extra information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9259795222585336,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "When is Homellm version 2.0 scheduled for release?",
+      "category": "temporal",
+      "generated_answer": "Homellm version 2.0 is scheduled for release in Q1 2025. This version will include expanded predictive maintenance alerts and automated underwriting processes.",
+      "feedback": "The generated answer correctly states the scheduled release date for Homellm version 2.0 as Q1 2025, matching the reference answer exactly in factual information. However, it adds additional details about new features such as expanded predictive maintenance alerts and automated underwriting processes that are not present in the reference answer. While accurate, this extra information is not requested by the question and goes beyond the reference answer, affecting relevance and completeness scores. Overall, it is factually correct and mostly complete regarding the release date, but the added details reduce relevance and completeness since they are not part of the reference answer.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9276525422407511,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 4.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "When is Bizllm version 1.0 scheduled to launch?",
+      "category": "temporal",
+      "generated_answer": "Bizllm version 1.0 is scheduled to launch in Q2 2025.",
+      "feedback": "The generated answer accurately states the launch timing of Bizllm version 1.0 as Q2 2025, matching the reference answer perfectly. However, it lacks completeness because it omits the additional information about the core features included in the launch, namely multi-line underwriting, quoting, and policy administration. In terms of relevance, the answer is fully relevant as it directly addresses the question about the launch schedule without any extra or unrelated information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8696945509898235,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 3.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "When is Claimllm version 1.0 scheduled to launch?",
+      "category": "temporal",
+      "generated_answer": "Claimllm version 1.0 is scheduled to launch in Q1 2025. This initial release will include core claims processing automation, first notice of loss (FNOL) capture, and basic fraud detection.",
+      "feedback": "The generated answer is factually accurate, correctly stating that Claimllm version 1.0 is scheduled to launch in Q1 2025. It also includes all the features listed in the reference answer: core claims processing automation, FNOL capture, and basic fraud detection, thus addressing completeness well. However, it slightly expands on the abbreviations (spelling out first notice of loss for FNOL), which is an acceptable clarification rather than extra information. The additional phrase \"This initial release will include\" introduces some minor extra wording but does not add unrelated information. Overall, the answer is relevant, directly answering the launch timeframe and features question. The small elaborations do not detract from relevance but mean the answer includes slightly more than the minimal required. Nonetheless, the answer fulfills all aspects of the task effectively and accurately.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8806784707313948,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "When is Lifellm version 1.0 scheduled to launch?",
+      "category": "temporal",
+      "generated_answer": "Lifellm version 1.0 is scheduled to launch in Q2 2025. This release will include core AI underwriting and policy management capabilities.",
+      "feedback": "The generated answer is factually accurate, providing the correct launch timing (Q2 2025) and mentioning the key features (core AI underwriting and policy management capabilities) exactly as the reference answer does. It is complete in addressing the question, including all information from the reference answer. However, it offers slightly more context by mentioning \"This release will include,\" which is additional phrasing but does not add or detract from relevance. Overall, it directly answers the question about the scheduled launch date and associated capabilities. The slight extra wording is minor and does not affect relevance negatively as it stays within the scope of the question.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8777615733643014,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "When is Healthllm version 1.0 scheduled to launch?",
+      "category": "temporal",
+      "generated_answer": "Healthllm version 1.0 is scheduled to launch in Q1 2025. This initial release will feature core claims processing, eligibility verification, and a member portal.",
+      "feedback": "The generated answer is factually accurate and fully consistent with the reference answer regarding the launch timing and features of Healthllm version 1.0. It correctly states the launch period as Q1 2025 and includes the key features: core claims processing, eligibility verification, and member portal. The generated answer is complete because it covers all the information mentioned in the reference answer. Although it adds the phrase \"This initial release will feature,\" this does not detract from relevance since the question asks about the scheduled launch and the generated answer appropriately includes the launch timing and key features without adding unrelated information. Therefore, the relevance is high. The only minor issue is the use of a slightly more descriptive phrase regarding the features, but it remains fully relevant and accurate.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9200690902184272,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "When was the DriveSmart Insurance contract for Carllm signed?",
+      "category": "temporal",
+      "generated_answer": "The DriveSmart Insurance contract for Carllm was signed on March 20, 2025.",
+      "feedback": "The generated answer is exactly the same as the reference answer, stating the DriveSmart Insurance contract for Carllm was signed on March 20, 2025. It perfectly addresses the question with no additional information or omissions, making it fully accurate, complete, and relevant.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "When was the Harmony Health Plans Healthllm contract effective?",
+      "category": "temporal",
+      "generated_answer": "The contract between Insurellm and Harmony Health Plans for the Healthllm platform was effective as of January 25, 2025.",
+      "feedback": "The generated answer is factually accurate as it correctly states the contract became effective on January 25, 2025, matching the reference answer exactly. It is complete because it fully includes the effective date specified in the reference answer. However, it introduces additional information about \"Insurellm\" and the platform \"Healthllm\" which are not mentioned in the reference answer, making the answer less relevant as it goes beyond strictly answering when the contract was effective. Hence, while accurate and complete, it is slightly less relevant due to the extra details.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "When was the Metropolitan Life Group Lifellm contract signed?",
+      "category": "temporal",
+      "generated_answer": "The contract between Insurellm and Metropolitan Life Group for Lifellm was signed on April 5, 2025.",
+      "feedback": "The generated answer correctly provides the exact date of the contract signing, which matches the reference answer, thus it is factually accurate. It completely addresses the question by specifying when the contract was signed. However, the generated answer adds unnecessary information about \"Insurellm\" which is not mentioned in the reference and is not asked for in the question. Despite this slight deviation, the core answer remains relevant and on-topic. Overall, the answer is accurate and complete but slightly less relevant due to the additional information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9386076576690247,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "When was the FastTrack Insurance Services Claimllm contract signed?",
+      "category": "temporal",
+      "generated_answer": "The contract between Insurellm and FastTrack Insurance Services for Claimllm was signed on May 10, 2025.",
+      "feedback": "The generated answer correctly states the signing date of the contract as May 10, 2025, matching the reference answer exactly. It also identifies the parties involved (Insurellm and FastTrack Insurance Services) which is consistent with the question context. Therefore, it is factually accurate. It thoroughly addresses the question by fully answering when the contract was signed without leaving out any critical detail from the reference. However, the addition of party names that were not explicitly mentioned in the question or reference is slightly extra but still relevant. Overall, it directly answers the question with no off-topic information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "When was the Atlantic Risk Solutions Bizllm contract effective?",
+      "category": "temporal",
+      "generated_answer": "The Atlantic Risk Solutions Bizllm contract was effective as of January 15, 2025.",
+      "feedback": "The generated answer accurately states the effective date of the Atlantic Risk Solutions Bizllm contract as January 15, 2025, matching the reference answer. It fully addresses the question by providing the effective date and does not include any additional or irrelevant information. Therefore, it is factually correct, complete, and relevant to the question.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How much did Priya Sharma's recommendation engine increase conversion by for Marketllm?",
+      "category": "comparative",
+      "generated_answer": "Priya Sharma's recommendation engine for Marketllm increased conversion by 28%.",
+      "feedback": "The answer is factually correct and directly answers the question by stating that Priya Sharma's recommendation engine increased conversion by 28%, matching the reference answer. It is complete in providing the key information and relevant as it stays focused on the question without adding extra details.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "By what percentage did David Kim reduce deployment time with CI/CD pipelines?",
+      "category": "comparative",
+      "generated_answer": "David Kim reduced deployment time by 60% through implementing CI/CD pipelines.",
+      "feedback": "The answer is accurate as it correctly states the 60% reduction in deployment time associated with CI/CD pipelines, matching the reference answer. It is complete because it includes all relevant details from the reference, describing both the percentage reduction and the role of CI/CD pipelines. It is also relevant, directly answering the question without adding extraneous information. Overall, the answer fully aligns with the reference in content and focus.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9454593576170368,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "By what percentage did Sarah Williams improve user satisfaction scores?",
+      "category": "comparative",
+      "generated_answer": "The available information about Sarah Williams does not include any details on user satisfaction scores or any related improvements. Therefore, I don't have data on the percentage by which she improved user satisfaction scores. If you have another question or need information about a different topic, feel free to ask!",
+      "feedback": "The generated answer is factually incorrect because it states that there is no information about Sarah Williams improving user satisfaction scores, while the reference answer clearly states that she improved user satisfaction scores by 35%. The generated answer is incomplete as it does not provide the key information about the percentage of improvement, and it fails to address the question fully. While relevant in staying on topic about Sarah Williams and user satisfaction scores, its refusal to provide the correct percentage makes it not fully relevant to the question, which specifically asks by what percentage she improved satisfaction scores. Therefore, the answer is inaccurate, incomplete, and only partially relevant due to lack of the precise improvement percentage.",
+      "metrics": {
+        "mrr": 0.6666666666666666,
+        "ndcg": 0.75,
+        "keyword_coverage": 100.0,
+        "accuracy": 1.0,
+        "completeness": 1.0,
+        "relevance": 3.0
+      }
+    },
+    {
+      "question": "By what percentage has Lisa Anderson increased qualified leads since 2021?",
+      "category": "comparative",
+      "generated_answer": "Lisa Anderson has increased qualified leads by 65% since 2021.",
+      "feedback": "The generated answer is factually correct and aligns perfectly with the reference answer by stating that Lisa Anderson increased qualified leads by 65% since 2021. It directly answers the question without any extraneous information, making it fully relevant. The completeness is also high as it covers the exact percentage increase asked. The only minor difference is the use of present perfect tense 'has increased' rather than simple past 'increased,' but this does not affect accuracy or completeness.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9746942842426549,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "By what percentage did Emily Carter exceed her annual sales target in 2022?",
+      "category": "comparative",
+      "generated_answer": "Emily Carter exceeded her annual sales target by 30% in 2022.",
+      "feedback": "The generated answer exactly matches the reference answer, stating that Emily Carter exceeded her annual sales target by 30% in 2022. It is factually correct, complete, and fully relevant to the question without adding any unnecessary information.",
+      "metrics": {
+        "mrr": 0.8333333333333334,
+        "ndcg": 0.8455983517152551,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the performance-based pricing for Belvedere Insurance's Markellm contract?",
+      "category": "comparative",
+      "generated_answer": "The performance-based pricing for Belvedere Insurance's Markellm contract is $25 per lead generated through the Markellm platform.",
+      "feedback": "The generated answer correctly states the performance-based pricing model for Belvedere Insurance's Markellm contract as $25 per lead generated, matching the reference answer precisely. It includes all critical information from the reference answer, mentioning both the amount ($25) and that it is per lead generated through the Markellm platform, which is exactly what the reference indicates. The answer is directly relevant to the question asked without adding extraneous details. Overall, the generated answer is accurate, complete, and relevant.",
+      "metrics": {
+        "mrr": 0.625,
+        "ndcg": 0.7157679506544234,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the monthly cost for Stellar Insurance Co.'s Rellm subscription?",
+      "category": "comparative",
+      "generated_answer": "The monthly cost for Stellar Insurance Co.'s Rellm subscription is $10,000 for the Professional Plan.",
+      "feedback": "The generated answer accurately states the monthly cost of Stellar Insurance Co.'s Rellm subscription as $10,000 and specifies that it is for the Professional Plan, matching the reference answer exactly. It completely addresses the question by providing both the cost and the plan type, consistent with the reference. The answer is directly relevant, responding precisely to the question asked without adding unnecessary information. Overall, it is a perfect match to the reference answer in accuracy, completeness, and relevance.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8818788703035569,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What are Insurellm's four core values?",
+      "category": "comparative",
+      "generated_answer": "Insurellm's four core values are:\n\n1. **Innovation First**  \n   - Encouraging experimentation, risk-taking, creative problem-solving, and continuous learning to develop breakthrough insurance technology solutions.\n\n2. **Customer Obsession**  \n   - Focusing deeply on understanding and exceeding customer needs, delivering exceptional value, and building lasting partnerships.\n\n3. **Integrity & Transparency**  \n   - Operating with honesty, openness, ethical behavior, clear communication, and accountability to build trust internally and with clients.\n\n4. **Collaborative Excellence**  \n   - Valuing diverse perspectives, fostering teamwork, sharing knowledge freely, and empowering every team member to contribute their unique talents for collective success.",
+      "feedback": "The generated answer correctly identifies all four of Insurellm's core values exactly as stated in the reference answer, making it factually accurate. It is also complete in that it lists all four core values, matching the reference. However, the generated answer adds detailed explanations for each core value, which was not requested and goes beyond the scope of the question. While this additional information might be helpful in some contexts, it detracts slightly from relevance because the question simply asked for the core values, not descriptions. Therefore, the answer is accurate and complete but slightly less relevant due to extra information.",
+      "metrics": {
+        "mrr": 0.48333333333333334,
+        "ndcg": 0.6058431217693115,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "What award did Alex Harper win in 2022?",
+      "category": "comparative",
+      "generated_answer": "Alex Harper won the \"SDR of the Year\" award in 2022 for outstanding contributions.",
+      "feedback": "The generated answer accurately states that Alex Harper won the 'SDR of the Year' award in 2022 for outstanding contributions, which aligns perfectly with the reference answer. It completely addresses the question by mentioning both the name of the award and the year. Additionally, the answer is fully relevant, directly responding to the question with no extraneous information. Overall, the answer matches the reference in accuracy, completeness, and relevance.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9770592527588441,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "When was the Stellar Insurance Co. Rellm contract effective?",
+      "category": "comparative",
+      "generated_answer": "The contract between Insurellm and Stellar Insurance Co. for Rellm was effective on January 1, 2024.",
+      "feedback": "The generated answer correctly states the effective date of the Stellar Insurance Co. Rellm contract as January 1, 2024, which matches the reference answer. However, it introduces additional information about the contract being between Insurellm and Stellar Insurance Co., which was not mentioned in the reference and is not specifically asked for. The main question asked about the effective date of the Stellar Insurance Co. Rellm contract, and the answer provides this clearly and accurately. The added detail about Insurellm is irrelevant to the specific question and affects relevance slightly. Overall, the answer is factually accurate and complete regarding the effective date but is somewhat less relevant due to extra information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "How many claims does FastTrack Insurance Services project for year 1?",
+      "category": "numerical",
+      "generated_answer": "FastTrack Insurance Services projects 22,000 claims in year 1.",
+      "feedback": "The answer is perfectly accurate, directly matching the reference answer in stating that FastTrack Insurance Services projects 22,000 claims in year 1. It fully addresses the question without any missing information or irrelevant details. Therefore, it is complete and fully relevant.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9163391994306946,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How much annual revenue does Marcus Johnson's portfolio generate?",
+      "category": "numerical",
+      "generated_answer": "Marcus Johnson's portfolio generates $5 million in annual revenue.",
+      "feedback": "The generated answer correctly states the annual revenue of $5 million, matching the reference answer precisely, which makes it factually accurate. However, it omits the detail that Marcus Johnson's portfolio comprises 25 enterprise clients, which is part of the reference answer. Since completeness requires including all information present in the reference, this omission lowers the completeness score. The answer is directly relevant to the question asked, providing the specific annual revenue figure without additional unrelated information.",
+      "metrics": {
+        "mrr": 0.75,
+        "ndcg": 0.8154648767857288,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 3.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What percentage of quota did Jennifer Adams achieve in 2023?",
+      "category": "numerical",
+      "generated_answer": "In 2023, Jennifer Adams achieved 78% of her lead generation quota.",
+      "feedback": "The generated answer is factually accurate, stating that Jennifer Adams achieved 78% of her lead generation quota in 2023, matching the reference answer exactly. It is complete as it fully addresses the percentage of quota achieved with no missing key information. The relevance is also high because it directly answers the question about the percentage of quota achieved and does not include any extraneous information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8951932397747531,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How many products does Insurellm offer?",
+      "category": "numerical",
+      "generated_answer": "Insurellm offers a total of eight AI-powered insurance software products. These include five core insurance portals—Carllm (auto), Homellm (home), Lifellm (life), Healthllm (health), and Bizllm (commercial)—as well as three marketplace and infrastructure platforms: Markellm (marketplace), Claimllm (claims processing), and Rellm (enterprise reinsurance).",
+      "feedback": "The generated answer is factually accurate, stating that Insurellm offers eight products, which matches the reference. It also provides all the product names and categories, which is more detailed than the concise reference answer. However, the question only asks for how many products Insurellm offers, so the detailed listing, while correct, is unnecessary extra information. The answer is both accurate and complete in covering the product count, but includes more than the minimal needed to answer the question directly, so relevance is slightly reduced by additional detail.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8988614447725133,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "What is the monthly cost of Carllm's Professional Tier?",
+      "category": "numerical",
+      "generated_answer": "The monthly cost of Carllm's Professional Tier is $2,500.",
+      "feedback": "The answer correctly states the monthly cost of Carllm's Professional Tier as $2,500, which matches the reference answer exactly. It is complete since it provides the full necessary information without omission, and it is relevant because it directly answers the question about the monthly cost without adding unrelated details.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9853875568889202,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What are the core insurance portals offered by Insurellm?",
+      "category": "relationship",
+      "generated_answer": "Insurellm offers five core insurance portals across various insurance lines:\n\n1. **Carllm** - Auto insurance platform for insurers.\n2. **Homellm** - Home insurance platform for insurers.\n3. **Lifellm** - Life insurance platform with AI-powered underwriting.\n4. **Healthllm** - Comprehensive health insurance platform.\n5. **Bizllm** - Commercial insurance platform covering multiple commercial lines such as general liability, professional liability, property, workers' compensation, and cyber insurance.\n\nThese portals serve as the foundational platforms for Insurellm's insurance offerings.",
+      "feedback": "The generated answer correctly identifies all five core insurance portals offered by Insurellm: Carllm, Homellm, Lifellm, Healthllm, and Bizllm, which matches the reference answer perfectly. It provides additional descriptive information about each portal beyond the brief list in the reference answer. While this extra detail is factually accurate, it goes beyond the concise scope of the question and reference, which only ask for the core portals without descriptions. Therefore, the answer is fully accurate and complete but includes additional information making it slightly less relevant if strict adherence to the question's demand is considered. Overall, it is a very good answer but with slight deviation in relevance due to extra detail.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8860455772107032,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "What are the marketplace and infrastructure products offered by Insurellm?",
+      "category": "relationship",
+      "generated_answer": "Insurellm offers the following marketplace and infrastructure products:\n\n1. **Markellm** - An innovative insurance marketplace that connects consumers with insurance companies. Powered by advanced AI, it provides a seamless, personalized, and efficient insurance shopping experience for both consumers and insurers.\n\n2. **Claimllm** - An AI-powered claims processing platform that automates claims handling across all insurance lines. It streamlines the claims process from first notice of loss through final settlement, improving accuracy, reducing processing time, and enhancing fraud detection.\n\n3. **Rellm** - An enterprise platform designed for the reinsurance sector. It leverages AI to improve risk management, decision-making, and operational efficiencies for reinsurance companies.\n\nThese products serve as key infrastructure and marketplace solutions within Insurellm’s portfolio.",
+      "feedback": "The generated answer is fully accurate compared to the reference answer, correctly naming the three products: Markellm, Claimllm, and Rellm, and describing their purposes as marketplace, claims processing, and reinsurance solutions respectively. The answer is also complete, covering all the product names and their respective functionalities mentioned in the reference answer. However, the generated answer provides additional descriptive details about each product (such as AI capabilities and operational benefits) beyond the concise listing in the reference answer. While these details are accurate and relevant, the question specifically asks for \"marketplace and infrastructure products offered by Insurellm,\" suggesting a more direct answer without additional elaboration would better meet the relevance criterion. Therefore, the relevance score is slightly reduced since the response includes extra information beyond what was requested.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "Which product does Jessica Liu develop for?",
+      "category": "relationship",
+      "generated_answer": "Jessica Liu is a Software Engineer at Insurellm who develops for Claimllm, the AI-powered claims processing platform across all insurance lines.",
+      "feedback": "The generated answer is factually incorrect as it states Jessica Liu works for Insurellm developing for Claimllm, whereas the reference answer says she develops user interfaces for the Rellm reinsurance platform using React. Thus, the accuracy is very poor. The generated answer does not mention user interfaces, Rellm platform, or React, so it is incomplete regarding the product and role details. However, it does answer which product she develops for, though incorrectly, so it is somewhat relevant but not directly aligned with the question and reference. Overall, the generated answer is inaccurate and incomplete compared to the reference.",
+      "metrics": {
+        "mrr": 0.5,
+        "ndcg": 0.5,
+        "keyword_coverage": 50.0,
+        "accuracy": 1.0,
+        "completeness": 2.0,
+        "relevance": 3.0
+      }
+    },
+    {
+      "question": "What is Tyler Brooks's job title?",
+      "category": "relationship",
+      "generated_answer": "Tyler Brooks's job title is Junior Backend Developer.",
+      "feedback": "The generated answer correctly identifies Tyler Brooks's job title as 'Junior Backend Developer,' which matches the reference answer exactly. However, it omits the place of employment ('at Insurellm') mentioned in the reference answer. Given that the question only asks for the job title, the omission of the company does not reduce relevance, but it slightly affects completeness. The answer is directly relevant and factually correct regarding the job title, but not fully complete because it lacks the employer information present in the reference answer.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 4.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "Which product does Tyler Brooks work on?",
+      "category": "relationship",
+      "generated_answer": "Tyler Brooks works on the Carllm auto insurance portal as a Junior Backend Developer at Insurellm.",
+      "feedback": "The generated answer is accurate in identifying the product Tyler Brooks works on, which is the Carllm auto insurance portal, consistent with the reference answer. It also provides additional context about his role as a Junior Backend Developer at Insurellm, which, while not present in the reference answer, does not contradict it. The completeness is slightly less because the reference specifically states that he \"develops backend services,\" whereas the generated answer is less specific, saying only he \"works on\" the product. However, this is a minor difference. The answer is relevant and directly addresses the question. Overall, the answer is accurate, complete enough, and relevant, though a bit more specific phrasing matching the reference might improve completeness.",
+      "metrics": {
+        "mrr": 0.75,
+        "ndcg": 0.8154648767857288,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 4.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What product does the IIOTY award winner work on?",
+      "category": "spanning",
+      "generated_answer": "The IIOTY (Insurellm Innovator of the Year) 2023 award winner, Maxine Thompson, works as a Senior Data Engineer at Insurellm. However, the information provided does not specify the exact product she works on. It only mentions that she leads pivotal projects and strategic data initiatives at the company. If you need details on which specific Insurellm product she is associated with, I would need more information.",
+      "feedback": "The generated answer correctly identifies Maxine Thompson as the IIOTY 2023 winner and her role as Senior Data Engineer, which matches the reference answer. However, it goes further by noting that the exact product she works on is not specified, which is true and consistent with the information given. The answer is accurate and complete regarding the known facts. It is relevant to the question by addressing what product she works on, clarifying that no specific product is mentioned. However, it includes some additional detail about her leadership in projects that was not part of the reference and the question's focus. Overall, the answer is accurate and fairly complete, but slightly less relevant due to extra information beyond the question's scope and reference.",
+      "metrics": {
+        "mrr": 0.07500000000000001,
+        "ndcg": 0.2167986197384159,
+        "keyword_coverage": 75.0,
+        "accuracy": 5.0,
+        "completeness": 4.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "Who is the technical lead for the product that costs $10,000/month for Standard Tier?",
+      "category": "spanning",
+      "generated_answer": "The product with a $10,000/month pricing at the Professional (Standard) Tier is Rellm, Insurellm's enterprise reinsurance platform. However, based on the available data, there is no specific information identifying the technical lead for Rellm.\n\nIf you want, I can help you find more details about Rellm's contacts or the related employee profiles at Insurellm. Would you like me to do that?",
+      "feedback": "The generated answer incorrectly identifies the product associated with the $10,000/month Standard Tier price (stating 'Rellm' instead of 'Homellm') and fails to provide the name of the technical lead (Robert Chen) as given in the reference answer. It also introduces an offer to find more details, which is irrelevant to the question. Therefore, it is factually incorrect, incomplete, and only partially relevant. The reference answer clearly identifies both the product and the technical lead, directly and succinctly addressing the question.",
+      "metrics": {
+        "mrr": 0.0,
+        "ndcg": 0.0,
+        "keyword_coverage": 0.0,
+        "accuracy": 1.0,
+        "completeness": 1.0,
+        "relevance": 3.0
+      }
+    },
+    {
+      "question": "What is the salary of the CTO who joined in January 2017?",
+      "category": "spanning",
+      "generated_answer": "The CTO who joined in January 2017 is James Wilson. His current salary in 2023 is a base salary of $285,000 plus a bonus of $125,000, along with an equity refresh.",
+      "feedback": "The generated answer correctly identifies James Wilson as the CTO who joined in January 2017 and provides a base salary figure of $285,000, which matches the reference answer. However, it adds additional details such as a bonus of $125,000 and an equity refresh that are not included in the reference answer. While the added information might be accurate, it goes beyond the reference and question requirements. Therefore, the answer is factually correct but not perfectly aligned to the reference in terms of scope. It is complete regarding the core salary information but adds more than requested. It remains relevant as it directly answers the question about the CTO's salary but includes extra details not asked for.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 4.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "What is the current salary of the founder of Insurellm?",
+      "category": "spanning",
+      "generated_answer": "The current salary of Avery Lancaster, the Co-Founder and CEO of Insurellm, is $225,000.",
+      "feedback": "The generated answer correctly states the current salary of Avery Lancaster, matching the reference answer's figure of $225,000, which shows perfect factual accuracy. It also fully addresses the question by naming the founder and giving the salary, thus being complete with no missing details. However, the generated answer adds an additional detail that Avery Lancaster is \"Co-Founder and CEO,\" whereas the reference only mentions \"founder.\" Since the question asks for the salary of the founder only and the additional title is related but not explicitly requested, this extra information is slightly beyond the scope of the question, reducing relevance slightly. Overall, the answer is highly accurate and complete with very minor excess information affecting relevance.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8736659721877169,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "Which product did the Senior Data Scientist build a recommendation engine for that increased conversion by 28%?",
+      "category": "spanning",
+      "generated_answer": "The Senior Data Scientist, Priya Sharma, built a recommendation engine for the product Markellm, which increased conversion by 28%.",
+      "feedback": "The generated answer is mostly accurate but contains a significant typographical error in the product name ('Markellm' instead of 'Marketllm'), which affects factual correctness. It is otherwise complete, mentioning the Senior Data Scientist's name and the increase in conversion by 28%, aligning well with the reference answer. However, it provides slightly more information than requested, by naming the Data Scientist, which was not explicitly asked. Therefore, relevance is slightly affected but still quite high as it directly addresses the question.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 1.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "Which product does the UX Designer who improved user satisfaction by 35% lead design for?",
+      "category": "spanning",
+      "generated_answer": "The UX Designer who improved user satisfaction by 35% is Michelle Rivera. She leads design for the Rellm reinsurance platform at Insurellm.",
+      "feedback": "The generated answer incorrectly identifies the UX Designer and the product they lead design for. According to the reference answer, it is Sarah Williams who improved user satisfaction by 35% and she leads design for Homellm. The generated answer incorrectly states Michelle Rivera and the Rellm platform at Insurellm. Therefore, the answer is factually wrong and does not match the reference in any aspect, making it inaccurate and incomplete. However, it does answer the question directly, though incorrectly, so its relevance is not completely off-topic but flawed due to incorrect facts.",
+      "metrics": {
+        "mrr": 0.0,
+        "ndcg": 0.0,
+        "keyword_coverage": 0.0,
+        "accuracy": 1.0,
+        "completeness": 1.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "What is the annual marketing budget managed by the Marketing Manager in Austin?",
+      "category": "spanning",
+      "generated_answer": "The Marketing Manager in Austin, Lisa Anderson, manages an annual marketing budget of $2 million.",
+      "feedback": "The generated answer is factually accurate and matches the reference answer regarding the annual marketing budget managed by the Marketing Manager in Austin, Lisa Anderson, which is $2 million. It completely addresses the question by specifying the amount and the person managing it. It also stays relevant by directly answering the question without adding any unrelated information. The only minor difference is spelling out '$2 million' instead of using '$2M', which does not affect correctness or completeness.",
+      "metrics": {
+        "mrr": 0.75,
+        "ndcg": 0.75,
+        "keyword_coverage": 75.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "Who signed the contract on behalf of Insurellm for the client that pays $18,000 per month for Carllm?",
+      "category": "spanning",
+      "generated_answer": "The contract for the client paying $18,000 per month for Carllm is with DriveSmart Insurance. The contract was signed on behalf of Insurellm by Jennifer Rodriguez, Chief Executive Officer, on March 20, 2025.",
+      "feedback": "The generated answer accurately identifies Jennifer Rodriguez, CEO of Insurellm, as the signer of the contract on behalf of Insurellm for the client paying $18,000 per month for Carllm. It also correctly names the client as DriveSmart Insurance. The answer is complete in addressing all parts of the question, providing the signer's name, title, and the client involved. It includes an additional detail about the signing date (March 20, 2025), which is not in the reference but remains relevant. Overall, the answer is factually correct, complete, and directly relevant to the question asked.",
+      "metrics": {
+        "mrr": 0.8125,
+        "ndcg": 0.8269729683528606,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What tier did the client with 35 user licenses subscribe to for Bizllm?",
+      "category": "spanning",
+      "generated_answer": "The client with 35 user licenses, Atlantic Risk Solutions, subscribed to the Professional Tier of Bizllm.",
+      "feedback": "The generated answer accurately identifies the client (Atlantic Risk Solutions) and the tier they subscribed to (Professional Tier) for Bizllm, which is consistent with the reference answer. It also correctly states the number of user licenses as 35, matching the reference. However, the generated answer does not mention that these licenses are specifically \"named user licenses\" as in the reference, which is a minor omission but relevant detail. The answer is directly relevant to the question and provides no unnecessary information. Overall, it is highly accurate and relevant but slightly less complete due to missing the \"named user\" detail.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9143919699725018,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 4.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How many covered members does the client who subscribed to Healthllm Professional Tier for $15,000/month have?",
+      "category": "spanning",
+      "generated_answer": "There are three clients subscribed to the Healthllm Professional Tier at $15,000/month, and their covered member counts are as follows:\n\n1. Advantage Medical Coverage: 32,000 members\n2. Harmony Health Plans: 38,000 members\n3. (By implication) Any client on Professional Tier supports up to 50,000 members\n\nIf you were asking about a specific client, please let me know which one, and I can provide the exact covered member number.",
+      "feedback": "The generated answer provides more information than the reference, mentioning multiple clients and their covered member counts, whereas the reference answer specifically addresses the client who subscribed to the Healthllm Professional Tier for $15,000/month (Harmony Health Plans) with 38,000 members. While technically not incorrect, the generated answer introduces potentially confusing or extraneous information and lacks directness. It does not clearly identify the client linked to the $15,000/month tier as Harmony Health Plans, which is central to the question and reference answer. Thus, it is less accurate and complete, and includes unnecessary additional details, reducing relevance.",
+      "metrics": {
+        "mrr": 0.52,
+        "ndcg": 0.5882536329324835,
+        "keyword_coverage": 100.0,
+        "accuracy": 3.0,
+        "completeness": 3.0,
+        "relevance": 3.0
+      }
+    },
+    {
+      "question": "Who signed the Metropolitan Life Group contract that totals $1,098,000?",
+      "category": "spanning",
+      "generated_answer": "There is no specific record in the available contracts of a Metropolitan Life Group contract totaling $1,098,000 or detailing signatures related to such a contract in the knowledge base. Could you please confirm the exact contract name or provide more details so I can assist you better?",
+      "feedback": "The generated answer fails to provide the factual information present in the reference answer. It does not identify who signed the Metropolitan Life Group contract totaling $1,098,000, whereas the reference answer clearly states that Richard Thompson signed for Metropolitan Life Group. Thus, the generated answer lacks accuracy and completeness. Additionally, the generated answer is somewhat relevant as it acknowledges the question context but ultimately does not answer it. Overall, the response is incomplete and inaccurate compared to the reference answer, and it does not respond adequately to the specific question asked.",
+      "metrics": {
+        "mrr": 0.16666666666666666,
+        "ndcg": 0.27227062322935724,
+        "keyword_coverage": 60.0,
+        "accuracy": 1.0,
+        "completeness": 1.0,
+        "relevance": 3.0
+      }
+    },
+    {
+      "question": "What is the total contract value for the client paying $12,000 per month for Bizllm Professional Tier?",
+      "category": "spanning",
+      "generated_answer": "The total contract value for a client paying $12,000 per month for the Bizllm Professional Tier depends on the contract duration:\n\n- For a 12-month contract (e.g., Atlantic Risk Solutions), the total is $144,000 ($12,000/month × 12 months).\n- For a 24-month contract (e.g., Fortress Business Underwriters), the total is $288,000 ($12,000/month × 24 months).\n\nIf you have a specific client or contract duration in mind, I can provide the exact total.",
+      "feedback": "The generated answer is factually accurate in stating the total contract value for a client paying $12,000 per month over a 12-month period ($144,000), which matches the reference answer exactly. However, it introduces additional scenarios for a 24-month contract and different clients that are not mentioned in the reference answer, making the answer less focused. The reference answer specifically states the client (Atlantic Risk Solutions) and contract duration (12 months), while the generated answer provides a broader scope without confirming the exact client or contract in question. The answer is mostly complete in relation to the reference but goes beyond by including extra examples. The relevance is slightly diminished by the additional information that wasn't requested or provided in the reference.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9231244818818097,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 4.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "By what percentage did the DevOps Engineer in New York reduce deployment time?",
+      "category": "spanning",
+      "generated_answer": "The DevOps Engineer in New York, David Kim, reduced deployment time by 60% through implementing CI/CD pipelines.",
+      "feedback": "The generated answer accurately states the percentage reduction in deployment time (60%), correctly identifies the person (David Kim), his role (DevOps Engineer), and location (New York), and mentions the method used (CI/CD pipelines). It addresses the question completely by specifying the percentage reduction. However, it adds that David Kim implemented the pipelines, which is slightly beyond the reference but still factual and relevant. Overall, the generated answer is accurate, complete, and relevant to the question asked.",
+      "metrics": {
+        "mrr": 0.875,
+        "ndcg": 0.8811836531558517,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the annual revenue generated by the portfolio managed by the Customer Success Manager in New York?",
+      "category": "spanning",
+      "generated_answer": "The Customer Success Manager in New York, Marcus Johnson, manages a portfolio of 25 enterprise clients generating $5 million in annual revenue.",
+      "feedback": "The generated answer correctly states that the annual revenue generated by the portfolio managed by the Customer Success Manager in New York is $5 million, which matches the reference answer. It adds extra information about the manager's name, Marcus Johnson, and the number of clients in the portfolio (25 enterprise clients). While this additional detail is factually plausible, it is not present in the reference answer. The question only asks for the annual revenue, so the additional details are not necessary and do not impact correctness, but they make the answer less focused. Overall, the answer is accurate and complete regarding the key information about the annual revenue but includes superfluous information unrelated to the question. Therefore, relevance is slightly reduced due to this additional content.",
+      "metrics": {
+        "mrr": 0.875,
+        "ndcg": 0.8739929843702763,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "By what percentage did the Account Executive in Austin exceed their annual sales target in 2022?",
+      "category": "spanning",
+      "generated_answer": "The Account Executive in Austin is Alex Thomson. In 2022, Alex Thomson exceeded their annual sales target by achieving 150% of the sales target within the first three months. This means they exceeded the target by 50% in that period.",
+      "feedback": "The generated answer is factually incorrect as it names the wrong Account Executive (Alex Thomson instead of Emily Carter) and gives an incorrect percentage (50% in the first three months rather than an annual 30%). Therefore, accuracy is very poor. It also fails to address the question of the annual sales target specifically and does not mention the 30% figure from the reference. The answer includes unnecessary information about achieving 150% in three months, which is not relevant to the question asked about annual percentage. Overall, it does not correctly nor completely address the given question.",
+      "metrics": {
+        "mrr": 0.5,
+        "ndcg": 0.6379915131421103,
+        "keyword_coverage": 100.0,
+        "accuracy": 1.0,
+        "completeness": 1.0,
+        "relevance": 2.0
+      }
+    },
+    {
+      "question": "When is the telematics-based pricing feature scheduled to launch for the product that costs $1,000/month for Basic Tier?",
+      "category": "spanning",
+      "generated_answer": "The telematics-based pricing feature is scheduled to launch in Q2 2025 for Carllm.\n\nHowever, regarding pricing, Carllm's specific pricing tiers were not detailed as including a $1,000/month Basic Tier in the available information. If you are referring to the product with a $1,000/month Basic Tier, please clarify which product that is, so I can confirm the timeline precisely.\n\nBut as for telematics-based pricing, it is planned as a Customer Experience Improvement for Carllm in Q2 2025.",
+      "feedback": "The generated answer correctly states that telematics-based pricing is scheduled to launch in Q2 2025 for Carllm, which aligns with the reference answer. However, it introduces unnecessary uncertainty and requests clarification about the product pricing, which is not needed since the question specifically mentions the $1,000/month Basic Tier, clearly relating to Carllm per the reference. This extra content reduces the answer's directness and relevance. The key information from the reference—that Carllm with a Basic Tier costing $1,000/month has telematics-based pricing launching in Q2 2025—is present, but the answer lacks conciseness and inclusion of the exact pricing detail (linking product and cost succinctly). Therefore, the answer is factually correct but less complete and less relevant due to its ambiguity and extraneous details.",
+      "metrics": {
+        "mrr": 0.3333333333333333,
+        "ndcg": 0.4775361988645105,
+        "keyword_coverage": 75.0,
+        "accuracy": 5.0,
+        "completeness": 3.0,
+        "relevance": 3.0
+      }
+    },
+    {
+      "question": "What is the monthly cost for the Basic Listing Fee on the marketplace that was Insurellm's first product?",
+      "category": "spanning",
+      "generated_answer": "The monthly cost for the Basic Listing Fee on Markellm, Insurellm's marketplace platform, is $199 per month.",
+      "feedback": "The generated answer accurately states the monthly cost of the Basic Listing Fee on Markellm as $199 per month, which matches the reference answer. It fully addresses the question by naming the marketplace as Markellm, noting it is Insurellm's marketplace platform, and specifying the monthly fee as $199. However, it adds that Markellm is a 'marketplace platform' whereas the reference only mentions it as Insurellm's first product, which is not incorrect but slightly more detail. The answer is directly relevant, answering the question precisely without unnecessary information. Overall, the answer aligns well with the reference information and meets the question requirements comprehensively.",
+      "metrics": {
+        "mrr": 0.6666666666666666,
+        "ndcg": 0.6552613879711252,
+        "keyword_coverage": 66.66666666666666,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How many core values does the company founded by Avery Lancaster have?",
+      "category": "spanning",
+      "generated_answer": "The company founded by Avery Lancaster, Insurellm, has five core values. These are:\n\n1. Integrity & Transparency  \n2. Innovation First  \n3. Collaborative Excellence  \n4. Customer Obsession  \n5. (Implicit from the culture overview but explicitly listed are these four main core values)\n\nThe knowledge base explicitly details four core values, emphasizing honesty and openness, innovation and experimentation, collaboration and diverse perspectives, and a strong customer focus.",
+      "feedback": "The generated answer incorrectly states that Insurellm has five core values, while the reference answer clearly specifies four core values. The generated answer lists four core values but adds an ambiguous fifth 'value' which is not supported by the reference answer. Therefore, it is factually inaccurate. The answer does list all four core values as per the reference, but the mention of a fifth core value reduces completeness. The response is mostly relevant but includes unnecessary information about an implicit or fifth value not present in the reference, thus slightly reducing relevance.",
+      "metrics": {
+        "mrr": 0.2571428571428571,
+        "ndcg": 0.33359211964642854,
+        "keyword_coverage": 60.0,
+        "accuracy": 1.0,
+        "completeness": 4.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "What tier of Healthllm costs $15,000 per month and includes Advanced Medication Management?",
+      "category": "spanning",
+      "generated_answer": "The Healthllm tier that costs $15,000 per month and includes Advanced Medication Management is the **Professional Tier**. \n\nThis tier is designed for larger insurers and offers advanced features such as predictive analytics and expanded integration options, including the Advanced Medication Management capabilities like formulary management, prior authorization automation, and medication adherence tracking.",
+      "feedback": "The generated answer correctly identifies the Professional Tier as the Healthllm tier costing $15,000 per month and including Advanced Medication Management, matching the reference answer perfectly, hence it is factually accurate. It also provides additional detail about the tier being designed for larger insurers and listing advanced features like predictive analytics and expanded integration options, which goes beyond the reference answer's scope. While the completeness is high, the reference answer is very brief, so additional information is provided that is correct but not required. Regarding relevance, the answer directly addresses the question by naming the tier and its price and included feature, but it also adds extra information not requested by the question, meaning it is not strictly limited to the question's scope. Overall, the answer is accurate and complete, but somewhat less relevant due to unnecessary extra detail.",
+      "metrics": {
+        "mrr": 0.8125,
+        "ndcg": 0.802385165478676,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "How many active policies does the client who pays $28,000 per month for Lifellm manage?",
+      "category": "spanning",
+      "generated_answer": "The client who pays $28,000 per month for Lifellm is Metropolitan Life Group. According to their contract, they manage over 50,000 active life insurance policies.",
+      "feedback": "The generated answer correctly identifies the client as Metropolitan Life Group and states that they manage over 50,000 active life insurance policies, which aligns with the reference answer's information. However, the generated answer includes an additional detail about the contract, which is not present in the reference answer but still relevant and factual. Overall, the answer is factually accurate, complete in addressing the number of active policies, and relevant to the question asked. The slight difference in phrasing ('50,000+' vs. 'over 50,000') does not affect accuracy. Therefore, scores are high across all dimensions.",
+      "metrics": {
+        "mrr": 0.6,
+        "ndcg": 0.7312158234062069,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is Alex Chen's current job title?",
+      "category": "direct_fact",
+      "generated_answer": "Alex Chen's current job title is Senior Backend Software Engineer.",
+      "feedback": "The generated answer states that Alex Chen's current job title is \"Senior Backend Software Engineer,\" while the reference answer indicates that Alex Chen is a \"Backend Software Engineer at Insurellm.\" The generated answer adds the qualifier \"Senior,\" which is not supported by the reference, making it factually incorrect. Additionally, the generated answer does not mention the company (Insurellm), which is part of the reference answer, so it is less complete. However, the generated answer remains relevant as it directly addresses the question about the job title, though it provides an inaccurate title and omits the company name. Therefore, accuracy is low due to the incorrect title, completeness is somewhat lacking since it omits the company, and relevance is high as it answers the question about job title.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 1.0,
+        "completeness": 3.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is Carlos Rodriguez's current salary?",
+      "category": "direct_fact",
+      "generated_answer": "Carlos Rodriguez's current salary is $125,000 per year.",
+      "feedback": "The generated answer is accurate in the amount stated ($125,000), matching the reference answer exactly. It is complete, providing all necessary information regarding Carlos Rodriguez's current salary. However, the generated answer adds \"per year,\" which is not in the reference answer; this is additional information that, although generally correct for salary, is not specified and thus slightly impacts relevance. Overall, the answer directly addresses the question, and the extra phrase does not detract significantly but is technically additional information beyond the reference.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "What is the monthly cost of the Bizllm Business Tier?",
+      "category": "direct_fact",
+      "generated_answer": "The monthly cost of the Bizllm Business Tier is $6,000 per month.",
+      "feedback": "The generated answer accurately states the monthly cost of the Bizllm Business Tier as $6,000 per month, which directly matches the information provided in the reference answer. It fully addresses the question without adding any unnecessary details. Therefore, it is factually correct, complete, and relevant.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9142150057470303,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is Nina Patel's job title?",
+      "category": "direct_fact",
+      "generated_answer": "Nina Patel's job title is Business Intelligence Analyst.",
+      "feedback": "The generated answer correctly identifies Nina Patel's job title as Business Intelligence Analyst, which matches the reference answer. However, it misses the company name 'Insurellm' mentioned in the reference, so it is not fully complete. The answer is relevant since it directly responds to the question about the job title, without additional information. Overall, it is accurate and relevant but partially incomplete due to the missing employer information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 3.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the contract number for the GreenValley Insurance Homellm agreement?",
+      "category": "direct_fact",
+      "generated_answer": "The contract number for the GreenValley Insurance Homellm agreement is HV-2023-0458.",
+      "feedback": "The generated answer exactly matches the reference answer in stating the contract number for the GreenValley Insurance Homellm agreement as HV-2023-0458. It is factually correct, complete, and directly relevant to the question without any extra information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9734512147629872,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "When did Alex Chen join Insurellm?",
+      "category": "temporal",
+      "generated_answer": "Alex Chen joined Insurellm in April 2020 as a Junior Backend Developer.",
+      "feedback": "The generated answer is factually correct, fully matches the reference answer, and provides all the information given in the reference about the joining date and position. It directly addresses the question without adding extraneous details, making it completely relevant.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8737665518395386,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "When was the GreenValley Insurance Homellm contract signed?",
+      "category": "temporal",
+      "generated_answer": "The contract between Insurellm and GreenValley Insurance for Homellm was signed on October 6, 2023.",
+      "feedback": "The generated answer accurately states the date when the GreenValley Insurance Homellm contract was signed, matching the reference answer's date of October 6, 2023, thus it is factually correct. It directly answers the question without deviation, maintaining high relevance. However, it includes additional information about the involvement of Insurellm, which is not mentioned in the reference answer or the question, thus slightly reducing relevance. Despite this, the core information requested is fully addressed, making the answer complete. Overall, a very good response with minor superfluous detail.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9837339917445846,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "When was the Summit Commercial Insurance Bizllm contract effective?",
+      "category": "temporal",
+      "generated_answer": "The contract between Insurellm and Summit Commercial Insurance for the Bizllm platform was effective on March 15, 2025.",
+      "feedback": "The generated answer accurately states the contract effective date as March 15, 2025, matching the reference answer exactly in this key fact. However, it provides additional information about the parties involved (Insurellm and Summit Commercial Insurance) and the Bizllm platform, which is not in the reference answer but related to the question context. While this extra detail does not make the answer incorrect, it is beyond the minimal information requested. The answer completely addresses the question regarding the effective date, which is the crux of the inquiry, so completeness is full. The relevance is slightly affected by the extra context about the parties and platform, which were not requested but remain pertinent to the contract. Overall, the answer is accurate, complete in terms of effective date, and highly relevant, though the relevance could be considered slightly less perfect due to additional information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9157773147918112,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "When was the Roadway Insurance Carllm contract effective?",
+      "category": "temporal",
+      "generated_answer": "The Roadway Insurance contract for Carllm was effective as of January 1, 2025.",
+      "feedback": "The generated answer is factually accurate and provides the exact date the contract became effective. It covers the complete information asked by the question, matching the reference answer. The answer is also directly relevant to the question without any extraneous information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8988614447725133,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "When was the Evergreen Life Insurance Lifellm contract signed?",
+      "category": "temporal",
+      "generated_answer": "The Evergreen Life Insurance contract for Lifellm was signed on January 20, 2025.",
+      "feedback": "The generated answer accurately states the signing date of the Evergreen Life Insurance Lifellm contract as January 20, 2025, which matches the reference answer. It includes all relevant information from the reference, addressing the question fully without any additions or omissions. Therefore, it is factually correct, complete, and directly relevant to the question asked.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9533138049242253,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How many employees did Insurellm have at its peak in 2020?",
+      "category": "numerical",
+      "generated_answer": "At its peak in 2020, Insurellm had 200 employees.",
+      "feedback": "The generated answer accurately states that Insurellm had 200 employees at its peak in 2020, which perfectly matches the reference answer. It fully addresses the question about the number of employees at Insurellm's peak in 2020, providing a complete and direct response without any unnecessary information. Therefore, the answer is accurate, complete, and relevant.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8808107989848976,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the monthly cost for Apex Reinsurance's Rellm subscription?",
+      "category": "numerical",
+      "generated_answer": "There is no specific contract information or pricing details available for Apex Reinsurance's subscription to Rellm in the knowledge base. \n\nIf you need, I can provide general pricing information for Rellm's plans or check details for other clients. Would you like me to do that?",
+      "feedback": "The generated answer fails to provide the specific and factual information given in the reference answer regarding the exact monthly cost of Apex Reinsurance's Rellm subscription ($10,000). Instead, it states that there is no contract or pricing information available, which is incorrect based on the reference. This makes the answer factually inaccurate. The answer is incomplete because it does not include any specific pricing detail, which was the key information the question sought. Additionally, it is not relevant to the question since it does not directly answer it but instead offers to provide general pricing info or check details for other clients, which is unnecessary and off-topic.",
+      "metrics": {
+        "mrr": 0.5,
+        "ndcg": 0.45718280836581693,
+        "keyword_coverage": 50.0,
+        "accuracy": 1.0,
+        "completeness": 1.0,
+        "relevance": 1.0
+      }
+    },
+    {
+      "question": "How many active policies does Evergreen Life Insurance currently manage?",
+      "category": "numerical",
+      "generated_answer": "Evergreen Life Insurance currently manages 1,400 active policies under their contract with Insurellm for the Lifellm platform.",
+      "feedback": "The generated answer is factually accurate about the number of active policies (1,400), matching the reference answer exactly. However, it includes additional context about the contract with Insurellm and the Lifellm platform, which is not requested in the question or presented in the reference answer. Therefore, while it is accurate and complete in terms of policy count, it is less relevant because it provides extra information beyond what was asked.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9041970756793423,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 3.0
+      }
+    },
+    {
+      "question": "How many user licenses are provided for onboarding training in the Summit Commercial Insurance contract?",
+      "category": "numerical",
+      "generated_answer": "The Summit Commercial Insurance contract for Bizllm includes onboarding training for up to 15 Summit Commercial staff members.",
+      "feedback": "The generated answer is factually correct and mentions the same number of staff members (15) eligible for onboarding training as the reference answer. It slightly extends the context by specifying \"for Bizllm\" and \"Summit Commercial staff members,\" which aligns with the reference answer's mention of Summit Commercial Insurance. The generated answer adequately addresses the question of how many user licenses are provided for onboarding training and does so directly with no irrelevant information. Therefore, it is accurate, complete, and relevant.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9165224542849019,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How much new business did Michael O'Brien generate over the past 3 years?",
+      "category": "numerical",
+      "generated_answer": "Michael O'Brien generated $8.2 million in new business over the past 3 years.",
+      "feedback": "The generated answer accurately states that Michael O'Brien generated $8.2 million in new business over the past 3 years, matching the reference answer exactly in meaning. It is complete in addressing the entire quantity and time frame asked in the question, with no omitted details. The answer is fully relevant as it precisely responds to the amount of new business generated in the given period, containing no extraneous information. The only slight difference is formatting of $8.2 million versus $8.2M, which has no impact on accuracy or completeness.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "Which product does Rachel Martinez lead product strategy for?",
+      "category": "relationship",
+      "generated_answer": "Rachel Martinez leads product strategy for Carllm, the auto insurance platform.",
+      "feedback": "The generated answer is very close to the reference answer in meaning, correctly identifying the product as Carllm and Rachel Martinez's role in product strategy. However, it uses 'platform' instead of 'portal' to describe Carllm. While this is a minor difference and does not significantly change the meaning, it is not an exact match. The answer fully addresses the question by naming the product and Rachel Martinez's role, making it complete. It is also fully relevant, directly answering the question without additional information.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9590717717793499,
+        "keyword_coverage": 100.0,
+        "accuracy": 4.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "Which mobile app does Kevin Zhang lead iOS development for?",
+      "category": "relationship",
+      "generated_answer": "Kevin Zhang leads iOS development for the Marketllm consumer mobile app at Insurellm.",
+      "feedback": "The answer correctly identifies that Kevin Zhang leads iOS development for the Marketllm consumer mobile app, which matches the reference answer. However, it includes additional information \"at Insurellm\" which is not present in the reference answer. Since the reference answer does not mention this company or context, this extra information is not strictly relevant and therefore detracts from the relevance score. The accuracy is perfect since the core fact is correct, the completeness is perfect since all required information from the reference answer is included, but the relevance is slightly reduced due to the additional, unstated detail that was not requested.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9061046394576971,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "Which tier of Bizllm did Summit Commercial Insurance subscribe to?",
+      "category": "relationship",
+      "generated_answer": "Summit Commercial Insurance subscribed to the Bizllm Business Tier.",
+      "feedback": "The generated answer correctly identifies the tier of Bizllm that Summit Commercial Insurance subscribed to as the Business Tier, matching the reference answer. It is factually accurate, complete, and relevant to the question asked, with no additional or irrelevant information included. The only minor difference is the phrasing \"Bizllm Business Tier\" versus \"Business Tier of Bizllm,\" which does not affect the meaning or correctness.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8834859704450855,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What award did Carlos Rodriguez win in 2023?",
+      "category": "relationship",
+      "generated_answer": "In 2023, Carlos Rodriguez won the \"Solutions Engineer of the Year\" award at Insurellm.",
+      "feedback": "The generated answer accurately identifies the award Carlos Rodriguez won in 2023 as \"Solutions Engineer of the Year,\" matching the reference answer. It also specifies \"at Insurellm,\" which is additional information not present in the reference answer. The answer is complete regarding the award and year but includes extra detail about the awarding organization. It fully addresses the question but slightly surpasses the requested information by mentioning the awarding body, which was not required. Overall, it is accurate and complete but slightly less relevant due to the added detail.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9032867981913646,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "Who signed the Summit Commercial Insurance contract on behalf of Insurellm?",
+      "category": "relationship",
+      "generated_answer": "Michael Torres, Chief Revenue Officer of Insurellm, signed the Summit Commercial Insurance contract on behalf of Insurellm.",
+      "feedback": "The generated answer accurately identifies Michael Torres as the person who signed the contract on behalf of Insurellm and includes his title as Chief Revenue Officer. This is consistent with the reference answer. The generated answer adds 'of Insurellm' to the title, which, while not explicitly stated in the reference, does not introduce any factual inaccuracy and clarifies the affiliation correctly. It is complete in addressing who signed the contract and their position. The answer is also relevant, directly responding to the question without extraneous information. Overall, the answer aligns well with the reference and fully addresses the question.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9639805846871571,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How many employees at Insurellm have a current salary under $80,000?",
+      "category": "holistic",
+      "generated_answer": "As of 2023-2024 data, the employees at Insurellm with a current salary under $80,000 are:\n\n- Emily Carter: Base salary $70,000 (2023)\n\nAll other known employee salaries are $80,000 or higher. Therefore, only one employee at Insurellm has a current salary under $80,000.",
+      "feedback": "The generated answer is inaccurate as it identifies only one employee with a salary under $80,000 (Emily Carter), whereas the reference answer points out multiple employees (Tyler Brooks and Alex Harper) with salaries under $80,000. This indicates the generated answer misses key facts and employees. Hence, it is incomplete since it does not address all employees mentioned in the reference. However, it is directly relevant to the question by specifying the number of employees with salary under $80,000 and does not add extraneous information. Therefore, it scores low on accuracy and completeness but reasonable on relevance.",
+      "metrics": {
+        "mrr": 0.5555555555555556,
+        "ndcg": 0.6774466501026881,
+        "keyword_coverage": 100.0,
+        "accuracy": 1.0,
+        "completeness": 2.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "What is the total contract value of all Healthllm contracts combined?",
+      "category": "holistic",
+      "generated_answer": "The Healthllm contracts in the knowledge base and their total values are:\n\n1. United Healthcare Alliance:\n- Total value: $2,784,000 over 48 months\n\n2. WellCare Insurance Co.:\n- Monthly fee: $8,000 for 12 months\n- Total value: $8,000 x 12 = $96,000\n\n3. Harmony Health Plans:\n- Monthly fee: $15,000 for 24 months\n- Total value: $15,000 x 24 = $360,000\n\nAdding these together:\n\n$2,784,000 (United Healthcare Alliance) + $96,000 (WellCare) + $360,000 (Harmony) = $3,240,000\n\nTherefore, the total contract value of all Healthllm contracts combined is $3,240,000.",
+      "feedback": "The generated answer is mostly accurate in calculations for the listed contracts but incomplete as it omits the Advanced Medical Coverage contract valued at $270,000, leading to a lower total value ($3,240,000 instead of $3,510,000). The relevance is high since it directly answers the question without unrelated information. However, missing one contract impacts completeness significantly. Therefore, accuracy and completeness are rated below ideal. Relevance is rated high though there is a slight deviation since the answer adds calculation steps, but that does not affect relevance negatively.",
+      "metrics": {
+        "mrr": 0.5833333333333334,
+        "ndcg": 0.6781035935540111,
+        "keyword_coverage": 100.0,
+        "accuracy": 1.0,
+        "completeness": 2.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "Which product line has the most active contracts according to the company overview?",
+      "category": "holistic",
+      "generated_answer": "According to the company overview, the product lines Bizllm (commercial insurance) and Claimllm (claims processing) each have the most active contracts, with 7 contracts each. Lifellm (life insurance) and Healthllm (health insurance) follow with 6 contracts each.",
+      "feedback": "The generated answer is mostly accurate in identifying Bizllm and Claimllm as having the most active contracts with 7 each, which matches the reference answer. However, it adds extra information about Lifellm and Healthllm having 6 contracts each, which is not mentioned in the reference and is beyond what was asked. While this additional data may be informative, it reduces relevance since the question only requested which product line has the most active contracts. The reference answer is concise and directly addresses the question. Therefore, the generated answer is accurate and complete relative to the reference in naming the correct products with most contracts, but slightly less relevant due to the extra details provided.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9251724527673773,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "How many total employees work at Insurellm across all locations?",
+      "category": "holistic",
+      "generated_answer": "Insurellm has a total of 32 employees working across all its locations.",
+      "feedback": "The generated answer correctly states the total number of employees at Insurellm as 32, matching the reference answer. However, it lacks additional context given in the reference answer about the employees primarily working remotely across the US and the locations of the company offices. While the question only asks about the total number of employees, the reference answer provides a more complete picture with location details, which the generated answer omits. Regarding relevance, the generated answer directly responds to the question without adding or straying from the requested information. Therefore, the accuracy is high, relevance is perfect, but completeness is somewhat incomplete as it misses all details beyond the headcount.",
+      "metrics": {
+        "mrr": 0.5,
+        "ndcg": 0.5,
+        "keyword_coverage": 50.0,
+        "accuracy": 5.0,
+        "completeness": 3.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "What is the average monthly subscription cost across all Carllm contracts?",
+      "category": "holistic",
+      "generated_answer": "Here are the active Carllm contracts and their monthly subscription costs:\n\n1. Roadway Insurance Inc. — Professional Tier: $2,500/month  \n2. TechDrive Insurance — Professional Tier: $2,500/month  \n3. DriveSmart Insurance — Enterprise Tier with custom pricing:  \n   - Months 1-12: $18,000/month  \n   - Months 13-24: $19,500/month  \n   - Months 25-36: $21,000/month  \n   Average over 36 months = (18,000*12 + 19,500*12 + 21,000*12) / 36 = $19,500/month  \n4. Velocity Auto Solutions — (tier not specified, but likely aligned with standard tiers, assuming Professional Tier for calculation): $2,500/month\n\nTo calculate the average monthly subscription cost across these 4 contracts:\n\n- Sum monthly costs:  \n   Roadway: $2,500  \n   TechDrive: $2,500  \n   DriveSmart: $19,500  \n   Velocity: $2,500 (assumed Professional tier)  \n   Total = 2,500 + 2,500 + 19,500 + 2,500 = $27,000\n\n- Average monthly cost = $27,000 / 4 = $6,750\n\nSo, the average monthly subscription cost across all Carllm contracts is approximately **$6,750**. \n\nIf you want a lower or upper bound average or clarification on Velocity Auto Solutions' exact tier, I can provide that.",
+      "feedback": "The generated answer provides a precise calculated average monthly subscription cost ($6,750) based on assumed and given contract details. However, the reference answer states that averages require aggregating all Carllm contract data and does not give a specific average or calculation, indicating that such a precise average may not be accurate without full data. The generated answer makes assumptions especially about Velocity Auto Solutions' tier which is not confirmed, risking factual inaccuracy. Therefore, the generated answer goes beyond the reference in detail and specificity but risks factual correctness. It is more complete in addressing the question than the reference, which only gives examples without calculation. However, the generated answer includes assumptions and specific figures that are not fully supported by the reference or context, which affects accuracy. The relevance is high as it directly answers the question about average monthly cost without unrelated information. Overall, the generated answer is detailed and relevant but potentially factually incorrect due to assumptions, scoring well on completeness but lower on accuracy.",
+      "metrics": {
+        "mrr": 0.5,
+        "ndcg": 0.48256833358954837,
+        "keyword_coverage": 50.0,
+        "accuracy": 2.0,
+        "completeness": 4.0,
+        "relevance": 5.0
+      }
+    },
+    {
+      "question": "How many different insurance product lines does Insurellm offer in total?",
+      "category": "holistic",
+      "generated_answer": "Insurellm offers a total of 8 different insurance product lines. These include five core insurance portals—Carllm (auto), Homellm (home), Lifellm (life), Healthllm (health), and Bizllm (commercial)—plus three marketplace and infrastructure platforms: Markellm (marketplace), Claimllm (claims processing), and Rellm (enterprise reinsurance).",
+      "feedback": "The generated answer correctly identifies that Insurellm offers a total of 8 different insurance product lines, which matches the reference answer. It also lists all the product names accurately: Carllm, Homellm, Lifellm, Healthllm, Bizllm, Markellm, Claimllm, and Rellm. However, the generated answer adds extra descriptive details about some products being portals or marketplace/infrastructure platforms, which were not present in the reference answer and are not requested by the question. The reference answer focuses simply on the count and names of the product lines. Thus, while factually correct and complete regarding the count and list, the added classifications make it slightly less focused. Overall, the generated answer is highly accurate and complete but includes additional details beyond what was asked, affecting relevance slightly.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.8216051642656494,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 5.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "Which product has the fewest active contracts according to the portfolio breakdown?",
+      "category": "holistic",
+      "generated_answer": "According to the portfolio breakdown, the products Lifellm, Healthllm, Bizllm, and Claimllm each have strong adoption with 6 or 7 contracts. The specific numbers are:\n\n- Bizllm: 7 contracts\n- Claimllm: 7 contracts\n- Lifellm: 6 contracts\n- Healthllm: 6 contracts\n\nThe other products are not explicitly detailed in the contract counts, but since the total active contracts are 32 across all eight products, and these four products alone account for 26 contracts, the remaining four products (Carllm, Homellm, Markellm, and Rellm) presumably have fewer contracts each.\n\nHowever, the exact number of contracts per product for Carllm, Homellm, Markellm, and Rellm is not specified. From available details:\n\n- Carllm has at least 1 contract (with DriveSmart Insurance).\n- Others (Homellm, Markellm, Rellm) contract counts are not given specifically.\n\nTherefore, based on clear contract numbers provided:\n\n- Lifellm and Healthllm have 6 contracts each.\n- Bizllm and Claimllm have 7 contracts each.\n- The product with the fewest explicitly stated contracts is Carllm with at least 1 known contract, but full details for other products are not available.\n\nIn conclusion:  \nAmong the products with explicitly noted contract counts, Lifellm and Healthllm have the fewest active contracts at 6 each. For exact lowest counts across all products, the data is incomplete, but Lifellm and Healthllm are the known ones with the fewest confirmed contracts.",
+      "feedback": "The generated answer is inaccurate compared to the reference answer, which clearly states that Markellm and Rellm are tied with the fewest active contracts at 2 contracts each. The generated answer speculates on contract counts for products without concrete data and concludes incorrectly that Lifellm and Healthllm have the fewest contracts with 6 each. It also provides extraneous information beyond the direct question. Therefore, it is factually incorrect and incomplete. It also lacks relevance as it does not directly answer the question with the correct information and goes into unnecessary detail.",
+      "metrics": {
+        "mrr": 0.5,
+        "ndcg": 0.5,
+        "keyword_coverage": 50.0,
+        "accuracy": 1.0,
+        "completeness": 1.0,
+        "relevance": 2.0
+      }
+    },
+    {
+      "question": "What is the total number of active contracts across all Insurellm products?",
+      "category": "holistic",
+      "generated_answer": "Insurellm has a total of 32 active contracts across all its eight product lines.",
+      "feedback": "The generated answer correctly states the total number of active contracts as 32, matching the reference answer, which shows high accuracy. However, it adds that there are eight product lines, which is not mentioned or confirmed in the reference answer, introducing unwanted information. The completeness is somewhat lacking because the reference also mentions the scope of clients served (regional insurers to national carriers and global reinsurance partners), which is omitted in the generated answer. In terms of relevance, the generated answer mostly focuses on the question about the total number of active contracts, but includes an unsourced detail about the number of product lines, which is not asked and not supported by the reference. Therefore, while generally accurate, it is incomplete and slightly less relevant due to the unnecessary detail.",
+      "metrics": {
+        "mrr": 0.55,
+        "ndcg": 0.5697048659263213,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 3.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "How many states does United Healthcare Alliance operate in according to their contract?",
+      "category": "holistic",
+      "generated_answer": "According to their contract with Insurellm for the Healthllm platform, United Healthcare Alliance operates in 12 states.",
+      "feedback": "The generated answer accurately states that United Healthcare Alliance operates in 12 states according to their contract, which matches the reference answer. However, it omits the detail about supporting 250,000+ members mentioned in the reference answer, making it less complete. The answer is relevant to the question, focusing on the number of states without adding extraneous information, but it includes a minor detail about the contract with Insurellm and the Healthllm platform that is not present in the reference answer. Overall, it is accurate and relevant but somewhat incomplete.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9357781578384851,
+        "keyword_coverage": 100.0,
+        "accuracy": 5.0,
+        "completeness": 3.0,
+        "relevance": 4.0
+      }
+    },
+    {
+      "question": "What is the longest contract duration among all Insurellm contracts?",
+      "category": "holistic",
+      "generated_answer": "The longest contract duration among all Insurellm contracts is 48 months. This duration is specified in the contract with GlobalRe Partners for the Rellm platform.",
+      "feedback": "The generated answer correctly identifies the longest contract duration as 48 months, which matches the reference answer. However, it attributes this duration to a contract with GlobalRe Partners for the Rellm platform, whereas the reference answer specifies that it is the United Healthcare Alliance Healthllm contract. This is a factual error and affects accuracy. The answer also lacks the additional contextual information that it represents Insurellm's most strategic long-term healthcare partnership, which the reference answer includes, impacting completeness. The relevance is good, as the answer directly addresses the question about the longest contract duration without irrelevant details. Overall, the answer is partially correct but contains a significant factual inaccuracy and misses some details from the reference answer.",
+      "metrics": {
+        "mrr": 1.0,
+        "ndcg": 0.9747831322084322,
+        "keyword_coverage": 100.0,
+        "accuracy": 1.0,
+        "completeness": 3.0,
+        "relevance": 5.0
+      }
+    }
+  ],
+  "timestamp": "20260715_143829",
+  "label": "v3_baseline"
+}
